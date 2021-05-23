@@ -9,9 +9,9 @@
 	<bean id="dataSource"
 		  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/proyectoderivaciones?serverTimezone=UTC" />
-		<property name="username" value="root" />
-		<property name="password" value="123456" />
+		<property name="url" value="jdbc:mysql://localhost:3306/proyecto-derivaciones?serverTimezone=UTC" />
+		<property name="username" value="" />
+		<property name="password" value="" />
 	</bean>
 
 	<!--Configuracion de la factory encargada de generar las sesiones con la base de datos, la misma -->
