@@ -1,10 +1,7 @@
 package ar.edu.unlam.tallerweb1.persistencia;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
-import ar.edu.unlam.tallerweb1.modelo.Cobertura;
-import ar.edu.unlam.tallerweb1.modelo.Derivacion;
-import ar.edu.unlam.tallerweb1.modelo.Paciente;
-import ar.edu.unlam.tallerweb1.modelo.Traslado;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioTrasladoImpl;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
@@ -29,6 +26,7 @@ public class TestTraslado extends SpringTest {
         Cobertura cobertura = new Cobertura();
         Derivacion derivacion = new Derivacion();
         Traslado traslado = new Traslado();
+        CentroMedico centroMedico = new CentroMedico();
 
         paciente.setDocumento(39830167);
         paciente.setFechaNacimiento(new Date());
@@ -49,9 +47,17 @@ public class TestTraslado extends SpringTest {
 
         session().save(derivacion);
 
+        centroMedico.setNombre("san juan de dios");
+        centroMedico.setGuardia(true);
+        centroMedico.setSalaComun(true);
+        centroMedico.setTerapia(true);
+        centroMedico.setDireccion("Madariaga 3935");
+
+        session().save(centroMedico);
+
         traslado.setDerivacion(derivacion);
-        traslado.setDireccionDestino("Parral 4031");
         traslado.setDireccionOrigen("Madariaga 3935");
+        traslado.setCentroMedico(centroMedico);
 
         repositorioTraslado.guardarTraslado(traslado);
 
@@ -68,6 +74,7 @@ public class TestTraslado extends SpringTest {
         Cobertura cobertura = new Cobertura();
         Derivacion derivacion = new Derivacion();
         Traslado traslado = new Traslado();
+        CentroMedico centroMedico = new CentroMedico();
 
         paciente.setDocumento(39830167);
         paciente.setFechaNacimiento(new Date());
@@ -88,9 +95,17 @@ public class TestTraslado extends SpringTest {
 
         session().save(derivacion);
 
+        centroMedico.setNombre("san juan de dios");
+        centroMedico.setGuardia(true);
+        centroMedico.setSalaComun(true);
+        centroMedico.setTerapia(true);
+        centroMedico.setDireccion("Madariaga 3935");
+
+        session().save(centroMedico);
+
         traslado.setDerivacion(derivacion);
-        traslado.setDireccionDestino("Parral 4031");
         traslado.setDireccionOrigen("Madariaga 3935");
+        traslado.setCentroMedico(centroMedico);
 
         session().save(traslado);
 
