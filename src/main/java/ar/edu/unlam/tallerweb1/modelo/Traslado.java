@@ -10,7 +10,8 @@ public class Traslado {
     @OneToOne
     private Derivacion derivacion;
     private String direccionOrigen;
-    private String direccionDestino;
+    @ManyToOne
+    private CentroMedico centroMedico;
 
     public Long getId() {
         return id;
@@ -30,10 +31,6 @@ public class Traslado {
     public void setDireccionOrigen(String direccionOrigen) {
         this.direccionOrigen = direccionOrigen;
     }
-    public String getDireccionDestino() {
-        return direccionDestino;
-    }
-    public void setDireccionDestino(String direccionDestino) {
-        this.direccionDestino = direccionDestino;
-    }
+    public CentroMedico getCentroMedico() { return centroMedico; }
+    public void setCentroMedico(CentroMedico centroMedico) { this.centroMedico = centroMedico; }
 }
