@@ -3,7 +3,7 @@ package ar.edu.unlam.tallerweb1.modelo;
 import javax.persistence.*;
 
 @Entity
-public class SolicitudDerivación {
+public class SolicitudDerivacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
