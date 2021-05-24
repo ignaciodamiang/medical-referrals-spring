@@ -1,16 +1,19 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: MATI
-  Date: 23/5/2021
-  Time: 21:36
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
-    <title>$Title$</title>
-  </head>
-  <body>
-  $END$
-  </body>
+<head>
+    <title>Title</title>
+</head>
+<body>
+    <form action="ObtenerPaciente" method="post">
+        <label for="documento">Numero de Documento del Paciente</label>
+        <input name="documento" type="number" id="documento"/>
+        <button type="submit">Buscar</button>
+    </form>
+
+    <div>
+        <p>${paciente.nombreCompleto}</p>
+        <p>${paciente.documento}</p>
+        <p>${paciente.fechaNacimiento}</p>
+    </div>
+</body>
 </html>
