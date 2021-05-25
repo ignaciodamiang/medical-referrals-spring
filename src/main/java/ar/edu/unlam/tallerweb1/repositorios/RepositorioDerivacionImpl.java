@@ -6,6 +6,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository("repositorioDerivacion")
 public class RepositorioDerivacionImpl implements RepositorioDerivacion {
 
@@ -27,5 +29,18 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
     public void modificarDerivacion(Derivacion derivacion) {
         final Session session =sessionFactory.getCurrentSession();
         session.update(derivacion);
+    }
+
+    @Override
+    public List<Derivacion> listadoDerivaciones() {
+        final Session session = sessionFactory.getCurrentSession();
+        return session.createCriteria(Derivacion.class).list();
+    }
+
+    @Override
+    public Derivacion verDerivacion(long id) {
+        final Session session = sessionFactory.getCurrentSession();
+        Derivacion derivacion = session.get(Derivacion.class,id);
+        return derivacion;
     }
 }
