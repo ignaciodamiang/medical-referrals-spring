@@ -11,7 +11,7 @@
     </form>
 
     <div>
-        <p>${paciente.nombreCompleto}</p>
+        <p>Paciente ${paciente.nombreCompleto}</p>
         <p>${paciente.documento}</p>
         <p>${paciente.fechaNacimiento}</p>
     </div>

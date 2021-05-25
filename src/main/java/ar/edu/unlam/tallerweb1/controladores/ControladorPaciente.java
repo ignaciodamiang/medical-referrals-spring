@@ -5,7 +5,6 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioPaciente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +23,7 @@ public class ControladorPaciente {
     @RequestMapping(path = "/BuscarPaciente")
     public ModelAndView irABuscarPaciente(){
         ModelMap map = new ModelMap();
-        return new ModelAndView("buscarPaciente", map);
+        return new ModelAndView("Paciente/buscarPaciente", map);
     }
 
     @RequestMapping(path = "/ObtenerPaciente", method = RequestMethod.POST)
@@ -32,6 +31,6 @@ public class ControladorPaciente {
         ModelMap map = new ModelMap();
         Paciente pacienteObtenido = servicioPaciente.obtenerPacientePorDocumento(documento);
         map.put("paciente", pacienteObtenido);
-        return new ModelAndView("buscarPaciente", map);
+        return new ModelAndView("Paciente/buscarPaciente", map);
     }
 }
