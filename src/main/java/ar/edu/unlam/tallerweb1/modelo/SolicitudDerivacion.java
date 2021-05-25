@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class SolicitudDerivacion {
@@ -13,6 +14,7 @@ public class SolicitudDerivacion {
     private CentroMedico centroMedico;
     private Boolean aceptado;
     private Boolean confirmado;
+    private Date fechaCreacion;
 
     public Long getId() {
         return id;
@@ -44,4 +46,6 @@ public class SolicitudDerivacion {
     public void setConfirmado(Boolean confirmado) {
         this.confirmado = confirmado;
     }
+    public Date getFechaCreacion() {return fechaCreacion;}
+    public void setFechaCreacion(Date fechaCreacion) {this.fechaCreacion = fechaCreacion;}
 }

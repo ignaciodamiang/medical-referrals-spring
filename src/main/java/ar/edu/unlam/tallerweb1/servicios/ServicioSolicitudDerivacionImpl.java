@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+import java.util.List;
+
 @Service("servicioSolicitudDerivacion")
 @Transactional
 public class ServicioSolicitudDerivacionImpl implements ServicioSolicitudDerivacion{
@@ -16,11 +19,18 @@ public class ServicioSolicitudDerivacionImpl implements ServicioSolicitudDerivac
 
     @Override
     public void guardarSolicitudDerivacion(SolicitudDerivacion solicitudDerivacion) {
+        Date now = new Date();
+        solicitudDerivacion.setFechaCreacion(now);
         servicioSoliciturDerivacionDao.guardarSolicitudDerivacion(solicitudDerivacion);
     }
 
     @Override
     public void modificarSolicitudDerivacion(SolicitudDerivacion solicitudDerivacion) {
         servicioSoliciturDerivacionDao.guardarSolicitudDerivacion(solicitudDerivacion);
+    }
+
+    @Override
+    public List<SolicitudDerivacion> obtenerSolicitudesDeDerivacion() {
+       return servicioSoliciturDerivacionDao.obtenerSolicitudesDeDerivacion();
     }
 }
