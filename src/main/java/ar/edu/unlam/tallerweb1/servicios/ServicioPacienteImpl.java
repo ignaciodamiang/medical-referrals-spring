@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service("servicioPaciente")
 @Transactional
 public class ServicioPacienteImpl implements ServicioPaciente{
@@ -18,6 +20,11 @@ public class ServicioPacienteImpl implements ServicioPaciente{
     @Override
     public Paciente obtenerPacientePorDocumento(Integer documento) {
         return servicioPacienteDao.obtenerPacientePorNumeroDocumento(documento);
+    }
+
+    @Override
+    public List<Paciente> obtenerPacientes() {
+        return servicioPacienteDao.obtenerPacientes();
     }
 }
 

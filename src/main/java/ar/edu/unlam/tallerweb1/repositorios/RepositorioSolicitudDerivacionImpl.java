@@ -15,6 +15,7 @@ import java.util.List;
 @Repository("repositorioSolicitudDerivacion")
 public class RepositorioSolicitudDerivacionImpl implements RepositorioSolicitudDerivacion {
     private SessionFactory sessionFactory;
+
     @Autowired
     public RepositorioSolicitudDerivacionImpl(SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;

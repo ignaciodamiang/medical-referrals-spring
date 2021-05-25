@@ -8,6 +8,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository("repositorioPaciente")
 public class RepositorioPacienteImpl implements RepositorioPaciente{
 
@@ -25,5 +27,11 @@ public class RepositorioPacienteImpl implements RepositorioPaciente{
         return (Paciente) session.createCriteria(Paciente.class)
                 .add(Restrictions.eq("documento",documento))
                 .uniqueResult();
+    }
+
+    @Override
+    public List<Paciente> obtenerPacientes() {
+        final Session session = sessionFactory.getCurrentSession();
+        return session.createCriteria(Paciente.class).list();
     }
 }
