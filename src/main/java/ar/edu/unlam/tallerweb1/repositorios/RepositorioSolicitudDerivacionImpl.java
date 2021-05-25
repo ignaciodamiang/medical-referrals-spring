@@ -5,11 +5,14 @@ import ar.edu.unlam.tallerweb1.modelo.SolicitudDerivacion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-@Repository("RepositorioSoliciturDerivacion")
+@Repository("repositorioSolicitudDerivacion")
 public class RepositorioSolicitudDerivacionImpl implements RepositorioSolicitudDerivacion {
     private SessionFactory sessionFactory;
+
+    @Autowired
     public RepositorioSolicitudDerivacionImpl(SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;
     }
