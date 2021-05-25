@@ -20,7 +20,7 @@
             <th scope="col">Centro Medico</th>
             <th scope="col">Aceptado</th>
             <th scope="col">Confirmado</th>
-
+            <th scope="col">Fecha</th>
         </tr>
         </thead>
         <tbody>
@@ -30,7 +30,7 @@
             <td>${solicitud.getCentroMedico().getNombre()}</td>
             <td>${solicitud.getAceptado()}</td>
             <td>${solicitud.getConfirmado()}</td>
-
+            <td>${solicitud.getFechaCreacion().toLocaleString()}</td>
         </tr>
 </c:forEach>
         </tbody>

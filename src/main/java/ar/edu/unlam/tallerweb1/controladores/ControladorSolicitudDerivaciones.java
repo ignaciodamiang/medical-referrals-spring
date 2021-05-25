@@ -44,6 +44,8 @@ public class ControladorSolicitudDerivaciones {
         soli.setDerivacion(d);
         soli.setConfirmado(true);
         soli.setCentroMedico(c);
+        Date now =new Date();
+        soli.setFechaCreacion(now);
 
        // no se puede agregar ya que necesitamos que las otras entidades esten en la bdd
       // servicioSolicitudDerivacion.guardarSolicitudDerivacion(soli);
