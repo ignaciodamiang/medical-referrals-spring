@@ -18,6 +18,35 @@ insert into cobertura(id,nombre) values
 (5,"UOM"),
 (6,"Medife"),
 (7,"OMINT");
+INSERT INTO `proyecto-derivaciones`.`centromedico`
+(
+`direccion`,
+`guardia`,
+`nombre`,
+`salaComun`,
+`terapia`)
+VALUES
+(
+"Monte 6936",
+1,
+"Centro Medico Monte",
+1,
+0);
+INSERT INTO `proyecto-derivaciones`.`centromedico`
+(
+`direccion`,
+`guardia`,
+`nombre`,
+`salaComun`,
+`terapia`)
+VALUES
+(
+"Av. Emilio Castro 7469",
+0,
+"Centro Medico CME",
+1,
+1);
+
 
 insert into derivacion(id,diagnostico,estado,fechaDerivacion,paraQueSector,urgente,cobertura_id,paciente_id)
 values(2,"covid","Pendiente","2021-04-13","Terapia",false,1,1);

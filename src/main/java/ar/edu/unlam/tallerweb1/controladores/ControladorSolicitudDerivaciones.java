@@ -1,9 +1,8 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.modelo.CentroMedico;
-import ar.edu.unlam.tallerweb1.modelo.Derivacion;
-import ar.edu.unlam.tallerweb1.modelo.Paciente;
-import ar.edu.unlam.tallerweb1.modelo.SolicitudDerivacion;
+import ar.edu.unlam.tallerweb1.modelo.*;
+import ar.edu.unlam.tallerweb1.servicios.ServicioCentroMedico;
+import ar.edu.unlam.tallerweb1.servicios.ServicioDerivacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSolicitudDerivacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,43 +16,35 @@ import java.util.List;
 @Controller
 public class ControladorSolicitudDerivaciones {
     private ServicioSolicitudDerivacion servicioSolicitudDerivacion;
+    private ServicioDerivacion servicioDerivacion;
+    private ServicioCentroMedico servicioCentroMedico;
 
     @Autowired
     public ControladorSolicitudDerivaciones
-            (ServicioSolicitudDerivacion servicio)
-    {this.servicioSolicitudDerivacion=servicio;}
+            (ServicioSolicitudDerivacion servicio, ServicioDerivacion servicioDerivacion, ServicioCentroMedico servicioCentroMedico) {
+        this.servicioSolicitudDerivacion = servicio;
+        this.servicioDerivacion = servicioDerivacion;
+        this.servicioCentroMedico = servicioCentroMedico;
+    }
 
     @RequestMapping("/solicitudes-derivaciones")
-    public ModelAndView mostrarSolicitudesDerivaciones(){
+    public ModelAndView mostrarSolicitudesDerivaciones() {
         ModelMap modelo = new ModelMap();
-        CentroMedico c= new CentroMedico();
-        c.setId(2l);
-        c.setNombre("Santojani");
-        c.setDireccion("pilar 213");
-
-        Paciente p = new Paciente();
-        p.setDocumento(94507958);
-        p.setNombreCompleto("jose machicado");
-
-        Derivacion d = new Derivacion();
-        d.setEstado("abierto derivacion");
-        d.setUrgente(true);
-        d.setPaciente(p);
-
-        SolicitudDerivacion soli = new SolicitudDerivacion();
-        soli.setDerivacion(d);
-        soli.setConfirmado(true);
-        soli.setCentroMedico(c);
-        Date now =new Date();
-        soli.setFechaCreacion(now);
-
-       // no se puede agregar ya que necesitamos que las otras entidades esten en la bdd
-      // servicioSolicitudDerivacion.guardarSolicitudDerivacion(soli);
-
+        // no se puede agregar ya que necesitamos que las otras entidades esten en la bdd
+        // servicioSolicitudDerivacion.guardarSolicitudDerivacion(soli);
         List<SolicitudDerivacion> lista = servicioSolicitudDerivacion.obtenerSolicitudesDeDerivacion();
-        //solo agrego a la lista
-        lista.add(soli);
-        modelo.put("listaSolicitudesDerivaciones",lista);
-        return new ModelAndView("/solicitud-derivaciones/solicitud-derivaciones",modelo);
+        modelo.put("listaSolicitudesDerivaciones", lista);
+        return new ModelAndView("/solicitud-derivaciones/solicitud-derivaciones", modelo);
     }
+
+    @RequestMapping("/nueva-solicitud-derivacion")
+    public ModelAndView nuevaSolicitudDerivacion() {
+        ModelMap model = new ModelMap();
+        SolicitudDerivacion solicitudDerivacion = new SolicitudDerivacion();
+        model.put("derivaciones", servicioDerivacion.listadoDerivaciones());
+        model.put("centrosMedicos", servicioCentroMedico.obtenerCentrosMedicos());
+        model.put("solicitudDerivacion", solicitudDerivacion);
+        return new ModelAndView("/solicitud-derivaciones/agregar-solicitud-derivacion", model);
+    }
+
 }
