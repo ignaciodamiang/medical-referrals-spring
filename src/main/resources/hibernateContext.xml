@@ -11,7 +11,11 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/proyecto-derivaciones?serverTimezone=UTC" />
 		<property name="username" value="root" />
+<<<<<<< HEAD
+		<property name="password" value="123456"/>
+=======
 		<property name="password" value="riverplate90"/>
+>>>>>>> a3397b6c1a83bef8ad38b1d0b94cc5ea0a74573b
 
 	</bean>
 
