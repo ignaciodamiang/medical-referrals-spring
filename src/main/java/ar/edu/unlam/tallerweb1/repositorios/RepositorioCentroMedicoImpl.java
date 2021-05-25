@@ -6,18 +6,25 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-@Repository("repositorioCentroMedico")
-public class RepositorioCentroMedicoImpl implements RepositorioCentroMedico{
+import java.util.List;
 
-    SessionFactory sessionFactory;
+@Repository
+public class RepositorioCentroMedicoImpl implements RepositorioCentroMedico {
+    private SessionFactory sessionFactory;
 
     @Autowired
-    public RepositorioCentroMedicoImpl(SessionFactory sessionFactory){this.sessionFactory = sessionFactory;}
-
+    public RepositorioCentroMedicoImpl(SessionFactory sessionFactory){this.sessionFactory=sessionFactory;}
 
     @Override
-    public CentroMedico obtenerCentroMedicoPorId(Integer id) {
-        final Session session =sessionFactory.getCurrentSession();
-        return session.get(CentroMedico.class, id);
+    public List<CentroMedico> obtenerCentrosMedicos() {
+        final Session session = sessionFactory.getCurrentSession();
+        return session.createCriteria(CentroMedico.class).list();
+    }
+
+    @Override
+    public CentroMedico obtenerCentroMedicoPorId(Long id) {
+        final Session session = sessionFactory.getCurrentSession();
+        CentroMedico centroMedico = session.get(CentroMedico.class,id);
+        return  centroMedico;
     }
 }
