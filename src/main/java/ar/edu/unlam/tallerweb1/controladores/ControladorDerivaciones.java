@@ -6,14 +6,12 @@ import ar.edu.unlam.tallerweb1.modelo.Paciente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCobertura;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDerivacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPaciente;
+import ar.edu.unlam.tallerweb1.servicios.ServicioPlan;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -25,12 +23,14 @@ public class ControladorDerivaciones {
     private ServicioDerivacion servicioDerivacion;
     private ServicioPaciente servicioPaciente;
     private ServicioCobertura servicioCobertura;
+    private ServicioPlan servicioPlan;
 
     @Autowired
-    public ControladorDerivaciones(ServicioDerivacion servicioDerivacion, ServicioPaciente servicioPaciente, ServicioCobertura servicioCobertura){
+    public ControladorDerivaciones(ServicioDerivacion servicioDerivacion, ServicioPaciente servicioPaciente, ServicioCobertura servicioCobertura, ServicioPlan servicioPlan){
         this.servicioDerivacion = servicioDerivacion;
         this.servicioPaciente = servicioPaciente;
         this.servicioCobertura = servicioCobertura;
+        this.servicioPlan = servicioPlan;
     }
 
     @RequestMapping(path = "/listado-derivacion")
@@ -40,14 +40,14 @@ public class ControladorDerivaciones {
         return new ModelAndView("Derivaciones/derivaciones",model);
     }
 
-    @RequestMapping(path = "/nueva-derivacion")
-    public ModelAndView nuevaDerivacion(){
+    @RequestMapping(path = "/nueva-derivacion{id}", method = RequestMethod.GET)
+    public ModelAndView nuevaDerivacion(@PathVariable("id") Long idPaciente){
         ModelMap model = new ModelMap();
-        List<Paciente> pacientes = servicioPaciente.obtenerPacientes();
-        List<Cobertura> coberturas = servicioCobertura.obtenerCoberturas();
+        Paciente paciente = servicioPaciente.obtenerPacientePorId(idPaciente);
+        List<Cobertura> coberturas = servicioPlan.obetenerCoberturasPaciente(idPaciente);
         Derivacion derivacion = new Derivacion();
         model.put("derivacion", derivacion);
-        model.put("pacientes",pacientes);
+        model.put("pacientes",paciente);
         model.put("coberturas",coberturas);
 
         return new ModelAndView("Derivaciones/agregar-derivacion",model);
@@ -59,7 +59,7 @@ public class ControladorDerivaciones {
 
         derivacion.setFechaDerivacion(new Date());
         derivacion.setUrgente(true);
-        derivacion.setEstado("Pendiente");
+        derivacion.setFinalizada(false);
 
 
         servicioDerivacion.guardarDerirvacion(derivacion);
@@ -85,7 +85,6 @@ public class ControladorDerivaciones {
     @RequestMapping(path = "/modificar-derivacion/editar" , method = RequestMethod.POST)
     public ModelAndView modificarDatosPost(@ModelAttribute("derivacion") Derivacion derivacion, RedirectAttributes attributes){
         derivacion.setFechaDerivacion(new Date());
-        derivacion.setEstado("Pendiente");
         servicioDerivacion.modificarDerivacion(derivacion);
         attributes.addFlashAttribute("message","Se modifico la derivacion exitosamente.");
         return new ModelAndView("redirect:/listado-derivacion");

@@ -8,4 +8,5 @@ import java.util.List;
 public interface ServicioPaciente {
     Paciente obtenerPacientePorDocumento(Integer documento);
     List<Paciente> obtenerPacientes();
+    Paciente obtenerPacientePorId(Long idPaciente);
 }

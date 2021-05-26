@@ -10,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+
 import java.util.List;
 
 @Repository("repositorioSolicitudDerivacion")
@@ -35,9 +36,9 @@ public class RepositorioSolicitudDerivacionImpl implements RepositorioSolicitudD
     }
 
     @Override
-    public SolicitudDerivacion buscarSolicitudDerivacionPorId(Integer id) {
+    public SolicitudDerivacion buscarSolicitudDerivacionPorId(Long id) {
         final Session session= sessionFactory.getCurrentSession();
-        return (SolicitudDerivacion)session.createCriteria(SolicitudDerivacion.class).add(Restrictions.eq("id", id));
+        return session.get(SolicitudDerivacion.class, id);
     }
 
     @Override

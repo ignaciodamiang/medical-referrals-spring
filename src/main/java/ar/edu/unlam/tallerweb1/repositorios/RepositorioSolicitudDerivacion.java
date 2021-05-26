@@ -8,7 +8,7 @@ import java.util.List;
 public interface RepositorioSolicitudDerivacion {
     void guardarSolicitudDerivacion(SolicitudDerivacion solicitudDerivacion);
     void modificarSolicitudDerivacion(SolicitudDerivacion solicitudDerivacion);
-    SolicitudDerivacion buscarSolicitudDerivacionPorId(Integer id);
+    SolicitudDerivacion buscarSolicitudDerivacionPorId(Long id);
     List<SolicitudDerivacion> obtenerSolicitudesDeDerivacion();
 
 }
