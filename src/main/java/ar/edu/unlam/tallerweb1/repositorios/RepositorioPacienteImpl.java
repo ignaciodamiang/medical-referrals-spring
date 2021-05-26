@@ -34,4 +34,10 @@ public class RepositorioPacienteImpl implements RepositorioPaciente{
         final Session session = sessionFactory.getCurrentSession();
         return session.createCriteria(Paciente.class).list();
     }
+
+    @Override
+    public Paciente obtenerPacientePorId(Long idPaciente) {
+        final Session session = sessionFactory.getCurrentSession();
+        return session.get(Paciente.class,idPaciente);
+    }
 }

@@ -32,8 +32,6 @@ public class ControladorSolicitudDerivaciones {
     @RequestMapping("/solicitudes-derivaciones")
     public ModelAndView mostrarSolicitudesDerivaciones() {
         ModelMap modelo = new ModelMap();
-        // no se puede agregar ya que necesitamos que las otras entidades esten en la bdd
-        // servicioSolicitudDerivacion.guardarSolicitudDerivacion(soli);
         List<SolicitudDerivacion> lista = servicioSolicitudDerivacion.obtenerSolicitudesDeDerivacion();
         modelo.put("listaSolicitudesDerivaciones", lista);
         return new ModelAndView("/solicitud-derivaciones/solicitud-derivaciones", modelo);

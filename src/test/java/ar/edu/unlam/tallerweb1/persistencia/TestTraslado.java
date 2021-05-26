@@ -40,7 +40,7 @@ public class TestTraslado extends SpringTest {
         derivacion.setFechaDerivacion(new Date());
         derivacion.setCobertura(cobertura);
         derivacion.setDiagnostico("se me muere AYUDAAAAA");
-        derivacion.setEstado("En curso");
+        derivacion.setFinalizada(false);
         derivacion.setPaciente(paciente);
         derivacion.setParaQueSector("terapia");
         derivacion.setUrgente(true);
@@ -88,7 +88,7 @@ public class TestTraslado extends SpringTest {
         derivacion.setFechaDerivacion(new Date());
         derivacion.setCobertura(cobertura);
         derivacion.setDiagnostico("se me muere AYUDAAAAA");
-        derivacion.setEstado("En curso");
+        derivacion.setFinalizada(false);
         derivacion.setPaciente(paciente);
         derivacion.setParaQueSector("terapia");
         derivacion.setUrgente(true);

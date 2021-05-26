@@ -56,7 +56,7 @@ public class ControladorLogin {
 		Usuario usuarioBuscado = servicioLogin.loguearse(usuario, request);
 		if (usuarioBuscado != null) {
 			request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
-			return new ModelAndView("redirect:/home");
+			return new ModelAndView("redirect:/router");
 		} else {
 			// si el usuario no existe agrega un mensaje de error en el modelo.
 			model.put("error", "Usuario o clave incorrecta");
@@ -75,4 +75,19 @@ public class ControladorLogin {
 	public ModelAndView inicio() {
 		return new ModelAndView("redirect:/login");
 	}
+
+	@RequestMapping(path = "/router", method = RequestMethod.GET)
+	public ModelAndView redirigir(HttpServletRequest request) {
+		if (request.getAttribute("ROL").equals("Solicitador")) {
+			return new ModelAndView("redirect:/BuscarPaciente");
+		}
+		if (request.getAttribute("ROL").equals("Derivador")) {
+			return new ModelAndView("redirect:/listado-derivacion");
+		}
+		if (request.getAttribute("ROL").equals("Administrativo")) {
+			return new ModelAndView("redirect:/solicitudes-derivaciones");
+		}
+		return new ModelAndView("redirect:/login");
+	}
+
 }

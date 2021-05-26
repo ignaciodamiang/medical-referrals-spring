@@ -26,10 +26,10 @@ public class ControladorTraslado {
     this.servicioCentroMedico = servicioCentroMedico;}
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    public ModelAndView obtenerTraslados(HttpServletRequest request){
+    public ModelAndView obtenerTraslados(HttpServletRequest request) throws Exception {
         ModelMap map = new ModelMap();
         CentroMedico centroMedico = servicioCentroMedico.obtenerCentroMedicoPorId(
-                (Integer) request.getSession().getAttribute("ID_CENTROMEDICO"));
+                (Long) request.getSession().getAttribute("ID_CENTROMEDICO"));
         List<Traslado> traslados = servicioTraslado.obtenerTrasladosPorCentroMedico(centroMedico);
         map.put("traslados" ,traslados);
         return new ModelAndView("Traslado/traslados", map);

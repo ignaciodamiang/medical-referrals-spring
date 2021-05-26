@@ -8,7 +8,7 @@ public class Derivacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String estado;
+    private Boolean finalizada;
     @ManyToOne
     private Paciente paciente;
     private Boolean urgente;
@@ -17,6 +17,8 @@ public class Derivacion {
     private String paraQueSector;
     @ManyToOne
     private Cobertura cobertura;
+    @OneToOne
+    private Usuario autor;
 
     public Long getId() {
         return id;
@@ -54,16 +56,14 @@ public class Derivacion {
     public void setParaQueSector(String paraQueSector) {
         this.paraQueSector = paraQueSector;
     }
-    public String getEstado() {
-        return estado;
-    }
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
     public Cobertura getCobertura() {
         return cobertura;
     }
     public void setCobertura(Cobertura cobertura) {
         this.cobertura = cobertura;
     }
+    public Boolean getFinalizada() { return finalizada; }
+    public void setFinalizada(Boolean finalizada) { this.finalizada = finalizada; }
+    public Usuario getAutor() { return autor; }
+    public void setAutor(Usuario autor) { this.autor = autor;}
 }

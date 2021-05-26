@@ -9,4 +9,6 @@ public interface RepositorioPaciente {
     Paciente obtenerPacientePorNumeroDocumento(Integer documento);
 
     List<Paciente> obtenerPacientes();
+
+    Paciente obtenerPacientePorId(Long idPaciente);
 }
