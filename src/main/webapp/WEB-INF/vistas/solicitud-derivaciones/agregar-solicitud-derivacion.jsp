@@ -16,17 +16,11 @@
 <body>
 <div class="d-flex">
     <div class="col-lg-6 justify-content-center mx-auto">
-        <form:form action="agregar-solicitud-derivacion" method="post" modelAttribute="solicitudDerivacion" class="mt-4">
-            <h3 class="form-signin-heading text-center">Crear Solicitud</h3>
+        <form:form action="../agregar-solicitud-derivacion" method="post" modelAttribute="solicitudDerivacion" class="mt-4">
+            <h3 class="form-signin-heading text-center">Crear Solicitud para derivar al Paciente ${derivaciones.paciente.nombreCompleto}</h3>
             <hr class="colorgraph"><br>
 
-            <div class="form-group">
-                <label for="derivacion">Derivacion</label>
-                <form:select id="derivacion" path="derivacion.id" class="form-control">
-                    <form:options items="${derivaciones}" itemLabel="id" itemValue="id"/>
-                </form:select>
-
-            </div>
+            <input type="number" value="${derivaciones.id}" name="idDerivacion" hidden>
 
             <div class="form-group">
                 <label for="centroMedico">Centro Medico</label>
@@ -35,7 +29,7 @@
                 </form:select>
             </div>
 
-            <button class="btn btn-lg btn-info btn-block" Type="Submit"/>Crear Derivacion</button>
+            <button class="btn btn-lg btn-info btn-block" Type="Submit"/>Generar Solicitud de derivación</button>
         </form:form>
     </div>
 </div>

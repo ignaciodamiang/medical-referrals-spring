@@ -72,6 +72,7 @@ public class ServicioLoginImpl implements ServicioLogin {
 			if (usuarioSolicitador!=null) {
 				request.getSession().setAttribute("ID_SOLICITADOR", usuarioSolicitador.getId());
 			}
+			break;
 		}
 		
 		default:

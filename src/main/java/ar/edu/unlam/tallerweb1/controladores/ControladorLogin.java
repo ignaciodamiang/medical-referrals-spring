@@ -87,13 +87,13 @@ public class ControladorLogin {
 
 	@RequestMapping(path = "/router", method = RequestMethod.GET)
 	public ModelAndView redirigir(HttpServletRequest request) {
-		if (request.getAttribute("ROL").equals("Solicitador")) {
+		if (request.getSession().getAttribute("ROL").equals("Solicitador")) {
 			return new ModelAndView("redirect:/BuscarPaciente");
 		}
-		if (request.getAttribute("ROL").equals("Derivador")) {
+		if (request.getSession().getAttribute("ROL").equals("Derivador")) {
 			return new ModelAndView("redirect:/listado-derivacion");
 		}
-		if (request.getAttribute("ROL").equals("Administrativo")) {
+		if (request.getSession().getAttribute("ROL").equals("Administrativo")) {
 			return new ModelAndView("redirect:/solicitudes-derivaciones");
 		}
 		return new ModelAndView("redirect:/login");

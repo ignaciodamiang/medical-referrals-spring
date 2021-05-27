@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.zip.DeflaterInputStream;
 
 @Controller
 public class ControladorDerivaciones {
@@ -36,21 +39,21 @@ public class ControladorDerivaciones {
     @RequestMapping(path = "/listado-derivacion")
     public ModelAndView derivaciones(){
         ModelMap model = new ModelMap();
-        Derivacion derivacion = new Derivacion();
         model.put("derivaciones",servicioDerivacion.listadoDerivaciones());
-        model.put("eliminarDerivacion",derivacion);
-
         return new ModelAndView("Derivaciones/derivaciones",model);
     }
 
-    @RequestMapping(path = "/nueva-derivacion", method = RequestMethod.GET)
-    public ModelAndView nuevaDerivacion(@RequestParam("id") Long idPaciente){
+    @RequestMapping(path = "/nueva-derivacion{id}", method = RequestMethod.GET)
+    public ModelAndView nuevaDerivacion(@PathVariable("id") Long idPaciente){
         ModelMap model = new ModelMap();
         Paciente paciente = servicioPaciente.obtenerPacientePorId(idPaciente);
-        List<Cobertura> coberturas = servicioPlan.obetenerCoberturasPaciente(idPaciente);
+        HashSet<Cobertura> coberturas = servicioPlan.obetenerCoberturasPaciente(idPaciente);
+        List<String> sectores = new ArrayList<String>();
+        sectores.add("guardia");sectores.add("salaComun");sectores.add("terapia");
         Derivacion derivacion = new Derivacion();
+        model.put("sectores", sectores);
         model.put("derivacion", derivacion);
-        model.put("pacientes",paciente);
+        model.put("paciente",paciente);
         model.put("coberturas",coberturas);
 
         return new ModelAndView("Derivaciones/agregar-derivacion",model);
@@ -58,8 +61,15 @@ public class ControladorDerivaciones {
 
 
     @RequestMapping(path="agregar-derivacion", method = RequestMethod.POST)
-    public ModelAndView agregarDerivacion(Derivacion derivacion, RedirectAttributes attributes){
+    public ModelAndView agregarDerivacion(@ModelAttribute("derivacion") Derivacion derivacion
+                                          ,RedirectAttributes attributes
+                                          ,@RequestParam("idPaciente") Long idPaciente
+                                          ,@RequestParam("urgente") String urgente){
 
+        Paciente paciente = servicioPaciente.obtenerPacientePorId(idPaciente);
+        derivacion.setPaciente(paciente);
+        Boolean atributoUrgente = new Boolean(urgente);
+        derivacion.setUrgente(atributoUrgente);
         derivacion.setFechaDerivacion(new Date());
         derivacion.setUrgente(true);
         derivacion.setFinalizada(false);

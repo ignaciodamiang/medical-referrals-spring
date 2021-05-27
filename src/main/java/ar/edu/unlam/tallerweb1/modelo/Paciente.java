@@ -37,5 +37,4 @@ public class Paciente {
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
-
 }

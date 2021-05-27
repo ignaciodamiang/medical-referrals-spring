@@ -32,10 +32,10 @@ public class ControladorPaciente {
         Paciente pacienteObtenido = servicioPaciente.obtenerPacientePorDocumento(documento);
         if (pacienteObtenido != null){
             map.put("paciente", pacienteObtenido);
+            map.put("idPaciente", pacienteObtenido.getId());
         }else{
             map.put("error","No se encontro al paciente");
         }
-
         return new ModelAndView("Paciente/buscarPaciente", map);
     }
 }
