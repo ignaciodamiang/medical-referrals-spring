@@ -45,7 +45,7 @@ public class ControladorDerivaciones {
         return new ModelAndView("Derivaciones/derivaciones",model);
     }
 
-    @RequestMapping(path = "/nueva-derivacion{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/nueva-derivacion/{id}", method = RequestMethod.GET)
     public ModelAndView nuevaDerivacion(@PathVariable("id") Long idPaciente){
         ModelMap model = new ModelMap();
         Paciente paciente = servicioPaciente.obtenerPacientePorId(idPaciente);
