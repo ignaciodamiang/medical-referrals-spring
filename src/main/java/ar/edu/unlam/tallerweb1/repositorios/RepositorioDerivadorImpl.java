@@ -15,8 +15,8 @@ public class RepositorioDerivadorImpl implements RepositorioDerivador {
 
 	private SessionFactory sessionFactory;
 	@Autowired
-	public RepositorioDerivadorImpl(SessionFactory session) {
-		this.sessionFactory=session;
+	public RepositorioDerivadorImpl(SessionFactory sessionFactory) {
+		this.sessionFactory=sessionFactory;
 	}
 	
 	@Override

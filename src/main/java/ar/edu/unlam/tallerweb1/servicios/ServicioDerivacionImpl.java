@@ -39,4 +39,9 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
         }
         throw new Exception("Hubo un error al buscar los datos");
     }
+
+    @Override
+    public void eliminarDerivacion(Derivacion derivacion) {
+        respositorioDerivacion.eliminarDerivacion(derivacion);
+    }
 }

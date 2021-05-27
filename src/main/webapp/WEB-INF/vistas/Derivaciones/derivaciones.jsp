@@ -18,9 +18,9 @@
 <div class="container">
     <div class="justify-content-between d-flex mt-3">
         <h2 class="mt-4">Derivaciones</h2>
-        <a href="nueva-derivacion" style="text-decoration: none">
-            <button type="button"  class="btn text-white mt-4" style="background-color:#d35400">Agregar Derivación</button>
-        </a>
+<%--        <a href="nueva-derivacion" style="text-decoration: none">--%>
+<%--            <button type="button"  class="btn text-white mt-4" style="background-color:#d35400">Agregar Derivación</button>--%>
+<%--        </a>--%>
     </div>
 
     <c:if test="${not empty message}">
@@ -39,7 +39,6 @@
                 <tr>
                     <th scope="col" class="text-center">Paciente</th>
                     <th scope="col" class="text-center">Cobertura</th>
-                    <th scope="col" class="text-center">Estado</th>
                     <th scope="col" class="text-center">Diagnostico</th>
                     <th scope="col" class="text-center">Fecha</th>
                     <th scope="col" class="text-center">Sector</th>
@@ -51,13 +50,25 @@
                     <tr>
                         <th scope="row" class="text-center">${derivacion.paciente.nombreCompleto}</th>
                         <td class="text-center">${derivacion.cobertura.nombre}</td>
-                        <td class="text-center">${derivacion.estado}</td>
                         <td class="text-center">${derivacion.diagnostico}</td>
                         <td class="text-center">${derivacion.fechaDerivacion}</td>
                         <td class="text-center">${derivacion.paraQueSector}</td>
+<%--                        <td>--%>
+<%--                            <div class="row justify-content-md-center">--%>
+<%--                                <a href="modificar-derivacion/editar?id=${derivacion.id}"  class="btn btn-info  text-white"  role="button">Modificar</a>--%>
+<%--                            </div>--%>
+<%--                        </td>--%>
                         <td>
                             <div class="row justify-content-md-center">
-                                <a href="modificar-derivacion/editar?id=${derivacion.id}" modelAttribute="derivacion" class="btn btn-info  text-white"  role="button">Modificar</a>
+                                <div class="col-sm">
+                                    <a href="modificar-derivacion/editar?id=${derivacion.id}"  class="btn btn-info  text-white"  role="button">Modificar</a>
+                                </div>
+                                <div class="col-sm">
+                                    <form:form action="eliminar-derivacion" method="post" modelAttribute="eliminarDerivacion">
+                                        <form:input path="id" type="hidden" value="${derivacion.id}" />
+                                        <input type="submit" value="Eliminar" class="btn btn-danger">
+                                    </form:form>
+                                </div>
                             </div>
                         </td>
                     </tr>
