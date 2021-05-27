@@ -38,6 +38,7 @@ public class RepositorioPacienteImpl implements RepositorioPaciente{
     @Override
     public Paciente obtenerPacientePorId(Long idPaciente) {
         final Session session = sessionFactory.getCurrentSession();
-        return session.get(Paciente.class,idPaciente);
+        return (Paciente) session.createCriteria(Paciente.class)
+                .add(Restrictions.eq("id", idPaciente)).uniqueResult();
     }
 }

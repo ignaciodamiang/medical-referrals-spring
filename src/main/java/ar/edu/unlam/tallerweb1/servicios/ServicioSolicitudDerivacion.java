@@ -9,4 +9,5 @@ public interface ServicioSolicitudDerivacion {
     void guardarSolicitudDerivacion(SolicitudDerivacion solicitudDerivacion);
     void modificarSolicitudDerivacion(SolicitudDerivacion solicitudDerivacion);
     List<SolicitudDerivacion> obtenerSolicitudesDeDerivacion();
+    SolicitudDerivacion obetenerSolicitudDerivacionPorId(Long id);
 }

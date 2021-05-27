@@ -33,4 +33,9 @@ public class ServicioTrasladoImpl implements ServicioTraslado{
     public List<Traslado> obtenerTrasladosPorCentroMedico(CentroMedico centroMedico) {
         return repositorioTraslado.obtenerTrasladosPorCentroMedico(centroMedico);
     }
+
+    @Override
+    public List<Traslado> obtenerTraslados() {
+        return repositorioTraslado.obtenerTraslados();
+    }
 }

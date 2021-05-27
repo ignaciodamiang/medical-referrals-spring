@@ -31,6 +31,7 @@ public class ControladorPaciente {
         ModelMap map = new ModelMap();
         Paciente pacienteObtenido = servicioPaciente.obtenerPacientePorDocumento(documento);
         map.put("paciente", pacienteObtenido);
+        map.put("idPaciente", pacienteObtenido.getId());
         return new ModelAndView("Paciente/buscarPaciente", map);
     }
 }

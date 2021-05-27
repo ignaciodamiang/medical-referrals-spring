@@ -33,7 +33,7 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
     }
 
     @Override
-    public Derivacion verDerivacion(long id) throws Exception {
+    public Derivacion verDerivacion(Long id) throws Exception {
         if(respositorioDerivacion.verDerivacion(id) != null){
             return respositorioDerivacion.verDerivacion(id);
         }

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Title</title>
@@ -15,7 +16,7 @@
         <p>Paciente ${paciente.nombreCompleto}</p>
         <p>${paciente.documento}</p>
         <p>${paciente.fechaNacimiento}</p>
-        <a href="/nueva-derivacion?id=${paciente.id}">Generar nueva derivación</a>
+        <a href="<c:url value="/nueva-derivacion/${idPaciente}"/>">Generar nueva derivación</a>
     </div>
     </c:if>
 </body>

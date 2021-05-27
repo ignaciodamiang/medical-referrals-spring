@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import ar.edu.unlam.tallerweb1.modelo.Solicitador;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
-@Repository("repositorioDerivador")
+@Repository("repositorioSolicitador")
 public class RepositorioSolicitadorImpl implements RepositorioSolicitador {
 
 	private SessionFactory sessionFactory;

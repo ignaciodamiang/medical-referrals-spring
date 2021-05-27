@@ -36,7 +36,7 @@ public class testDerivacion extends SpringTest {
         session().save(paciente);
         session().save(cobertura);
 
-        derivacion.setEstado("pendiente");
+        derivacion.setFinalizada(false);
         derivacion.setPaciente(paciente);
         derivacion.setUrgente(true);
         derivacion.setDiagnostico("covid");
@@ -70,7 +70,7 @@ public class testDerivacion extends SpringTest {
         session().save(paciente);
         session().save(cobertura);
 
-        derivacion.setEstado("pendiente");
+        derivacion.setFinalizada(false);
         derivacion.setPaciente(paciente);
         derivacion.setUrgente(true);
         derivacion.setDiagnostico("covid");

@@ -33,4 +33,9 @@ public class ServicioSolicitudDerivacionImpl implements ServicioSolicitudDerivac
     public List<SolicitudDerivacion> obtenerSolicitudesDeDerivacion() {
        return servicioSoliciturDerivacionDao.obtenerSolicitudesDeDerivacion();
     }
+
+    @Override
+    public SolicitudDerivacion obetenerSolicitudDerivacionPorId(Long id) {
+        return servicioSoliciturDerivacionDao.buscarSolicitudDerivacionPorId(id);
+    }
 }

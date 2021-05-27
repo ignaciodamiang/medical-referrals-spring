@@ -39,11 +39,12 @@
                 <tr>
                     <th scope="col" class="text-center">Paciente</th>
                     <th scope="col" class="text-center">Cobertura</th>
-                    <th scope="col" class="text-center">Estado</th>
+                    <th scope="col" class="text-center">Finalizado</th>
                     <th scope="col" class="text-center">Diagnostico</th>
                     <th scope="col" class="text-center">Fecha</th>
                     <th scope="col" class="text-center">Sector</th>
                     <th scope="col" class="text-center" style="width: 21%">Acciones</th>
+                    <th scope="col" class="text-center" style="width: 21%"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -51,13 +52,18 @@
                     <tr>
                         <th scope="row" class="text-center">${derivacion.paciente.nombreCompleto}</th>
                         <td class="text-center">${derivacion.cobertura.nombre}</td>
-                        <td class="text-center">${derivacion.estado}</td>
+                        <td class="text-center">${derivacion.finalizada}</td>
                         <td class="text-center">${derivacion.diagnostico}</td>
                         <td class="text-center">${derivacion.fechaDerivacion}</td>
                         <td class="text-center">${derivacion.paraQueSector}</td>
                         <td>
                             <div class="row justify-content-md-center">
                                 <a href="modificar-derivacion/editar?id=${derivacion.id}" modelAttribute="derivacion" class="btn btn-info  text-white"  role="button">Modificar</a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row justify-content-md-center">
+                                <a href="nueva-solicitud-derivacion/${derivacion.id}"class="btn btn-info  text-white"  role="button">Generar Solicitud</a>
                             </div>
                         </td>
                     </tr>

@@ -16,8 +16,8 @@
 <body>
     <div class="d-flex">
         <div class="col-lg-6 justify-content-center mx-auto">
-        <form:form action="agregar-derivacion" method="post" modelAttribute="derivacion" class="mt-4">
-            <h3 class="form-signin-heading text-center">Crear Derivacion</h3>
+        <form:form action="../agregar-derivacion" method="post" modelAttribute="derivacion" class="mt-4">
+            <h3 class="form-signin-heading text-center">Crear Derivacion para el Paciente ${paciente.nombreCompleto}</h3>
             <hr class="colorgraph"><br>
 
 
@@ -27,10 +27,12 @@
             </div>
 
             <div class="form-group">
-                <label for="sector">Sector</label>
-                <form:input path="paraQueSector" type="text" id="sector" class="form-control"/>
-            </div>
+                <label for="cobertura">Sector</label>
+                <form:select id="sector" path="paraQueSector" class="form-control">
+                    <form:options items="${sectores}"/>
+                </form:select>
 
+            </div>
 
             <div class="form-group">
                 <label for="cobertura">Cobertura</label>
@@ -39,13 +41,15 @@
                 </form:select>
 
             </div>
-
             <div class="form-group">
-                <label for="paciente">Paciente</label>
-                <form:select id="paciente" path="paciente.id" class="form-control">
-                    <form:options items="${pacientes}" itemLabel="nombreCompleto" itemValue="id"/>
-                </form:select>
+                <label>Urgente</label>
+                <label for="si">Si</label>
+                <input type="radio" name="urgente" id="si" value="true">
+                <label for="no">No</label>
+                <input type="radio" name="urgente" id="no" value="true">
             </div>
+
+            <input type="number" name="idPaciente" value="${paciente.getId()}"hidden>
 
             <button class="btn btn-lg btn-info btn-block" Type="Submit"/>Crear Derivacion</button>
         </form:form>

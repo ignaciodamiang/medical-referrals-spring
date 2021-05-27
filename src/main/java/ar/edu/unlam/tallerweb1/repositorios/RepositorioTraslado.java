@@ -9,4 +9,5 @@ public interface RepositorioTraslado {
     void guardarTraslado(Traslado traslado);
     void modificarTraslado(Traslado traslado);
     List<Traslado> obtenerTrasladosPorCentroMedico(CentroMedico centroMedico);
+    List<Traslado> obtenerTraslados();
 }

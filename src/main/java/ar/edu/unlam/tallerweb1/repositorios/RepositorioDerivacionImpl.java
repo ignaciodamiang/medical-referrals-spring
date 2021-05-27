@@ -38,7 +38,7 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
     }
 
     @Override
-    public Derivacion verDerivacion(long id) {
+    public Derivacion verDerivacion(Long id) {
         final Session session = sessionFactory.getCurrentSession();
         Derivacion derivacion = session.get(Derivacion.class,id);
         return derivacion;
