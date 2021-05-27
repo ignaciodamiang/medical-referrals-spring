@@ -43,4 +43,10 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
         Derivacion derivacion = session.get(Derivacion.class,id);
         return derivacion;
     }
+
+    @Override
+    public void eliminarDerivacion(Derivacion derivacion) {
+        final Session session = sessionFactory.getCurrentSession();
+        session.delete(derivacion);
+    }
 }

@@ -7,6 +7,7 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioCobertura;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDerivacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPaciente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPlan;
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -42,8 +43,8 @@ public class ControladorDerivaciones {
         return new ModelAndView("Derivaciones/derivaciones",model);
     }
 
-    @RequestMapping(path = "/nueva-derivacion/{idPaciente}", method = RequestMethod.GET)
-    public ModelAndView nuevaDerivacion(@PathVariable Long idPaciente){
+    @RequestMapping(path = "/nueva-derivacion{id}", method = RequestMethod.GET)
+    public ModelAndView nuevaDerivacion(@PathVariable("id") Long idPaciente){
         ModelMap model = new ModelMap();
         Paciente paciente = servicioPaciente.obtenerPacientePorId(idPaciente);
         HashSet<Cobertura> coberturas = servicioPlan.obetenerCoberturasPaciente(idPaciente);
@@ -70,6 +71,7 @@ public class ControladorDerivaciones {
         Boolean atributoUrgente = new Boolean(urgente);
         derivacion.setUrgente(atributoUrgente);
         derivacion.setFechaDerivacion(new Date());
+        derivacion.setUrgente(true);
         derivacion.setFinalizada(false);
 
 
@@ -99,5 +101,14 @@ public class ControladorDerivaciones {
         servicioDerivacion.modificarDerivacion(derivacion);
         attributes.addFlashAttribute("message","Se modifico la derivacion exitosamente.");
         return new ModelAndView("redirect:/listado-derivacion");
+    }
+
+
+    @RequestMapping(path = "eliminar-derivacion" , method = RequestMethod.POST)
+    public ModelAndView eliminarDerivacion(@ModelAttribute("derivacion") Derivacion derivacion,RedirectAttributes attributes){
+        servicioDerivacion.eliminarDerivacion(derivacion);
+        attributes.addFlashAttribute("message","Se elimino exitosamente.");
+        return new ModelAndView("redirect:/listado-derivacion");
+
     }
 }

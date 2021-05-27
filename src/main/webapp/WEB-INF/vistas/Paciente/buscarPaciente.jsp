@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Title</title>
@@ -11,13 +10,21 @@
         <button type="submit">Buscar</button>
     </form>
 
+    <c:if test="${not empty error}">
+        <div class="alert alert-warning" role="alert">
+            <p>${error}</p>
+        </div>
+    </c:if>
+
     <c:if test="${not empty paciente}">
     <div>
         <p>Paciente ${paciente.nombreCompleto}</p>
         <p>${paciente.documento}</p>
         <p>${paciente.fechaNacimiento}</p>
-        <a href="<c:url value="/nueva-derivacion/${idPaciente}"/>">Generar nueva derivación</a>
+        <a href="/nueva-derivacion?id=${paciente.id}">Generar nueva derivación</a>
     </div>
     </c:if>
+
+
 </body>
 </html>

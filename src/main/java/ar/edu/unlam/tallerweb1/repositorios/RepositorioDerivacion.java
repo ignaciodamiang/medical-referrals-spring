@@ -9,5 +9,6 @@ public interface RepositorioDerivacion {
     void modificarDerivacion(Derivacion derivacion);
     List <Derivacion> listadoDerivaciones();
 
+    void eliminarDerivacion(Derivacion derivacion);
     Derivacion verDerivacion(Long id);
 }

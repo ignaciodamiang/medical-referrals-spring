@@ -12,4 +12,5 @@ public interface ServicioDerivacion {
     List<Derivacion> listadoDerivaciones();
 
     Derivacion verDerivacion(Long id) throws Exception;
+    void eliminarDerivacion(Derivacion derivacion);
 }
