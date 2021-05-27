@@ -68,6 +68,7 @@ public class ControladorSolicitudDerivaciones {
     public ModelAndView aceptarSolicitud(@PathVariable Long idSolicitud){
     SolicitudDerivacion solicitudDerivacion = servicioSolicitudDerivacion.obetenerSolicitudDerivacionPorId(idSolicitud);
     solicitudDerivacion.setAceptado(true);
+    solicitudDerivacion.setId(idSolicitud);
     servicioSolicitudDerivacion.modificarSolicitudDerivacion(solicitudDerivacion);
     return new ModelAndView("redirect:/solicitudes-derivaciones");
     }
@@ -76,6 +77,7 @@ public class ControladorSolicitudDerivaciones {
     public ModelAndView rechazarSolicitud(@PathVariable Long idSolicitud){
         SolicitudDerivacion solicitudDerivacion = servicioSolicitudDerivacion.obetenerSolicitudDerivacionPorId(idSolicitud);
         solicitudDerivacion.setAceptado(false);
+        solicitudDerivacion.setId(idSolicitud);
         servicioSolicitudDerivacion.modificarSolicitudDerivacion(solicitudDerivacion);
         return new ModelAndView("redirect:/solicitudes-derivaciones");
     }
