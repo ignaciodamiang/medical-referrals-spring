@@ -30,7 +30,12 @@ public class ControladorPaciente {
         public ModelAndView ABuscarPaciente(@RequestParam ("documento") Integer documento, HttpServletRequest request){
         ModelMap map = new ModelMap();
         Paciente pacienteObtenido = servicioPaciente.obtenerPacientePorDocumento(documento);
-        map.put("paciente", pacienteObtenido);
+        if (pacienteObtenido != null){
+            map.put("paciente", pacienteObtenido);
+        }else{
+            map.put("error","No se encontro al paciente");
+        }
+
         return new ModelAndView("Paciente/buscarPaciente", map);
     }
 }

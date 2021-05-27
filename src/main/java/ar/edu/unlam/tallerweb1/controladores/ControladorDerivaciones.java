@@ -36,12 +36,15 @@ public class ControladorDerivaciones {
     @RequestMapping(path = "/listado-derivacion")
     public ModelAndView derivaciones(){
         ModelMap model = new ModelMap();
+        Derivacion derivacion = new Derivacion();
         model.put("derivaciones",servicioDerivacion.listadoDerivaciones());
+        model.put("eliminarDerivacion",derivacion);
+
         return new ModelAndView("Derivaciones/derivaciones",model);
     }
 
-    @RequestMapping(path = "/nueva-derivacion{id}", method = RequestMethod.GET)
-    public ModelAndView nuevaDerivacion(@PathVariable("id") Long idPaciente){
+    @RequestMapping(path = "/nueva-derivacion", method = RequestMethod.GET)
+    public ModelAndView nuevaDerivacion(@RequestParam("id") Long idPaciente){
         ModelMap model = new ModelMap();
         Paciente paciente = servicioPaciente.obtenerPacientePorId(idPaciente);
         List<Cobertura> coberturas = servicioPlan.obetenerCoberturasPaciente(idPaciente);
@@ -88,5 +91,14 @@ public class ControladorDerivaciones {
         servicioDerivacion.modificarDerivacion(derivacion);
         attributes.addFlashAttribute("message","Se modifico la derivacion exitosamente.");
         return new ModelAndView("redirect:/listado-derivacion");
+    }
+
+
+    @RequestMapping(path = "eliminar-derivacion" , method = RequestMethod.POST)
+    public ModelAndView eliminarDerivacion(@ModelAttribute("derivacion") Derivacion derivacion,RedirectAttributes attributes){
+        servicioDerivacion.eliminarDerivacion(derivacion);
+        attributes.addFlashAttribute("message","Se elimino exitosamente.");
+        return new ModelAndView("redirect:/listado-derivacion");
+
     }
 }
