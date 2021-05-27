@@ -21,7 +21,7 @@
         <p>Paciente ${paciente.nombreCompleto}</p>
         <p>${paciente.documento}</p>
         <p>${paciente.fechaNacimiento}</p>
-        <a href="nueva-derivacion?id=${paciente.id}">Generar nueva derivación</a>
+        <a href="nueva-derivacion/${paciente.id}">Generar nueva derivación</a>
     </div>
     </c:if>
 
