@@ -17,9 +17,13 @@ public class ServicioCoberturaImpl implements ServicioCobertura{
     @Autowired
     public ServicioCoberturaImpl (RepositorioCobertura repositorioCobertura){this.repositorioCobertura = repositorioCobertura;}
 
-
     @Override
     public List<Cobertura> obtenerCoberturas() {
         return repositorioCobertura.obtenerCoberturas();
     }
+
+	@Override
+	public Cobertura obtenerCoberturaPorId(Long id) {
+		return repositorioCobertura.obtenerCoberturaPorId(id);
+	}
 }

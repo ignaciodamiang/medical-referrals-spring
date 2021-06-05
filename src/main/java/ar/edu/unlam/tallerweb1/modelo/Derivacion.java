@@ -8,7 +8,8 @@ public class Derivacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Boolean finalizada;
+    @Enumerated(EnumType.STRING)
+    private EstadoDerivacion estadoDerivacion;
     @ManyToOne
     private Paciente paciente;
     private Boolean urgente;
@@ -62,8 +63,12 @@ public class Derivacion {
     public void setCobertura(Cobertura cobertura) {
         this.cobertura = cobertura;
     }
-    public Boolean getFinalizada() { return finalizada; }
-    public void setFinalizada(Boolean finalizada) { this.finalizada = finalizada; }
     public Usuario getAutor() { return autor; }
     public void setAutor(Usuario autor) { this.autor = autor;}
+	public EstadoDerivacion getEstadoDerivacion() {
+		return estadoDerivacion;
+	}
+	public void setEstadoDerivacion(EstadoDerivacion estadoDerivacion) {
+		this.estadoDerivacion = estadoDerivacion;
+	}
 }
