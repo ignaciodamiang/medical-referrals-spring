@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface RepositorioCobertura {
     List<Cobertura> obtenerCoberturas();
+    Cobertura obtenerCoberturaPorId(Long id);
 }

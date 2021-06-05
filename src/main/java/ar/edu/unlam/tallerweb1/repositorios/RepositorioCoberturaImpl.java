@@ -21,4 +21,10 @@ public class RepositorioCoberturaImpl implements RepositorioCobertura{
         final Session session = sessionFactory.getCurrentSession();
         return session.createCriteria(Cobertura.class).list();
     }
+
+	@Override
+	public Cobertura obtenerCoberturaPorId(Long id) {
+		final Session session = sessionFactory.getCurrentSession();
+		return session.get(Cobertura.class, id);
+	}
 }
