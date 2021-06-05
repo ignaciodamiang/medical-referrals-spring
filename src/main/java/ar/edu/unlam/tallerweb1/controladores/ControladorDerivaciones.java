@@ -78,7 +78,7 @@ public class ControladorDerivaciones {
         derivacion.setUrgente(true);
         derivacion.setEstadoDerivacion(EstadoDerivacion.ENBUSQUEDA);
 
-        servicioDerivacion.guardarDerirvacion(derivacion, request);
+        servicioDerivacion.guardarDerivacion(derivacion, request);
         attributes.addFlashAttribute("message","Se creo la derivación correctamente");
         return new ModelAndView("redirect:listado-derivacion");
     }
