@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Cobertura;
 import ar.edu.unlam.tallerweb1.modelo.Derivacion;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface RepositorioDerivacion {
     void eliminarDerivacion(Derivacion derivacion);
     Derivacion verDerivacion(Long id);
 	List<Derivacion> derivacionesPorCobertura(Cobertura cobertura);
+
+    List<Derivacion> obtenerDerivacionesPorAutor(Usuario autor);
 }
