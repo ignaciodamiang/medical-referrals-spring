@@ -16,7 +16,7 @@
 <body>
     <div class="d-flex">
         <div class="col-lg-6 justify-content-center mx-auto">
-        <form:form action="agregar-derivacion" method="post" modelAttribute="derivacion" class="mt-4">
+        <form:form action="../agregar-derivacion" method="post" modelAttribute="derivacion" class="mt-4">
             <h3 class="form-signin-heading text-center">Crear Derivacion para el Paciente ${paciente.nombreCompleto}</h3>
             <hr class="colorgraph"><br>
 
