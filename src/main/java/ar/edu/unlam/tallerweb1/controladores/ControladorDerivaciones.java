@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Cobertura;
 import ar.edu.unlam.tallerweb1.modelo.Derivacion;
+import ar.edu.unlam.tallerweb1.modelo.EstadoDerivacion;
 import ar.edu.unlam.tallerweb1.modelo.Paciente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCobertura;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDerivacion;
@@ -75,8 +76,7 @@ public class ControladorDerivaciones {
         derivacion.setUrgente(atributoUrgente);
         derivacion.setFechaDerivacion(new Date());
         derivacion.setUrgente(true);
-        derivacion.setFinalizada(false);
-
+        derivacion.setEstadoDerivacion(EstadoDerivacion.ENBUSQUEDA);
 
         servicioDerivacion.guardarDerirvacion(derivacion, request);
         attributes.addFlashAttribute("message","Se creo la derivación correctamente");

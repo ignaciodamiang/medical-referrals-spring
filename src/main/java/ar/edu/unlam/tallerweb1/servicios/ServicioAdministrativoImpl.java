@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import ar.edu.unlam.tallerweb1.modelo.Administrativo;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAdministrativo;
-import ar.edu.unlam.tallerweb1.repositorios.ServicioAdministrativo;
 @Service
 public class ServicioAdministrativoImpl implements ServicioAdministrativo{
 
