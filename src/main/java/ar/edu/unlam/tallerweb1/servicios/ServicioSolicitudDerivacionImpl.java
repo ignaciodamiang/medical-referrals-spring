@@ -26,7 +26,7 @@ public class ServicioSolicitudDerivacionImpl implements ServicioSolicitudDerivac
 
     @Override
     public void modificarSolicitudDerivacion(SolicitudDerivacion solicitudDerivacion) {
-        servicioSoliciturDerivacionDao.guardarSolicitudDerivacion(solicitudDerivacion);
+        servicioSoliciturDerivacionDao.modificarSolicitudDerivacion(solicitudDerivacion);
     }
 
     @Override

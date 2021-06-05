@@ -68,7 +68,7 @@
                         </td>
                         <td>
                             <div class="row justify-content-md-center">
-                                <a href="nueva-solicitud-derivacion/${derivacion.id}"class="btn btn-info  text-white"  role="button">Generar Solicitud</a>
+                                <a href="nueva-solicitud-derivacion/${derivacion.id}"class="btn btn-info mb-1 text-white"  role="button">Generar Solicitud</a>
                                 <div class="col-sm">
                                     <a href="modificar-derivacion/editar?id=${derivacion.id}"  class="btn btn-info  text-white"  role="button">Modificar</a>
                                 </div>
