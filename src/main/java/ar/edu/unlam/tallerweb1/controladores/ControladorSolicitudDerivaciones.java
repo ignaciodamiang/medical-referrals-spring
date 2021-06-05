@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -32,9 +33,11 @@ public class ControladorSolicitudDerivaciones {
     }
 
     @RequestMapping("/solicitudes-derivaciones")
-    public ModelAndView mostrarSolicitudesDerivaciones() {
+    public ModelAndView mostrarSolicitudesDerivaciones( HttpServletRequest request) throws Exception {
         ModelMap modelo = new ModelMap();
-        List<SolicitudDerivacion> lista = servicioSolicitudDerivacion.obtenerSolicitudesDeDerivacion();
+        Long id = (Long) request.getSession().getAttribute("ID_CENTROMEDICO");
+        CentroMedico centro = servicioCentroMedico.obtenerCentroMedicoPorId(id);
+        List<SolicitudDerivacion> lista = servicioSolicitudDerivacion.obtenerSolicitudesDeDerivacionPorCentroMedico(centro);
         modelo.put("listaSolicitudesDerivaciones", lista);
         return new ModelAndView("/solicitud-derivaciones/solicitud-derivaciones", modelo);
     }

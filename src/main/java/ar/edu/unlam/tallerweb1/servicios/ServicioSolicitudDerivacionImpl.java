@@ -1,4 +1,5 @@
 package ar.edu.unlam.tallerweb1.servicios;
+import ar.edu.unlam.tallerweb1.modelo.CentroMedico;
 import ar.edu.unlam.tallerweb1.modelo.Derivacion;
 import ar.edu.unlam.tallerweb1.modelo.SolicitudDerivacion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioSolicitudDerivacion;
@@ -32,6 +33,11 @@ public class ServicioSolicitudDerivacionImpl implements ServicioSolicitudDerivac
     @Override
     public List<SolicitudDerivacion> obtenerSolicitudesDeDerivacion() {
        return servicioSoliciturDerivacionDao.obtenerSolicitudesDeDerivacion();
+    }
+
+    @Override
+    public List<SolicitudDerivacion> obtenerSolicitudesDeDerivacionPorCentroMedico(CentroMedico centroMedico) {
+        return servicioSoliciturDerivacionDao.obtenerSolicitudesDeDerivacionPorCentroMedico(centroMedico);
     }
 
     @Override
