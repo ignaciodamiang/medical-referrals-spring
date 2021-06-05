@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.modelo.Cobertura;
 import ar.edu.unlam.tallerweb1.modelo.Derivacion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioDerivacion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,8 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
     private RepositorioDerivacion respositorioDerivacion;
 
     @Autowired
-    public ServicioDerivacionImpl (RepositorioDerivacion respositorioDerivacion) { this.respositorioDerivacion = respositorioDerivacion;}
+    public ServicioDerivacionImpl (RepositorioDerivacion respositorioDerivacion) 
+    { this.respositorioDerivacion = respositorioDerivacion;}
 
     @Override
     public void guardarDerirvacion(Derivacion derivacion) {
@@ -44,4 +46,9 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
     public void eliminarDerivacion(Derivacion derivacion) {
         respositorioDerivacion.eliminarDerivacion(derivacion);
     }
+
+	@Override
+	public List<Derivacion> derivacionesPorCobertura(Cobertura cobertura) {
+		return respositorioDerivacion.derivacionesPorCobertura(cobertura);
+	}
 }
