@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -66,7 +67,7 @@ public class ControladorDerivaciones {
     public ModelAndView agregarDerivacion(@ModelAttribute("derivacion") Derivacion derivacion
                                           ,RedirectAttributes attributes
                                           ,@RequestParam("idPaciente") Long idPaciente
-                                          ,@RequestParam("urgente") String urgente){
+                                          ,@RequestParam("urgente") String urgente, HttpServletRequest request){
 
         Paciente paciente = servicioPaciente.obtenerPacientePorId(idPaciente);
         derivacion.setPaciente(paciente);
@@ -77,7 +78,7 @@ public class ControladorDerivaciones {
         derivacion.setFinalizada(false);
 
 
-        servicioDerivacion.guardarDerirvacion(derivacion);
+        servicioDerivacion.guardarDerirvacion(derivacion, request);
         attributes.addFlashAttribute("message","Se creo la derivación correctamente");
         return new ModelAndView("redirect:listado-derivacion");
     }
