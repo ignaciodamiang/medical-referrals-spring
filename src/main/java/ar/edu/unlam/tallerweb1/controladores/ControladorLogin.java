@@ -57,7 +57,7 @@ public class ControladorLogin {
 		Usuario usuarioBuscado = servicioLogin.loguearse(usuario, request);
 		if (usuarioBuscado != null) {
 			request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
-			return new ModelAndView("redirect:/home");
+			return new ModelAndView("redirect:/router");
 
 		} else {
 			// si el usuario no existe agrega un mensaje de error en el modelo.
