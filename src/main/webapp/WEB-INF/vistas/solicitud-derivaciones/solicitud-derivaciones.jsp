@@ -50,7 +50,7 @@
                 <tbody>
                 <c:forEach items="${listaSolicitudesDerivaciones}" var="solicitud">
                     <tr>
-                        <td>${solicitud.getDerivacion().getFinalizada()}</td>
+                        <td>${solicitud.getDerivacion().getEstadoDerivacion().toString()}</td>
                         <td>${solicitud.getCentroMedico().getNombre()}</td>
                         <td>${solicitud.getAceptado()}</td>
                         <td>${solicitud.getConfirmado()}</td>
