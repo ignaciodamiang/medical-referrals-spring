@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,16 +57,8 @@ public class ControladorLogin {
 		Usuario usuarioBuscado = servicioLogin.loguearse(usuario, request);
 		if (usuarioBuscado != null) {
 			request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
-//			return new ModelAndView("redirect:/router");
+			return new ModelAndView("redirect:/home");
 
-			switch (usuarioBuscado.getRol()) {
-				case "Derivador":
-					return new ModelAndView("redirect:/listado-derivacion");
-				case "Administrativo":
-					return new ModelAndView("redirect:/listar-cursos");
-				case "Solicitador":
-					return new ModelAndView("redirect:/index-profesor");
-			}
 		} else {
 			// si el usuario no existe agrega un mensaje de error en el modelo.
 			model.put("error", "Usuario o clave incorrecta");
@@ -75,8 +68,11 @@ public class ControladorLogin {
 
 	// Escucha la URL /home por GET, y redirige a una vista.
 	@RequestMapping(path = "/home", method = RequestMethod.GET)
-	public ModelAndView irAHome() {
-		return new ModelAndView("home");
+	public ModelAndView irAHome(HttpServletRequest request) {
+		ModelMap model = new ModelMap();
+		String rol = request.getSession().getAttribute("ROL").toString();
+		model.put("rol",rol);
+		return new ModelAndView("home",model);
 	}
 
 	// Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.
