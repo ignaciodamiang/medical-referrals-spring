@@ -39,11 +39,13 @@ public class ControladorDerivaciones {
     }
 
     @RequestMapping(path = "/listado-derivacion")
-    public ModelAndView derivaciones(){
+    public ModelAndView derivaciones(HttpServletRequest request){
         ModelMap model = new ModelMap();
         Derivacion derivacion = new Derivacion();
-        model.put("eliminarDerivacion",derivacion);
-        model.put("derivaciones",servicioDerivacion.listadoDerivaciones());
+        Cobertura cobertura = servicioCobertura.obtenerCoberturaPorId((Long)request.getSession().getAttribute("ID_COBERTURA"));
+        List<Derivacion> listaDerivaciones = servicioDerivacion.derivacionesPorCobertura(cobertura);
+        model.put("derivaciones", listaDerivaciones);
+        model.put("eliminarDerivacion", derivacion);
         return new ModelAndView("Derivaciones/derivaciones",model);
     }
 
@@ -80,7 +82,7 @@ public class ControladorDerivaciones {
 
         servicioDerivacion.guardarDerivacion(derivacion, request);
         attributes.addFlashAttribute("message","Se creo la derivación correctamente");
-        return new ModelAndView("redirect:listado-derivacion");
+        return new ModelAndView("redirect:/BuscarPaciente");
     }
 
 

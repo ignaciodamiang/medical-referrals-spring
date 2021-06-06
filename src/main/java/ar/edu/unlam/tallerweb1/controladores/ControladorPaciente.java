@@ -1,7 +1,12 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.modelo.Derivacion;
 import ar.edu.unlam.tallerweb1.modelo.Paciente;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.servicios.ServicioDerivacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPaciente;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,19 +15,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class ControladorPaciente {
 
     private ServicioPaciente servicioPaciente;
+    private ServicioDerivacion servicioDerivacion;
+    private ServicioUsuario servicioUsuario;
 
     @Autowired
-    public ControladorPaciente(ServicioPaciente servicioPaciente){this.servicioPaciente = servicioPaciente;}
+    public ControladorPaciente(ServicioPaciente servicioPaciente, ServicioDerivacion servicioDerivacion){
+    	this.servicioPaciente = servicioPaciente;
+    	this.servicioDerivacion = servicioDerivacion;
+	}
 
     @RequestMapping(path = "/BuscarPaciente")
-    public ModelAndView irABuscarPaciente(){
+    public ModelAndView irABuscarPaciente(HttpServletRequest request){
         ModelMap map = new ModelMap();
+        Usuario autor = servicioUsuario.consultarUsuarioPorId((Long)request.getSession().getAttribute("ID_USUARIO"));
+        List<Derivacion> derivaciones = servicioDerivacion.obtenerDerivacionesPorAutor(autor);
+        map.put("derivaciones", derivaciones);
         return new ModelAndView("Paciente/buscarPaciente", map);
     }
 

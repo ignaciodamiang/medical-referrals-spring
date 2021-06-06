@@ -64,7 +64,7 @@ public class ControladorSolicitudDerivaciones {
         solicitudDerivacion.setDerivacion(derivacion);
         servicioSolicitudDerivacion.guardarSolicitudDerivacion(solicitudDerivacion);
         attributes.addFlashAttribute("message","Se creo la solicitud derivación correctamente");
-        return new ModelAndView("redirect:solicitudes-derivaciones");
+        return new ModelAndView("redirect:/listado-derivacion");
     }
 
     @RequestMapping(path = "aceptarSolicitud/{idSolicitud}", method = RequestMethod.GET)
