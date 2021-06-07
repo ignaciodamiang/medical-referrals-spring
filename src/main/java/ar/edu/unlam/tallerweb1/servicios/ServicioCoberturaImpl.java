@@ -22,15 +22,9 @@ public class ServicioCoberturaImpl implements ServicioCobertura{
         return repositorioCobertura.obtenerCoberturas();
     }
 
-<<<<<<< HEAD
     @Override
     public Cobertura obtenerCoberturaPorId(Long id) {
         return repositorioCobertura.obtenerCoberturaPorId(id);
     }
-=======
-	@Override
-	public Cobertura obtenerCoberturaPorId(Long id) {
-		return repositorioCobertura.obtenerCoberturaPorId(id);
-	}
->>>>>>> 9f70280b77834244d6c26641a6552add2eb35383
+
 }
