@@ -41,6 +41,18 @@
                     <a href="nueva-derivacion/${paciente.id}">Generar nueva derivación</a>
                 </div>
             </c:if>
+            <c:forEach items="${derivaciones}" var="derivacion">
+            <div>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Derivacion del paciente: ${derivacion.getPaciente().getNombreCompleto()}</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+
+            </div>
+            </c:forEach>
         </div>
     </div>
     </div>
