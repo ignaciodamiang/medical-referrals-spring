@@ -48,10 +48,18 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
     }
 
     @Override
+<<<<<<< HEAD
+    public List<Derivacion> derivacionesPorCobertura(Cobertura cobertura) {
+        final Session session = sessionFactory.getCurrentSession();
+        return session.createCriteria(Derivacion.class)
+                .add(Restrictions.eq("cobertura", cobertura))
+                .list();
+=======
     public List<Derivacion> obtenerDerivacionesPorAutor(Usuario autor) {
         final Session session = sessionFactory.getCurrentSession();
         return session.createCriteria(Derivacion.class)
                 .add(Restrictions.eq("autor", autor)).list();
+>>>>>>> 9f70280b77834244d6c26641a6552add2eb35383
     }
 
     @Override

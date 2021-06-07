@@ -1,4 +1,8 @@
 package ar.edu.unlam.tallerweb1.servicios;
+<<<<<<< HEAD
+
+=======
+>>>>>>> 9f70280b77834244d6c26641a6552add2eb35383
 import ar.edu.unlam.tallerweb1.modelo.Cobertura;
 import ar.edu.unlam.tallerweb1.modelo.Derivacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -55,11 +59,14 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
     }
 
     @Override
+<<<<<<< HEAD
+=======
     public List<Derivacion> obtenerDerivacionesPorAutor(Usuario autor) {
         return respositorioDerivacion.obtenerDerivacionesPorAutor(autor);
     }
 
     @Override
+>>>>>>> 9f70280b77834244d6c26641a6552add2eb35383
     public List<Derivacion> derivacionesPorCobertura(Cobertura cobertura) {
         return respositorioDerivacion.derivacionesPorCobertura(cobertura);
     }
