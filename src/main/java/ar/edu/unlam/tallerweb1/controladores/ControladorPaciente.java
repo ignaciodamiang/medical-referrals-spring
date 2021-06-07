@@ -36,7 +36,7 @@ public class ControladorPaciente {
     @RequestMapping(path = "/BuscarPaciente")
     public ModelAndView irABuscarPaciente(HttpServletRequest request){
         ModelMap map = new ModelMap();
-        Usuario autor = servicioUsuario.consultarUsuarioPorId((Long)request.getSession().getAttribute("ID_SOLICITADOR"));
+        Usuario autor = servicioUsuario.consultarUsuarioPorId((Long)request.getSession().getAttribute("ID_USUARIO"));
         //String solicitador= request.getSession().getAttribute("ID_SOLICITADOR");
         List<Derivacion> derivaciones = servicioDerivacion.obtenerDerivacionesPorAutor(autor);
         map.put("derivaciones", derivaciones);
