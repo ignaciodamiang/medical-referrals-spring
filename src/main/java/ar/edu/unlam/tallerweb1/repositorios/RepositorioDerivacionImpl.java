@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-@SuppressWarnings({ "unchecked", "deprecation" })
+
 @Repository("repositorioDerivacion")
 public class RepositorioDerivacionImpl implements RepositorioDerivacion {
 

@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
     <%@ include file="../../../parts/meta.jsp" %>
@@ -36,36 +38,12 @@
                     <p>Paciente ${paciente.nombreCompleto}</p>
                     <p>${paciente.documento}</p>
                     <p>${paciente.fechaNacimiento}</p>
-                    <a href="nueva-derivacion?id=${paciente.id}">Generar nueva derivación</a>
+                    <a href="nueva-derivacion/${paciente.id}">Generar nueva derivación</a>
                 </div>
             </c:if>
         </div>
-=======
-<h1>Usuario: ${idUsuario}- solicitador :${idSolicitador}</h1>
-    <form action="ObtenerPaciente" method="post">
-        <label for="documento">Numero de Documento del Paciente</label>
-        <input name="documento" type="number" id="documento"/>
-        <button type="submit">Buscar</button>
-    </form>
-
-    <c:if test="${not empty error}">
-        <div class="alert alert-warning" role="alert">
-            <p>${error}</p>
-        </div>
-    </c:if>
-
-    <c:if test="${not empty paciente}">
-    <div>
-        <p>Paciente ${paciente.nombreCompleto}</p>
-        <p>${paciente.documento}</p>
-        <p>${paciente.fechaNacimiento}</p>
-        <a href="nueva-derivacion/${paciente.id}">Generar nueva derivación</a>
     </div>
-</div>
-
-
-
-
+    </div>
 
 </body>
 </html>
