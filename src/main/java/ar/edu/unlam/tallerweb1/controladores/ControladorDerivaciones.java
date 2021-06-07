@@ -39,7 +39,9 @@ public class ControladorDerivaciones {
     @RequestMapping(path = "/listado-derivacion")
     public ModelAndView derivaciones(){
         ModelMap model = new ModelMap();
+        Derivacion derivacion = new Derivacion();
         model.put("derivaciones",servicioDerivacion.listadoDerivaciones());
+        model.put("eliminarDerivacion",derivacion);
         return new ModelAndView("Derivaciones/derivaciones",model);
     }
 

@@ -62,9 +62,9 @@ public class ControladorLogin {
 				case "Derivador":
 					return new ModelAndView("redirect:/listado-derivacion");
 				case "Administrativo":
-					return new ModelAndView("redirect:/listar-cursos");
+					return new ModelAndView("redirect:/solicitudes-derivaciones");
 				case "Solicitador":
-					return new ModelAndView("redirect:/index-profesor");
+					return new ModelAndView("redirect:/BuscarPaciente");
 			}
 		} else {
 			// si el usuario no existe agrega un mensaje de error en el modelo.

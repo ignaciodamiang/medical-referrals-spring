@@ -1,41 +1,83 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
 <!DOCTYPE html>
-<html>
-	<head>
-	<!-- Bootstrap core CSS -->
-	    <link href="css/bootstrap.min.css" rel="stylesheet" >
-	    <!-- Bootstrap theme -->
-	    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
-	</head>
-	<body>
-		<div class = "container">
-			<div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-				<%--Definicion de un form asociado a la accion /validar-login por POST. Se indica ademas que el model attribute se--%>
-				<%--debe referenciar con el nombre usuario, spring mapea los elementos de la vista con los atributos de dicho objeto--%>
-					<%--para eso debe coincidir el valor del elemento path de cada input con el nombre de un atributo del objeto --%>
-				<form:form action="validar-login" method="POST" modelAttribute="usuario">
-			    	<h3 class="form-signin-heading">Taller Web I  - ${ahora}</h3>
-					<hr class="colorgraph"><br>
+<html lang="es">
+<head>
+	<%@ include file="../../parts/meta.jsp" %>
 
-					<%--Elementos de entrada de datos, el elemento path debe indicar en que atributo del objeto usuario se guardan los datos ingresados--%>
-					<form:input path="email" id="email" type="email" class="form-control" />
-					<form:input path="password" type="password" id="password" class="form-control"/>     		  
-					
-					<button class="btn btn-lg btn-primary btn-block" Type="Submit"/>Login</button>
-				</form:form>
+	<title>Derivaciones</title>
+</head>
+<body class="bg-gradient-primary">
 
-				<%--Bloque que es visible si el elemento error no está vacío	--%>
-				<c:if test="${not empty error}">
-			        <h4><span>${error}</span></h4>
-			        <br>
-		        </c:if>	
+<div class="container" style="margin-top: 6rem">
+
+	<!-- Outer Row -->
+	<div class="row justify-content-center">
+
+		<div class="col-xl-10 col-lg-12 col-md-9">
+			<div class="card o-hidden border-0 shadow-lg">
+				<div class="card-body p-0">
+					<!-- Nested Row within Card Body -->
+					<div class="row">
+						<div class="col-lg-6 d-none d-lg-block bg-login-image">
+							<img width="500" height="500"
+								 src="img/imagen.jpg" alt="logo"
+								 class="logo-img">
+						</div>
+						<div class="col-lg-6">
+							<div class="p-5">
+								<div class="text-center">
+									<img class="mb-2" style="height: 90px;"
+										 src="img/logo.jpg" alt="logo"
+										 class="logo-img">
+									<p class="logo-letra">CENTRO MEDICO</p>
+								</div>
+								<div class="text-center">
+									<h1 class="h4 text-gray-900 mb-4">Bienvenido/a!</h1>
+								</div>
+								<%--Bloque que es visible si el elemento error no esta vacio --%>
+								<c:if test="${not empty error}">
+									<span class="text-danger mx-1">${error}</span>
+									<br>
+								</c:if>
+								<%--Definicion de un form asociado a la accion /validar-login por POST. Se indica ademas que el model attribute se--%>
+								<%--debe referenciar con el nombre usuario, spring mapea los elementos de la vista con los atributos de dicho objeto--%>
+								<%--para eso debe coincidir el valor del elemento path de cada input con el nombre de un atributo del objeto --%>
+								<form:form action="validar-login" method="POST"
+										   modelAttribute="usuario" class="user">
+									<div class="form-group">
+											<%--Elementos de entrada de datos, el elemento path debe indicar en que atributo del objeto usuario se guardan los datos ingresados --%>
+										<form:input path="email" id="email" name="email"
+													placeholder="Email" type="email" class="form-control form-control-user"
+													value="" aria-describedby="emailHelp" />
+									</div>
+									<div class="form-group">
+										<form:input path="password" id="password" name="password"
+													placeholder="Contrasenia" type="password"
+													class="form-control form-control-user" value="" />
+									</div>
+									<button type="submit" class="btn btn-primary btn-user btn-block text-white">
+										Iniciar sesion
+									</button>
+									<hr>
+								</form:form>
+								<div class="text-center">
+									<a class="small" href="#">Olvido su contrasenia?</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
+
 		</div>
-		
-		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script>
-		<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-		<script src="js/bootstrap.min.js" type="text/javascript"></script>
-	</body>
+
+	</div>
+</div>
+
+<%@ include file="../../parts/footer.jsp" %>
+
+</body>
 </html>
