@@ -1,8 +1,10 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import ar.edu.unlam.tallerweb1.modelo.Cobertura;
 import ar.edu.unlam.tallerweb1.modelo.Derivacion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -42,6 +44,14 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
         final Session session = sessionFactory.getCurrentSession();
         Derivacion derivacion = session.get(Derivacion.class,id);
         return derivacion;
+    }
+
+    @Override
+    public List<Derivacion> derivacionesPorCobertura(Cobertura cobertura) {
+        final Session session = sessionFactory.getCurrentSession();
+        return session.createCriteria(Derivacion.class)
+                .add(Restrictions.eq("cobertura", cobertura))
+                .list();
     }
 
     @Override

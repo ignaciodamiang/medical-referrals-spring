@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -37,11 +38,13 @@ public class ControladorDerivaciones {
     }
 
     @RequestMapping(path = "/listado-derivacion")
-    public ModelAndView derivaciones(){
+    public ModelAndView derivaciones(HttpServletRequest request){
         ModelMap model = new ModelMap();
         Derivacion derivacion = new Derivacion();
-        model.put("derivaciones",servicioDerivacion.listadoDerivaciones());
-        model.put("eliminarDerivacion",derivacion);
+        Cobertura cobertura = servicioCobertura.obtenerCoberturaPorId((Long)request.getSession().getAttribute("ID_COBERTURA"));
+        List<Derivacion> listaDerivaciones = servicioDerivacion.derivacionesPorCobertura(cobertura);
+        model.put("derivaciones", listaDerivaciones);
+        model.put("eliminarDerivacion", derivacion);
         return new ModelAndView("Derivaciones/derivaciones",model);
     }
 
