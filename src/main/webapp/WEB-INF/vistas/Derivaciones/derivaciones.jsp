@@ -52,7 +52,7 @@
                     <tr>
                         <th scope="row" class="text-center">${derivacion.paciente.nombreCompleto}</th>
                         <td class="text-center">${derivacion.cobertura.nombre}</td>
-                        <td class="text-center">${derivacion.finalizada}</td>
+                        <td class="text-center">${derivacion.estadoDerivacion}</td>
                         <td class="text-center">${derivacion.diagnostico}</td>
                         <td class="text-center">${derivacion.fechaDerivacion}</td>
                         <td class="text-center">${derivacion.paraQueSector}</td>
