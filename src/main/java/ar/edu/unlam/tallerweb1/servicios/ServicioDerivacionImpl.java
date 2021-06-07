@@ -20,8 +20,6 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
     private RepositorioUsuario repositorioUsuario;
 
     @Autowired
-    public ServicioDerivacionImpl (RepositorioDerivacion respositorioDerivacion)
-    { this.respositorioDerivacion = respositorioDerivacion;}
     public ServicioDerivacionImpl (RepositorioDerivacion respositorioDerivacion, RepositorioUsuario repositorioUsuario) {
         this.respositorioDerivacion = respositorioDerivacion;
         this.repositorioUsuario = repositorioUsuario;
