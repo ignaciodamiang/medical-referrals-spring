@@ -54,6 +54,7 @@ public class ServicioLoginImpl implements ServicioLogin {
 		case "Administrativo": {
 			Administrativo usuarioAdministrativo = servicioAdministrativoDao.obtenerAdministrativoPorUsuario(usuarioObtenido);
 			if (usuarioAdministrativo!=null) {
+				request.getSession().setAttribute("ID_USUARIO", usuarioAdministrativo.getUsuario().getId());
 				request.getSession().setAttribute("ID_ADMINISTRATIVO", usuarioAdministrativo.getId());
 				request.getSession().setAttribute("ID_CENTROMEDICO", usuarioAdministrativo.getCentroMedico().getId());
 			}
@@ -62,6 +63,7 @@ public class ServicioLoginImpl implements ServicioLogin {
 		case "Derivador":{
 			Derivador usuarioDerivador = servicioDerivadorDao.obtenerDerivadorPorUsuario(usuarioObtenido);
 			if (usuarioDerivador!=null) {
+				request.getSession().setAttribute("ID_USUARIO", usuarioDerivador.getUsuario().getId());
 				request.getSession().setAttribute("ID_DERIVADOR", usuarioDerivador.getId());
 				request.getSession().setAttribute("ID_COBERTURA", usuarioDerivador.getCobertura().getId());
 			}
@@ -70,6 +72,7 @@ public class ServicioLoginImpl implements ServicioLogin {
 		case "Solicitador": {
 			Solicitador usuarioSolicitador = servicioSolicitadorDao.obtenerSolicitadorPorUsuario(usuarioObtenido);
 			if (usuarioSolicitador!=null) {
+				request.getSession().setAttribute("ID_USUARIO", usuarioSolicitador.getUsuario().getId());
 				request.getSession().setAttribute("ID_SOLICITADOR", usuarioSolicitador.getId());
 			}
 			break;

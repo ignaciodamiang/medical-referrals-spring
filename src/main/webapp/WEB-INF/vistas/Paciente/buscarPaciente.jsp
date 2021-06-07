@@ -4,7 +4,7 @@
     <title>Title</title>
 </head>
 <body>
-<h1>${autor}</h1>
+<h1>Usuario: ${idUsuario}- solicitador :${idSolicitador}</h1>
     <form action="ObtenerPaciente" method="post">
         <label for="documento">Numero de Documento del Paciente</label>
         <input name="documento" type="number" id="documento"/>

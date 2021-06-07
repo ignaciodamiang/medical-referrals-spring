@@ -30,13 +30,14 @@ public class ControladorPaciente {
     public ControladorPaciente(ServicioPaciente servicioPaciente, ServicioDerivacion servicioDerivacion, ServicioUsuario servicioUsuario){
     	this.servicioPaciente = servicioPaciente;
     	this.servicioDerivacion = servicioDerivacion;
-    	this.servicioUsuario = servicioUsuario;
+    	this.servicioUsuario=servicioUsuario;
 	}
 
     @RequestMapping(path = "/BuscarPaciente")
     public ModelAndView irABuscarPaciente(HttpServletRequest request){
         ModelMap map = new ModelMap();
         Usuario autor = servicioUsuario.consultarUsuarioPorId((Long)request.getSession().getAttribute("ID_SOLICITADOR"));
+        //String solicitador= request.getSession().getAttribute("ID_SOLICITADOR");
         List<Derivacion> derivaciones = servicioDerivacion.obtenerDerivacionesPorAutor(autor);
         map.put("derivaciones", derivaciones);
         return new ModelAndView("Paciente/buscarPaciente", map);
