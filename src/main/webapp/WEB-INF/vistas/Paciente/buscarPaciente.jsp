@@ -5,8 +5,6 @@
     <title>Title</title>
 </head>
 <body>
-<<<<<<< HEAD
-
 <div class="container">
     <div class="row py-3">
         <div class="col-3" id="sticky-sidebar">
@@ -62,7 +60,6 @@
         <p>${paciente.documento}</p>
         <p>${paciente.fechaNacimiento}</p>
         <a href="nueva-derivacion/${paciente.id}">Generar nueva derivación</a>
->>>>>>> 9f70280b77834244d6c26641a6552add2eb35383
     </div>
 </div>
 

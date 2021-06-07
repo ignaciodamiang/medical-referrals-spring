@@ -13,12 +13,7 @@ public interface RepositorioDerivacion {
 
     void eliminarDerivacion(Derivacion derivacion);
     Derivacion verDerivacion(Long id);
-<<<<<<< HEAD
-
-    List<Derivacion> derivacionesPorCobertura(Cobertura cobertura);
-=======
 	List<Derivacion> derivacionesPorCobertura(Cobertura cobertura);
 
     List<Derivacion> obtenerDerivacionesPorAutor(Usuario autor);
->>>>>>> 9f70280b77834244d6c26641a6552add2eb35383
 }
