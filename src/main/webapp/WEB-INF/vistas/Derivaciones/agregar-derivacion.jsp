@@ -46,7 +46,7 @@
                 <label for="si">Si</label>
                 <input type="radio" name="urgente" id="si" value="true">
                 <label for="no">No</label>
-                <input type="radio" name="urgente" id="no" value="true">
+                <input type="radio" name="urgente" id="no" value="false">
             </div>
 
             <input type="number" name="idPaciente" value="${paciente.getId()}"hidden>

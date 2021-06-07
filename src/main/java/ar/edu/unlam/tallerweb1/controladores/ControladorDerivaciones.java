@@ -70,14 +70,12 @@ public class ControladorDerivaciones {
     public ModelAndView agregarDerivacion(@ModelAttribute("derivacion") Derivacion derivacion
                                           ,RedirectAttributes attributes
                                           ,@RequestParam("idPaciente") Long idPaciente
-                                          ,@RequestParam("urgente") String urgente, HttpServletRequest request){
+                                          ,@RequestParam("urgente") Boolean urgente, HttpServletRequest request){
 
         Paciente paciente = servicioPaciente.obtenerPacientePorId(idPaciente);
         derivacion.setPaciente(paciente);
-        Boolean atributoUrgente = new Boolean(urgente);
-        derivacion.setUrgente(atributoUrgente);
+        derivacion.setUrgente(urgente);
         derivacion.setFechaDerivacion(new Date());
-        derivacion.setUrgente(true);
         derivacion.setEstadoDerivacion(EstadoDerivacion.ENBUSQUEDA);
 
         servicioDerivacion.guardarDerivacion(derivacion, request);

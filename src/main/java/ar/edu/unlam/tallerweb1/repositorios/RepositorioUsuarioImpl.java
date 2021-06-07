@@ -40,7 +40,7 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 	@Override
 	public Usuario obtenerUsuarioPorId(Long id) {
 		final Session session = sessionFactory.getCurrentSession();
-		return session.get(Usuario.class, id);
+		Usuario usuario = session.get(Usuario.class, id);
+		return usuario;
 	}
-
 }

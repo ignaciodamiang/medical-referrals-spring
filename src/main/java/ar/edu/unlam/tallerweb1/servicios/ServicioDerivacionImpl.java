@@ -1,5 +1,4 @@
 package ar.edu.unlam.tallerweb1.servicios;
-
 import ar.edu.unlam.tallerweb1.modelo.Cobertura;
 import ar.edu.unlam.tallerweb1.modelo.Derivacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -20,8 +19,6 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
     private RepositorioUsuario repositorioUsuario;
 
     @Autowired
-    public ServicioDerivacionImpl (RepositorioDerivacion respositorioDerivacion)
-    { this.respositorioDerivacion = respositorioDerivacion;}
     public ServicioDerivacionImpl (RepositorioDerivacion respositorioDerivacion, RepositorioUsuario repositorioUsuario) {
         this.respositorioDerivacion = respositorioDerivacion;
         this.repositorioUsuario = repositorioUsuario;
@@ -29,7 +26,7 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
 
     @Override
     public void guardarDerivacion(Derivacion derivacion, HttpServletRequest request) {
-        Usuario autor = repositorioUsuario.obtenerUsuarioPorId((Long)request.getSession().getAttribute("ID_USUARIO"));
+        Usuario autor =  repositorioUsuario.obtenerUsuarioPorId((Long)request.getSession().getAttribute("ID_USUARIO"));
         derivacion.setAutor(autor);
         respositorioDerivacion.guardarDerivacion(derivacion);
     }
