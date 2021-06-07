@@ -1,4 +1,4 @@
-use proyecto-derivaciones;
+USE `proyecto-derivaciones`;
 
 -- Cobeturas
 

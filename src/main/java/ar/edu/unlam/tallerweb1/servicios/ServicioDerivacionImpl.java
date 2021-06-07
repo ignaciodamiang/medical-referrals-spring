@@ -1,12 +1,18 @@
 package ar.edu.unlam.tallerweb1.servicios;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9f70280b77834244d6c26641a6552add2eb35383
 import ar.edu.unlam.tallerweb1.modelo.Cobertura;
 import ar.edu.unlam.tallerweb1.modelo.Derivacion;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioDerivacion;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service("servicioDerivacion")
@@ -14,12 +20,18 @@ import java.util.List;
 public class ServicioDerivacionImpl implements ServicioDerivacion{
 
     private RepositorioDerivacion respositorioDerivacion;
+    private RepositorioUsuario repositorioUsuario;
 
     @Autowired
-    public ServicioDerivacionImpl (RepositorioDerivacion respositorioDerivacion) { this.respositorioDerivacion = respositorioDerivacion;}
+    public ServicioDerivacionImpl (RepositorioDerivacion respositorioDerivacion, RepositorioUsuario repositorioUsuario) {
+        this.respositorioDerivacion = respositorioDerivacion;
+        this.repositorioUsuario = repositorioUsuario;
+    }
 
     @Override
-    public void guardarDerirvacion(Derivacion derivacion) {
+    public void guardarDerivacion(Derivacion derivacion, HttpServletRequest request) {
+        Usuario autor =  repositorioUsuario.obtenerUsuarioPorId((Long)request.getSession().getAttribute("ID_USUARIO"));
+        derivacion.setAutor(autor);
         respositorioDerivacion.guardarDerivacion(derivacion);
     }
 
@@ -47,6 +59,14 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public List<Derivacion> obtenerDerivacionesPorAutor(Usuario autor) {
+        return respositorioDerivacion.obtenerDerivacionesPorAutor(autor);
+    }
+
+    @Override
+>>>>>>> 9f70280b77834244d6c26641a6552add2eb35383
     public List<Derivacion> derivacionesPorCobertura(Cobertura cobertura) {
         return respositorioDerivacion.derivacionesPorCobertura(cobertura);
     }

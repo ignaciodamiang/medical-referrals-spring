@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Cobertura;
 import ar.edu.unlam.tallerweb1.modelo.Derivacion;
+import ar.edu.unlam.tallerweb1.modelo.EstadoDerivacion;
 import ar.edu.unlam.tallerweb1.modelo.Paciente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCobertura;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDerivacion;
@@ -48,7 +49,7 @@ public class ControladorDerivaciones {
         return new ModelAndView("Derivaciones/derivaciones",model);
     }
 
-    @RequestMapping(path = "/nueva-derivacion{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/nueva-derivacion/{id}", method = RequestMethod.GET)
     public ModelAndView nuevaDerivacion(@PathVariable("id") Long idPaciente){
         ModelMap model = new ModelMap();
         Paciente paciente = servicioPaciente.obtenerPacientePorId(idPaciente);
@@ -69,20 +70,17 @@ public class ControladorDerivaciones {
     public ModelAndView agregarDerivacion(@ModelAttribute("derivacion") Derivacion derivacion
                                           ,RedirectAttributes attributes
                                           ,@RequestParam("idPaciente") Long idPaciente
-                                          ,@RequestParam("urgente") String urgente){
+                                          ,@RequestParam("urgente") Boolean urgente, HttpServletRequest request){
 
         Paciente paciente = servicioPaciente.obtenerPacientePorId(idPaciente);
         derivacion.setPaciente(paciente);
-        Boolean atributoUrgente = new Boolean(urgente);
-        derivacion.setUrgente(atributoUrgente);
+        derivacion.setUrgente(urgente);
         derivacion.setFechaDerivacion(new Date());
-        derivacion.setUrgente(true);
-        derivacion.setFinalizada(false);
+        derivacion.setEstadoDerivacion(EstadoDerivacion.ENBUSQUEDA);
 
-
-        servicioDerivacion.guardarDerirvacion(derivacion);
+        servicioDerivacion.guardarDerivacion(derivacion, request);
         attributes.addFlashAttribute("message","Se creo la derivación correctamente");
-        return new ModelAndView("redirect:listado-derivacion");
+        return new ModelAndView("redirect:/BuscarPaciente");
     }
 
 

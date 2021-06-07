@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Cobertura;
 import ar.edu.unlam.tallerweb1.modelo.Derivacion;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -9,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@SuppressWarnings({ "unchecked", "deprecation" })
 @Repository("repositorioDerivacion")
 public class RepositorioDerivacionImpl implements RepositorioDerivacion {
 
@@ -47,11 +48,18 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
     }
 
     @Override
+<<<<<<< HEAD
     public List<Derivacion> derivacionesPorCobertura(Cobertura cobertura) {
         final Session session = sessionFactory.getCurrentSession();
         return session.createCriteria(Derivacion.class)
                 .add(Restrictions.eq("cobertura", cobertura))
                 .list();
+=======
+    public List<Derivacion> obtenerDerivacionesPorAutor(Usuario autor) {
+        final Session session = sessionFactory.getCurrentSession();
+        return session.createCriteria(Derivacion.class)
+                .add(Restrictions.eq("autor", autor)).list();
+>>>>>>> 9f70280b77834244d6c26641a6552add2eb35383
     }
 
     @Override
@@ -59,4 +67,14 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
         final Session session = sessionFactory.getCurrentSession();
         session.delete(derivacion);
     }
+
+
+	@Override
+	public List<Derivacion> derivacionesPorCobertura(Cobertura cobertura) {
+		final Session session = sessionFactory.getCurrentSession();
+		return session.createCriteria(Derivacion.class)
+				.add(Restrictions.eq("cobertura", cobertura))
+				.list();
+	}
+
 }

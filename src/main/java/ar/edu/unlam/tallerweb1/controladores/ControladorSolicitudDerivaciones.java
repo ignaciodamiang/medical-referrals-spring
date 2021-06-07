@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -32,9 +33,11 @@ public class ControladorSolicitudDerivaciones {
     }
 
     @RequestMapping("/solicitudes-derivaciones")
-    public ModelAndView mostrarSolicitudesDerivaciones() {
+    public ModelAndView mostrarSolicitudesDerivaciones( HttpServletRequest request) throws Exception {
         ModelMap modelo = new ModelMap();
-        List<SolicitudDerivacion> lista = servicioSolicitudDerivacion.obtenerSolicitudesDeDerivacion();
+        Long id = (Long) request.getSession().getAttribute("ID_CENTROMEDICO");
+        CentroMedico centro = servicioCentroMedico.obtenerCentroMedicoPorId(id);
+        List<SolicitudDerivacion> lista = servicioSolicitudDerivacion.obtenerSolicitudesDeDerivacionPorCentroMedico(centro);
         modelo.put("listaSolicitudesDerivaciones", lista);
         return new ModelAndView("/solicitud-derivaciones/solicitud-derivaciones", modelo);
     }
@@ -61,13 +64,14 @@ public class ControladorSolicitudDerivaciones {
         solicitudDerivacion.setDerivacion(derivacion);
         servicioSolicitudDerivacion.guardarSolicitudDerivacion(solicitudDerivacion);
         attributes.addFlashAttribute("message","Se creo la solicitud derivación correctamente");
-        return new ModelAndView("redirect:solicitudes-derivaciones");
+        return new ModelAndView("redirect:/listado-derivacion");
     }
 
     @RequestMapping(path = "aceptarSolicitud/{idSolicitud}", method = RequestMethod.GET)
     public ModelAndView aceptarSolicitud(@PathVariable Long idSolicitud){
     SolicitudDerivacion solicitudDerivacion = servicioSolicitudDerivacion.obetenerSolicitudDerivacionPorId(idSolicitud);
     solicitudDerivacion.setAceptado(true);
+    solicitudDerivacion.setId(idSolicitud);
     servicioSolicitudDerivacion.modificarSolicitudDerivacion(solicitudDerivacion);
     return new ModelAndView("redirect:/solicitudes-derivaciones");
     }
@@ -76,6 +80,7 @@ public class ControladorSolicitudDerivaciones {
     public ModelAndView rechazarSolicitud(@PathVariable Long idSolicitud){
         SolicitudDerivacion solicitudDerivacion = servicioSolicitudDerivacion.obetenerSolicitudDerivacionPorId(idSolicitud);
         solicitudDerivacion.setAceptado(false);
+        solicitudDerivacion.setId(idSolicitud);
         servicioSolicitudDerivacion.modificarSolicitudDerivacion(solicitudDerivacion);
         return new ModelAndView("redirect:/solicitudes-derivaciones");
     }

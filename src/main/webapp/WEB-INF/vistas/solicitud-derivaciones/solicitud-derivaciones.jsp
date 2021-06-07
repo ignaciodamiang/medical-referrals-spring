@@ -8,8 +8,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link  href="${css}/style.css"  rel="stylesheet"/>
     <title>Solicitud de Derivaciones</title>
 </head>
@@ -50,11 +49,48 @@
                 <tbody>
                 <c:forEach items="${listaSolicitudesDerivaciones}" var="solicitud">
                     <tr>
-                        <td>${solicitud.getDerivacion().getFinalizada()}</td>
+                        <td>${solicitud.getDerivacion().getEstadoDerivacion().toString()}</td>
                         <td>${solicitud.getCentroMedico().getNombre()}</td>
                         <td>${solicitud.getAceptado()}</td>
                         <td>${solicitud.getConfirmado()}</td>
                         <td>${solicitud.getFechaCreacion().toLocaleString()}</td>
+                                        <td>
+                                            <!-- Button to Open the Modal -->
+                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#solicitud${solicitud.getId()}">
+                                                Detalles
+                                            </button>
+                                            <!-- The Modal -->
+                                            <div class="modal fade" id="solicitud${solicitud.getId()}">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <!-- Modal Header -->
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Detalles de Solicitud</h4>
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+                                                        <!-- Modal body -->
+                                                        <div class="modal-body">
+                                                            <h4>Nombre de paciente: </h4>
+                                                            <span>${solicitud.getDerivacion().getPaciente().getNombreCompleto()}</span>
+                                                            <h4>DNI: </h4>
+                                                            <span>${solicitud.getDerivacion().getPaciente().getDocumento()}</span>
+                                                            <h4>Fecha nacimiento paciente: </h4>
+                                                            <span>${solicitud.getDerivacion().getPaciente().getFechaNacimiento()}</span>
+                                                            <h4>Diagnostico:</h4>
+                                                            <span>${solicitud.getDerivacion().getDiagnostico()}</span>
+                                                            <h4>Sector solicitado:</h4>
+                                                            <span>${solicitud.getDerivacion().getParaQueSector()}</span>
+                                                            <h4>Cobertura:</h4>
+                                                            <span>${solicitud.getDerivacion().getCobertura().getNombre()}</span>
+                                                        </div>
+                                                        <!-- Modal footer -->
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
                         <c:if test="${solicitud.aceptado == false}">
                         <td>
                             <div class="row justify-content-md-center">
@@ -83,6 +119,8 @@
         </c:otherwise>
     </c:choose>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 </body>
 </html>
 

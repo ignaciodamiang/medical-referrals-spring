@@ -12,24 +12,24 @@ import java.util.List;
 @Transactional
 public class ServicioPacienteImpl implements ServicioPaciente{
 
-    private RepositorioPaciente servicioPacienteDao;
+    private RepositorioPaciente repositorioPacienteDao;
 
 @Autowired
-    public ServicioPacienteImpl(RepositorioPaciente servicioPacienteDao){this.servicioPacienteDao = servicioPacienteDao;}
+    public ServicioPacienteImpl(RepositorioPaciente servicioPacienteDao){this.repositorioPacienteDao = servicioPacienteDao;}
 
     @Override
     public Paciente obtenerPacientePorDocumento(Integer documento) {
-        return servicioPacienteDao.obtenerPacientePorNumeroDocumento(documento);
+        return repositorioPacienteDao.obtenerPacientePorNumeroDocumento(documento);
     }
 
     @Override
     public List<Paciente> obtenerPacientes() {
-        return servicioPacienteDao.obtenerPacientes();
+        return repositorioPacienteDao.obtenerPacientes();
     }
 
     @Override
     public Paciente obtenerPacientePorId(Long idPaciente) {
-        return servicioPacienteDao.obtenerPacientePorId(idPaciente);
+        return repositorioPacienteDao.obtenerPacientePorId(idPaciente);
     }
 }
 

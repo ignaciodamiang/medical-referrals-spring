@@ -37,4 +37,10 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 				.uniqueResult();
 	}
 
+	@Override
+	public Usuario obtenerUsuarioPorId(Long id) {
+		final Session session = sessionFactory.getCurrentSession();
+		Usuario usuario = session.get(Usuario.class, id);
+		return usuario;
+	}
 }

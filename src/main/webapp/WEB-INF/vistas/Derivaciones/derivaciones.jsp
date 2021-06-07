@@ -52,7 +52,7 @@
                     <tr>
                         <th scope="row" class="text-center">${derivacion.paciente.nombreCompleto}</th>
                         <td class="text-center">${derivacion.cobertura.nombre}</td>
-                        <td class="text-center">${derivacion.finalizada}</td>
+                        <td class="text-center">${derivacion.estadoDerivacion}</td>
                         <td class="text-center">${derivacion.diagnostico}</td>
                         <td class="text-center">${derivacion.fechaDerivacion}</td>
                         <td class="text-center">${derivacion.paraQueSector}</td>
@@ -68,7 +68,7 @@
                         </td>
                         <td>
                             <div class="row justify-content-md-center">
-                                <a href="nueva-solicitud-derivacion/${derivacion.id}"class="btn btn-info  text-white"  role="button">Generar Solicitud</a>
+                                <a href="nueva-solicitud-derivacion/${derivacion.id}"class="btn btn-info mb-1 text-white"  role="button">Generar Solicitud</a>
                                 <div class="col-sm">
                                     <a href="modificar-derivacion/editar?id=${derivacion.id}"  class="btn btn-info  text-white"  role="button">Modificar</a>
                                 </div>
