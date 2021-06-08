@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.modelo.CentroMedico;
 import ar.edu.unlam.tallerweb1.modelo.SolicitudDerivacion;
 import ar.edu.unlam.tallerweb1.modelo.Traslado;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCentroMedico;
+import ar.edu.unlam.tallerweb1.servicios.ServicioDerivacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSolicitudDerivacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioTraslado;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,14 @@ public class ControladorTraslado {
         ModelMap map = new ModelMap();
         map.put("traslados", traslados);
         return new ModelAndView("Traslado/traslados", map);
+    }
+
+    @RequestMapping(path = "/ver-traslado/{idDerivacion}", method = RequestMethod.GET)
+    public ModelAndView verTraslados(@PathVariable Long idDerivacion){
+        Traslado traslado = servicioTraslado.obtenerTrasladoPorDerivacion(idDerivacion);
+        ModelMap map = new ModelMap();
+        map.put("traslado", traslado);
+        return new ModelAndView("Traslado/ver-traslado", map);
     }
 
 }

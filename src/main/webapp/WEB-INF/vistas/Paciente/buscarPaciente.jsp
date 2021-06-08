@@ -46,8 +46,50 @@
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">Derivacion del paciente: ${derivacion.getPaciente().getNombreCompleto()}</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <p class="card-text"> ${derivacion.getFechaDerivacion()} </p>
+                        <p class="card-text">Diagnostico: ${derivacion.getDiagnostico()}</p>
+                        
+                                                <!-- Button to Open the Modal -->
+                                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#derivacion${derivacion.getId()}">
+                                                    Detalles
+                                                </button>
+                                                <!-- The Modal -->
+                                                <div class="modal fade" id="derivacion${derivacion.getId()}">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <!-- Modal Header -->
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Detalles de derivacion</h4>
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            </div>
+                                                            <!-- Modal body -->
+                                                            <div class="modal-body">
+                                                                <h4>Nombre de paciente: </h4>
+                                                                <span>${derivacion.getPaciente().getNombreCompleto()}</span>
+                                                                <h4>DNI: </h4>
+                                                                <span>${derivacion.getPaciente().getDocumento()}</span>
+                                                                <h4>Fecha nacimiento paciente: </h4>
+                                                                <span>${derivacion.getPaciente().getFechaNacimiento()}</span>
+                                                                <h4>Diagnostico:</h4>
+                                                                <span>${derivacion.getDiagnostico()}</span>
+                                                                <h4>Sector solicitado:</h4>
+                                                                <span>${derivacion.getParaQueSector()}</span>
+                                                                <h4>Cobertura:</h4>
+                                                                <span>${derivacion.getCobertura().getNombre()}</span>
+                                                            </div>
+                                                            <!-- Modal footer -->
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                        <c:if test="${derivacion.getEstadoDerivacion().toString().equals('ENTRASLADO')}">
+                            <a href="ver-traslado/${derivacion.getId()}">
+                                <button type="button" class="btn btn-success"> Ver Traslado </button></a>
+                        </c:if>
+                        
                     </div>
                 </div>
 
@@ -56,6 +98,6 @@
         </div>
     </div>
     </div>
-
+<%@ include file="../../../parts/footer.jsp" %>
 </body>
 </html>
