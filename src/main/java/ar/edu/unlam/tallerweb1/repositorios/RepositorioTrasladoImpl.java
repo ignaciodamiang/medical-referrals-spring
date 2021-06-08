@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.CentroMedico;
+import ar.edu.unlam.tallerweb1.modelo.Derivacion;
 import ar.edu.unlam.tallerweb1.modelo.SolicitudDerivacion;
 import ar.edu.unlam.tallerweb1.modelo.Traslado;
 import org.hibernate.Session;
@@ -37,6 +38,13 @@ public class RepositorioTrasladoImpl implements RepositorioTraslado{
         final Session session = sessionFactory.getCurrentSession();
         return session.createCriteria(Traslado.class)
         .add(Restrictions.eq("centroMedico",centroMedico)).list();
+    }
+
+    @Override
+    public Traslado obtenerTrasladoPorDerivacion(Derivacion derivacion) {
+        final Session session = sessionFactory.getCurrentSession();
+        return (Traslado)session.createCriteria(Traslado.class)
+                .add(Restrictions.eq("derivacion",derivacion)).uniqueResult();
     }
 
     @Override
