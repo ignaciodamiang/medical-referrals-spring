@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 import ar.edu.unlam.tallerweb1.modelo.CentroMedico;
 import ar.edu.unlam.tallerweb1.modelo.Derivacion;
 import ar.edu.unlam.tallerweb1.modelo.SolicitudDerivacion;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioDerivacion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioSolicitudDerivacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,12 @@ import java.util.List;
 @Transactional
 public class ServicioSolicitudDerivacionImpl implements ServicioSolicitudDerivacion{
     private RepositorioSolicitudDerivacion servicioSoliciturDerivacionDao;
+    private RepositorioDerivacion servicioDerivacion;
     @Autowired
-    public ServicioSolicitudDerivacionImpl(RepositorioSolicitudDerivacion servicioSoliciturDerivacionDao){this.servicioSoliciturDerivacionDao= servicioSoliciturDerivacionDao;}
+    public ServicioSolicitudDerivacionImpl(RepositorioSolicitudDerivacion servicioSoliciturDerivacionDao,RepositorioDerivacion servicioDerivacion)
+    {this.servicioSoliciturDerivacionDao= servicioSoliciturDerivacionDao;
+     this.servicioDerivacion=servicioDerivacion;
+    }
 
 
     @Override
@@ -43,5 +48,11 @@ public class ServicioSolicitudDerivacionImpl implements ServicioSolicitudDerivac
     @Override
     public SolicitudDerivacion obetenerSolicitudDerivacionPorId(Long id) {
         return servicioSoliciturDerivacionDao.buscarSolicitudDerivacionPorId(id);
+    }
+
+    @Override
+    public List<SolicitudDerivacion> obtenerSolicitudesDeDerivacionPorDerivacion(Long id) {
+        Derivacion derivacion = servicioDerivacion.verDerivacion(id);
+        return servicioSoliciturDerivacionDao.obtenerSolicitudesDeDerivacionPorDerivacion(derivacion);
     }
 }

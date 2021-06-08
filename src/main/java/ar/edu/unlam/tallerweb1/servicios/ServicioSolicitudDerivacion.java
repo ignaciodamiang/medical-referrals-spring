@@ -12,4 +12,5 @@ public interface ServicioSolicitudDerivacion {
     List<SolicitudDerivacion> obtenerSolicitudesDeDerivacion();
     List<SolicitudDerivacion> obtenerSolicitudesDeDerivacionPorCentroMedico(CentroMedico centroMedico);
     SolicitudDerivacion obetenerSolicitudDerivacionPorId(Long id);
+    List<SolicitudDerivacion> obtenerSolicitudesDeDerivacionPorDerivacion(Long id);
 }

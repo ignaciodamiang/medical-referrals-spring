@@ -12,5 +12,5 @@ public interface RepositorioSolicitudDerivacion {
     SolicitudDerivacion buscarSolicitudDerivacionPorId(Long id);
     List<SolicitudDerivacion> obtenerSolicitudesDeDerivacion();
     List<SolicitudDerivacion> obtenerSolicitudesDeDerivacionPorCentroMedico(CentroMedico centroMedico);
-
+    List<SolicitudDerivacion> obtenerSolicitudesDeDerivacionPorDerivacion(Derivacion derivacion);
 }

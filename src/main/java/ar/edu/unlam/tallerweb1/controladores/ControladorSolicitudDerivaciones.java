@@ -39,6 +39,7 @@ public class ControladorSolicitudDerivaciones {
         CentroMedico centro = servicioCentroMedico.obtenerCentroMedicoPorId(id);
         List<SolicitudDerivacion> lista = servicioSolicitudDerivacion.obtenerSolicitudesDeDerivacionPorCentroMedico(centro);
         modelo.put("listaSolicitudesDerivaciones", lista);
+        modelo.put("rol",request.getSession().getAttribute("ROL"));
         return new ModelAndView("/solicitud-derivaciones/solicitud-derivaciones", modelo);
     }
 
@@ -83,6 +84,15 @@ public class ControladorSolicitudDerivaciones {
         solicitudDerivacion.setId(idSolicitud);
         servicioSolicitudDerivacion.modificarSolicitudDerivacion(solicitudDerivacion);
         return new ModelAndView("redirect:/solicitudes-derivaciones");
+    }
+    @RequestMapping(path = "verSolicitudes/{idDerivacion}",method = RequestMethod.GET)
+    public ModelAndView verSolicitudDerivacionPorDerivacion(@PathVariable Long idDerivacion,HttpServletRequest request){
+        ModelMap model = new ModelMap();
+        List<SolicitudDerivacion> lista= servicioSolicitudDerivacion.obtenerSolicitudesDeDerivacionPorDerivacion(idDerivacion);
+        model.put("rol",request.getSession().getAttribute("ROL"));
+        model.put("listaSolicitudesDerivaciones",lista);
+        return new ModelAndView("/solicitud-derivaciones/solicitud-derivaciones", model);
+
     }
 
 }
