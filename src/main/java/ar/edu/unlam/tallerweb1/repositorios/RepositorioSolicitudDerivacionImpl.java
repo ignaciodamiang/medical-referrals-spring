@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 
 import ar.edu.unlam.tallerweb1.modelo.CentroMedico;
+import ar.edu.unlam.tallerweb1.modelo.Derivacion;
 import ar.edu.unlam.tallerweb1.modelo.SolicitudDerivacion;
 
 import org.hibernate.Criteria;
@@ -56,6 +57,15 @@ public class RepositorioSolicitudDerivacionImpl implements RepositorioSolicitudD
         final Session session= sessionFactory.getCurrentSession();
         List<SolicitudDerivacion> solicitudesDeDerivacion =session.createCriteria(SolicitudDerivacion.class)
                 .add(Restrictions.eq("centroMedico",centroMedico))
+                .addOrder(Order.asc("fechaCreacion"))
+                .list();
+        return solicitudesDeDerivacion;
+    }
+    @Override
+    public List<SolicitudDerivacion> obtenerSolicitudesDeDerivacionPorDerivacion(Derivacion derivacion) {
+        final Session session= sessionFactory.getCurrentSession();
+        List<SolicitudDerivacion> solicitudesDeDerivacion =session.createCriteria(SolicitudDerivacion.class)
+                .add(Restrictions.eq("derivacion",derivacion))
                 .addOrder(Order.asc("fechaCreacion"))
                 .list();
         return solicitudesDeDerivacion;

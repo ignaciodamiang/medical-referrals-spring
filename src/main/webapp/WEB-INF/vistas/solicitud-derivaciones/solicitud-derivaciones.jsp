@@ -17,9 +17,11 @@
 <div class="container">
     <div class="justify-content-between d-flex mt-3">
         <h2 class="mt-4">Solicitud de derivaciones</h2>
-        <a href="nueva-solicitud-derivacion" style="text-decoration: none">
-            <button type="button"  class="btn text-white mt-4" style="background-color:#d35400">Agregar solicitud de derivación</button>
-        </a>
+            <c:if test="${rol =='Derivador'}">
+                <a href="../listado-derivacion" style="text-decoration: none">
+                    <button type="button"  class="btn text-white mt-4" style="background-color:#d35400">Volver</button>
+                </a>
+            </c:if>
     </div>
 
     <c:if test="${not empty message}">
@@ -29,7 +31,7 @@
     </c:if>
 
     <c:choose>
-        <c:when test="${listaSolicitudDerivaciones.isEmpty()}">
+        <c:when test="${listaSolicitudesDerivaciones.isEmpty()}">
             <h4 class="mt-4 text-center">No hay Solicitudes disponibles</h4>
         </c:when>
         <c:otherwise>
@@ -91,21 +93,21 @@
                                                 </div>
                                             </div>
                                         </td>
-                        <c:if test="${solicitud.aceptado == false}">
+                        <c:if test="${(solicitud.aceptado == false) && rol =='Administrativo'}">
                         <td>
                             <div class="row justify-content-md-center">
                                 <a href="aceptarSolicitud/${solicitud.id}"class="btn btn-success  text-white"  role="button">Aceptar</a>
                             </div>
                         </td>
                         </c:if>
-                        <c:if test="${solicitud.aceptado == true}">
+                        <c:if test="${solicitud.aceptado == true && rol =='Administrativo'}">
                         <td>
                             <div class="row justify-content-md-center">
                                 <a href="rechazarSolicitud/${solicitud.id}"class="btn btn-danger  text-white"  role="button">Rechazar</a>
                             </div>
                         </td>
                         </c:if>
-                        <c:if test="${solicitud.aceptado == true}">
+                        <c:if test="${solicitud.aceptado == true && rol =='Derivador'}">
                         <td>
                             <div class="row justify-content-md-center">
                                 <a href="crearTraslado/${solicitud.id}"class="btn btn-info  text-white"  role="button">Generar Traslado</a>
