@@ -52,15 +52,18 @@ public class RepositorioSolicitudDerivacionImpl implements RepositorioSolicitudD
                 .list();
         return solicitudesDeDerivacion;
     }
+
     @Override
     public List<SolicitudDerivacion> obtenerSolicitudesDeDerivacionPorCentroMedico(CentroMedico centroMedico) {
         final Session session= sessionFactory.getCurrentSession();
         List<SolicitudDerivacion> solicitudesDeDerivacion =session.createCriteria(SolicitudDerivacion.class)
                 .add(Restrictions.eq("centroMedico",centroMedico))
+                .add(Restrictions.eq("confirmado", false))
                 .addOrder(Order.asc("fechaCreacion"))
                 .list();
         return solicitudesDeDerivacion;
     }
+
     @Override
     public List<SolicitudDerivacion> obtenerSolicitudesDeDerivacionPorDerivacion(Derivacion derivacion) {
         final Session session= sessionFactory.getCurrentSession();

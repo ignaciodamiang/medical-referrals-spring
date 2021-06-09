@@ -110,7 +110,7 @@
                         <c:if test="${solicitud.aceptado == true && rol =='Derivador'}">
                         <td>
                             <div class="row justify-content-md-center">
-                                <a href="crearTraslado/${solicitud.id}"class="btn btn-info  text-white"  role="button">Generar Traslado</a>
+                                <a href="../crearTraslado/${solicitud.id}"class="btn btn-info  text-white"  role="button">Generar Traslado</a>
                             </div>
                         </td>
                         </c:if>
