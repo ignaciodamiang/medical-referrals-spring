@@ -13,4 +13,5 @@ public interface ServicioTraslado {
     List<Traslado> obtenerTrasladosPorCentroMedico(CentroMedico centroMedico);
     Traslado obtenerTrasladoPorDerivacion(Long idDerivacion);
     List<Traslado> obtenerTraslados();
+    Traslado obtenerTrasladoPorId(Long idTraslado);
 }
