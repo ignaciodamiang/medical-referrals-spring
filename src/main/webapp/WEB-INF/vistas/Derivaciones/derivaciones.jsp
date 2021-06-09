@@ -4,13 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    <link  href="${css}/style.css"  rel="stylesheet"/>
+    <%@ include file="../../../parts/meta.jsp" %>
     <title>Derivaciones</title>
 </head>
 <body>
@@ -42,6 +36,7 @@
                     <th scope="col" class="text-center">Sector</th>
                     <th scope="col" class="text-center" style="width: 21%">Acciones</th>
                     <th scope="col" class="text-center" style="width: 21%"></th>
+                    <th scope="col" class="text-center" style="width: 21%"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -53,14 +48,51 @@
                         <td class="text-center">${derivacion.diagnostico}</td>
                         <td class="text-center">${derivacion.fechaDerivacion}</td>
                         <td class="text-center">${derivacion.paraQueSector}</td>
-                        <c:if test="${derivacion.getEstadoDerivacion().toString().equals('ENCURSO')}">
+                                                                    <td>
+                                                                        <!-- Button to Open the Modal -->
+                                                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#derivacion${derivacion.getId()}">
+                                                                            Detalles
+                                                                        </button>
+                                                                        <!-- The Modal -->
+                                                                        <div class="modal fade" id="derivacion${derivacion.getId()}">
+                                                                            <div class="modal-dialog">
+                                                                                <div class="modal-content">
+                                                                                    <!-- Modal Header -->
+                                                                                    <div class="modal-header">
+                                                                                        <h4 class="modal-title">Detalles de derivacion</h4>
+                                                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                                    </div>
+                                                                                    <!-- Modal body -->
+                                                                                    <div class="modal-body">
+                                                                                        <h4>Nombre de paciente: </h4>
+                                                                                        <span>${derivacion.getPaciente().getNombreCompleto()}</span>
+                                                                                        <h4>DNI: </h4>
+                                                                                        <span>${derivacion.getPaciente().getDocumento()}</span>
+                                                                                        <h4>Fecha nacimiento paciente: </h4>
+                                                                                        <span>${derivacion.getPaciente().getFechaNacimiento()}</span>
+                                                                                        <h4>Diagnostico:</h4>
+                                                                                        <span>${derivacion.getDiagnostico()}</span>
+                                                                                        <h4>Sector solicitado:</h4>
+                                                                                        <span>${derivacion.getParaQueSector()}</span>
+                                                                                        <h4>Cobertura:</h4>
+                                                                                        <span>${derivacion.getCobertura().getNombre()}</span>
+                                                                                    </div>
+                                                                                    <!-- Modal footer -->
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                        <c:if test="${derivacion.getEstadoDerivacion().toString().equals('ENBUSQUEDA')}">
                             <td>
                                 <div class="row justify-content-md-center">
                                     <a href="nueva-solicitud-derivacion/${derivacion.id}"class="btn btn-info mb-1 text-white"  role="button">Generar Solicitud</a>
                                 </div>
                             </td>
                         </c:if>
-                        <c:if test="${derivacion.getEstadoDerivacion().toString().equals('ENCURSO')}">
+                        <c:if test="${derivacion.getEstadoDerivacion().toString().equals('ENBUSQUEDA')}">
                         <td>
                             <div class="row justify-content-md-center">
                                 <a href="verSolicitudes/${derivacion.id}"class="btn btn-success mb-1 text-white"  role="button">Ver Solicitud</a>
@@ -74,5 +106,6 @@
         </c:otherwise>
     </c:choose>
     </div>
+<%@ include file="../../../parts/footer.jsp" %>
 </body>
 </html>

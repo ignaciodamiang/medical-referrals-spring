@@ -63,7 +63,7 @@ public class ControladorTraslado {
         return new ModelAndView("Traslado/ver-traslado", map);
     }
 
-    @RequestMapping(path = "/ver-traslados-en curso", method = RequestMethod.GET)
+    @RequestMapping(path = "/ver-traslados-encurso", method = RequestMethod.GET)
     public ModelAndView verTrasladosEnCurso(HttpServletRequest request) throws Exception {
         ModelMap map = new ModelMap();
         CentroMedico centroMedico = servicioCentroMedico.obtenerCentroMedicoPorId(
@@ -82,7 +82,7 @@ public class ControladorTraslado {
         derivacion.setEstadoDerivacion(EstadoDerivacion.FINALIZADA);
         servicioDerivacion.modificarDerivacion(derivacion);
         servicioTraslado.modificarTraslado(traslado);
-        return new ModelAndView("redirect:/ver-traslados-en curso");
+        return new ModelAndView("redirect:/ver-traslados-encurso");
     }
 
     @RequestMapping(value = "/cancelararTraslado/{idTraslado}", method = RequestMethod.GET)
@@ -93,7 +93,7 @@ public class ControladorTraslado {
         derivacion.setEstadoDerivacion(EstadoDerivacion.ENBUSQUEDA);
         servicioDerivacion.modificarDerivacion(derivacion);
         servicioTraslado.modificarTraslado(traslado);
-        return new ModelAndView("redirect:/ver-traslados-en curso");
+        return new ModelAndView("redirect:/ver-traslados-encurso");
     }
 
 }
