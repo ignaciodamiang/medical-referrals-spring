@@ -31,22 +31,13 @@ public class ControladorTraslado {
     this.serviciosolicitudDerivacion = solicitudDerivacion;
     this.servicioDerivacion = servicioDerivacion;}
 
-    @RequestMapping(path = "", method = RequestMethod.GET)
-    public ModelAndView obtenerTraslados(HttpServletRequest request) throws Exception {
-        ModelMap map = new ModelMap();
-        CentroMedico centroMedico = servicioCentroMedico.obtenerCentroMedicoPorId(
-                (Long) request.getSession().getAttribute("ID_CENTROMEDICO"));
-        List<Traslado> traslados = servicioTraslado.obtenerTrasladosPorCentroMedico(centroMedico);
-        map.put("" ,traslados);
-        return new ModelAndView("Traslado/traslados", map);
-    }
-
     @RequestMapping(path = "/crearTraslado/{idSolicitud}", method = RequestMethod.GET)
     public ModelAndView crearTraslado(@PathVariable Long idSolicitud){
         SolicitudDerivacion solicitudDerivacion = serviciosolicitudDerivacion.obetenerSolicitudDerivacionPorId(idSolicitud);
         Traslado traslado = new Traslado();
         traslado.setCentroMedico(solicitudDerivacion.getCentroMedico());
         traslado.setDerivacion(solicitudDerivacion.getDerivacion());
+        traslado.setEstadoTraslado(EstadoTraslado.ENCURSO);
         solicitudDerivacion.setConfirmado(true);
         Derivacion derivacion = solicitudDerivacion.getDerivacion();
         derivacion.setEstadoDerivacion(EstadoDerivacion.ENTRASLADO);
@@ -70,6 +61,39 @@ public class ControladorTraslado {
         ModelMap map = new ModelMap();
         map.put("traslado", traslado);
         return new ModelAndView("Traslado/ver-traslado", map);
+    }
+
+    @RequestMapping(path = "/ver-traslados-en curso", method = RequestMethod.GET)
+    public ModelAndView verTrasladosEnCurso(HttpServletRequest request) throws Exception {
+        ModelMap map = new ModelMap();
+        CentroMedico centroMedico = servicioCentroMedico.obtenerCentroMedicoPorId(
+                (Long) request.getSession().getAttribute("ID_CENTROMEDICO"));
+        List<Traslado> traslados = servicioTraslado.obtenerTrasladosPorCentroMedico(centroMedico);
+        map.put("traslados", traslados);
+        return new ModelAndView("Traslado/traslados-enCurso", map);
+
+    }
+
+    @RequestMapping(value = "/finalizarTraslado/{idTraslado}", method = RequestMethod.GET)
+    public ModelAndView finalizarTraslado(@PathVariable Long idTraslado){
+        Traslado traslado = servicioTraslado.obtenerTrasladoPorId(idTraslado);
+        traslado.setEstadoTraslado(EstadoTraslado.FINALIZADO);
+        Derivacion derivacion = traslado.getDerivacion();
+        derivacion.setEstadoDerivacion(EstadoDerivacion.FINALIZADA);
+        servicioDerivacion.modificarDerivacion(derivacion);
+        servicioTraslado.modificarTraslado(traslado);
+        return new ModelAndView("redirect:/ver-traslados-en curso");
+    }
+
+    @RequestMapping(value = "/cancelararTraslado/{idTraslado}", method = RequestMethod.GET)
+    public ModelAndView cancelarTraslado(@PathVariable Long idTraslado){
+        Traslado traslado = servicioTraslado.obtenerTrasladoPorId(idTraslado);
+        traslado.setEstadoTraslado(EstadoTraslado.CANCELADO);
+        Derivacion derivacion = traslado.getDerivacion();
+        derivacion.setEstadoDerivacion(EstadoDerivacion.ENBUSQUEDA);
+        servicioDerivacion.modificarDerivacion(derivacion);
+        servicioTraslado.modificarTraslado(traslado);
+        return new ModelAndView("redirect:/ver-traslados-en curso");
     }
 
 }

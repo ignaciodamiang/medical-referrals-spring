@@ -12,6 +12,8 @@ public class Traslado {
     private String direccionOrigen;
     @ManyToOne
     private CentroMedico centroMedico;
+    @Enumerated(EnumType.STRING)
+    private EstadoTraslado estadoTraslado;
 
     public Long getId() {
         return id;
@@ -33,4 +35,6 @@ public class Traslado {
     }
     public CentroMedico getCentroMedico() { return centroMedico; }
     public void setCentroMedico(CentroMedico centroMedico) { this.centroMedico = centroMedico; }
+    public EstadoTraslado getEstadoTraslado() {return estadoTraslado; }
+    public void setEstadoTraslado(EstadoTraslado estadoTraslado) {this.estadoTraslado = estadoTraslado; }
 }

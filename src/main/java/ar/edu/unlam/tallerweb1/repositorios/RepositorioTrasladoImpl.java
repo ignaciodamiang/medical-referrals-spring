@@ -1,9 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
-import ar.edu.unlam.tallerweb1.modelo.CentroMedico;
-import ar.edu.unlam.tallerweb1.modelo.Derivacion;
-import ar.edu.unlam.tallerweb1.modelo.SolicitudDerivacion;
-import ar.edu.unlam.tallerweb1.modelo.Traslado;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -37,7 +34,9 @@ public class RepositorioTrasladoImpl implements RepositorioTraslado{
     public List<Traslado> obtenerTrasladosPorCentroMedico(CentroMedico centroMedico) {
         final Session session = sessionFactory.getCurrentSession();
         return session.createCriteria(Traslado.class)
-        .add(Restrictions.eq("centroMedico",centroMedico)).list();
+        .add(Restrictions.eq("centroMedico",centroMedico))
+         .add(Restrictions.eq("estadoTraslado", EstadoTraslado.ENCURSO))
+         .list();
     }
 
     @Override
@@ -53,5 +52,11 @@ public class RepositorioTrasladoImpl implements RepositorioTraslado{
         List<Traslado> traslados = session.createCriteria(Traslado.class)
                 .addOrder(Order.desc("id")).list();
         return traslados;
+    }
+
+    @Override
+    public Traslado obtenerTrasladoPorId(Long idTraslado) {
+        final Session session= sessionFactory.getCurrentSession();
+        return session.get(Traslado.class, idTraslado);
     }
 }

@@ -50,4 +50,9 @@ public class ServicioTrasladoImpl implements ServicioTraslado{
     public List<Traslado> obtenerTraslados() {
         return repositorioTraslado.obtenerTraslados();
     }
+
+    @Override
+    public Traslado obtenerTrasladoPorId(Long idTraslado) {
+        return repositorioTraslado.obtenerTrasladoPorId(idTraslado);
+    }
 }

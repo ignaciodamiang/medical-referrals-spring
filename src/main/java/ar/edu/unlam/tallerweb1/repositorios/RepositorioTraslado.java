@@ -12,4 +12,5 @@ public interface RepositorioTraslado {
     List<Traslado> obtenerTrasladosPorCentroMedico(CentroMedico centroMedico);
     Traslado obtenerTrasladoPorDerivacion(Derivacion derivacion);
     List<Traslado> obtenerTraslados();
+    Traslado obtenerTrasladoPorId(Long idTraslado);
 }
