@@ -1,8 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.modelo.CentroMedico;
-import ar.edu.unlam.tallerweb1.modelo.SolicitudDerivacion;
-import ar.edu.unlam.tallerweb1.modelo.Traslado;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCentroMedico;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDerivacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSolicitudDerivacion;
@@ -24,12 +22,14 @@ public class ControladorTraslado {
     ServicioTraslado servicioTraslado;
     ServicioCentroMedico servicioCentroMedico;
     ServicioSolicitudDerivacion serviciosolicitudDerivacion;
+    ServicioDerivacion servicioDerivacion;
 
     @Autowired
-    public ControladorTraslado(ServicioTraslado servicioTraslado, ServicioCentroMedico servicioCentroMedico, ServicioSolicitudDerivacion solicitudDerivacion)
+    public ControladorTraslado(ServicioTraslado servicioTraslado, ServicioCentroMedico servicioCentroMedico, ServicioSolicitudDerivacion solicitudDerivacion, ServicioDerivacion servicioDerivacion)
     {this.servicioTraslado = servicioTraslado;
     this.servicioCentroMedico = servicioCentroMedico;
-    this.serviciosolicitudDerivacion = solicitudDerivacion;}
+    this.serviciosolicitudDerivacion = solicitudDerivacion;
+    this.servicioDerivacion = servicioDerivacion;}
 
     @RequestMapping(path = "", method = RequestMethod.GET)
     public ModelAndView obtenerTraslados(HttpServletRequest request) throws Exception {
@@ -47,8 +47,13 @@ public class ControladorTraslado {
         Traslado traslado = new Traslado();
         traslado.setCentroMedico(solicitudDerivacion.getCentroMedico());
         traslado.setDerivacion(solicitudDerivacion.getDerivacion());
+        solicitudDerivacion.setConfirmado(true);
+        Derivacion derivacion = solicitudDerivacion.getDerivacion();
+        derivacion.setEstadoDerivacion(EstadoDerivacion.ENTRASLADO);
+        servicioDerivacion.modificarDerivacion(derivacion);
+        serviciosolicitudDerivacion.modificarSolicitudDerivacion(solicitudDerivacion);
         servicioTraslado.guardarTraslado(traslado);
-        return new ModelAndView("redirect:/traslados");
+        return new ModelAndView("redirect:/listado-derivacion");
     }
 
     @RequestMapping(path = "/traslados", method = RequestMethod.GET)
