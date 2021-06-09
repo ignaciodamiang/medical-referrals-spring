@@ -53,16 +53,20 @@
                         <td class="text-center">${derivacion.diagnostico}</td>
                         <td class="text-center">${derivacion.fechaDerivacion}</td>
                         <td class="text-center">${derivacion.paraQueSector}</td>
-                        <td>
-                            <div class="row justify-content-md-center">
-                                <a href="nueva-solicitud-derivacion/${derivacion.id}"class="btn btn-info mb-1 text-white"  role="button">Generar Solicitud</a>
-                            </div>
-                        </td>
+                        <c:if test="${derivacion.getEstadoDerivacion().toString().equals('ENCURSO')}">
+                            <td>
+                                <div class="row justify-content-md-center">
+                                    <a href="nueva-solicitud-derivacion/${derivacion.id}"class="btn btn-info mb-1 text-white"  role="button">Generar Solicitud</a>
+                                </div>
+                            </td>
+                        </c:if>
+                        <c:if test="${derivacion.getEstadoDerivacion().toString().equals('ENCURSO')}">
                         <td>
                             <div class="row justify-content-md-center">
                                 <a href="verSolicitudes/${derivacion.id}"class="btn btn-success mb-1 text-white"  role="button">Ver Solicitud</a>
                             </div>
                         </td>
+                        </c:if>
                     </tr>
                 </c:forEach>
                 </tbody>

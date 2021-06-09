@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Cobertura;
 import ar.edu.unlam.tallerweb1.modelo.Derivacion;
+import ar.edu.unlam.tallerweb1.modelo.EstadoDerivacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -52,6 +53,7 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
         final Session session = sessionFactory.getCurrentSession();
         return session.createCriteria(Derivacion.class)
                 .add(Restrictions.eq("cobertura", cobertura))
+                .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.FINALIZADA))
                 .list();
     }
 
