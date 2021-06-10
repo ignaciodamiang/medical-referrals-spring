@@ -8,8 +8,9 @@
     <title>Derivaciones</title>
 </head>
 <body>
-
-<div class="container">
+<!-- se agrega la columna menu -->
+<%@ include file="../../../parts/menu.jsp" %>
+<div class="col-10" id="main">
     <div class="justify-content-between d-flex mt-3">
         <h2 class="mt-4">Derivaciones</h2>
     </div>
