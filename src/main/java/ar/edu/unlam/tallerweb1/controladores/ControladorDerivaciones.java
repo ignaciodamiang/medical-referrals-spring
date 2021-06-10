@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -141,7 +142,7 @@ public class ControladorDerivaciones {
             fechaMin = "1900-01-01";
         }
         if(fechaMax.equals("")){
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             fechaMax = sdf.format(new Date());
         }
         Long idUsuario = (Long) request.getSession().getAttribute("ID_USUARIO");

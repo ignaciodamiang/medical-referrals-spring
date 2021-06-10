@@ -73,6 +73,7 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
 
         Date desde = new SimpleDateFormat("yyyy-MM-dd").parse(fechaMin);
         Date hasta = new SimpleDateFormat("yyyy-MM-dd").parse(fechaMax);
-        return respositorioDerivacion.filtrarDerivacionesPorFecha(desde, hasta, usuario);
+        Date fix = new Date(hasta.getTime()+(1000 * 60 * 60 * 24));
+        return respositorioDerivacion.filtrarDerivacionesPorFecha(desde, fix, usuario);
     }
 }
