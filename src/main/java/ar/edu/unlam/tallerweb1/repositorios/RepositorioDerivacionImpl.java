@@ -62,7 +62,9 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
     public List<Derivacion> obtenerDerivacionesPorAutor(Usuario autor) {
         final Session session = sessionFactory.getCurrentSession();
         return session.createCriteria(Derivacion.class)
-                .add(Restrictions.eq("autor", autor)).list();
+                .add(Restrictions.eq("autor", autor))
+                .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.FINALIZADA))
+                .list();
     }
 
     @Override
