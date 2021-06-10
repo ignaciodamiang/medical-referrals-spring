@@ -5,6 +5,7 @@ import ar.edu.unlam.tallerweb1.modelo.Derivacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.util.List;
 
 public interface ServicioDerivacion {
@@ -19,4 +20,5 @@ public interface ServicioDerivacion {
 
     List<Derivacion> obtenerDerivacionesPorAutor(Usuario autor);
     List<Derivacion> derivacionesPorCobertura(Cobertura cobertura);
+    List<Derivacion> filtrarDerivacionesPorFecha(Long idUsuario, String fechaMin, String fechaMax) throws ParseException;
 }
