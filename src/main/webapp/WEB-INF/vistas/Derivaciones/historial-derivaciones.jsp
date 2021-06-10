@@ -8,7 +8,8 @@
     <title>Historial Derivaciones</title>
 </head>
 <body>
-<div class="container">
+<%@ include file="../../../parts/menu.jsp" %>
+<div class="col-10">
               <form action="filtrarDerivaciones" method="post">
                 <label for="min">Desde</label>
                 <input type="date" name="fechaMin" id="min">
