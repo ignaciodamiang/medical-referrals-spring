@@ -8,8 +8,9 @@
     <title>Solicitud de Derivaciones</title>
 </head>
 <body>
-
-<div class="container">
+<!-- se agrega la columna menu -->
+<%@ include file="../../../parts/menu.jsp" %>
+<div class="col-10" id="main">
     <div class="justify-content-between d-flex mt-3">
         <h2 class="mt-4">Solicitud de derivaciones</h2>
             <c:if test="${rol =='Derivador'}">
@@ -115,13 +116,13 @@
             </table>
         </c:otherwise>
     </c:choose>
-</div>
+
         <c:if test="${rol =='Administrativo'}">
         <div class="row justify-content-md-center">
             <a href="ver-traslados-encurso"class="btn text-white mt-4" style="background-color:#d35400" role="button">Ver Traslados en Curso</a>
         </div>
         </c:if>
-
+</div>
 <%@ include file="../../../parts/footer.jsp" %>
 </body>
 </html>
