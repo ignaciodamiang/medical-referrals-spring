@@ -6,10 +6,12 @@ import ar.edu.unlam.tallerweb1.modelo.EstadoDerivacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository("repositorioDerivacion")
@@ -60,7 +62,19 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
     public List<Derivacion> obtenerDerivacionesPorAutor(Usuario autor) {
         final Session session = sessionFactory.getCurrentSession();
         return session.createCriteria(Derivacion.class)
-                .add(Restrictions.eq("autor", autor)).list();
+                .add(Restrictions.eq("autor", autor))
+                .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.FINALIZADA))
+                .list();
+    }
+
+    @Override
+    public List<Derivacion> filtrarDerivacionesPorFecha(Date fechaMin, Date fechaMax, Usuario autor) {
+        final Session session = sessionFactory.getCurrentSession();
+        return session.createCriteria(Derivacion.class)
+                .add(Restrictions.eq("autor", autor))
+                .add(Restrictions.eq("estadoDerivacion", EstadoDerivacion.FINALIZADA))
+                .add(Restrictions.between("fechaDerivacion", fechaMin, fechaMax))
+                .addOrder(Order.asc("fechaDerivacion")).list();
     }
 
     @Override

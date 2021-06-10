@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service("servicioDerivacion")
@@ -62,5 +65,14 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
     @Override
     public List<Derivacion> derivacionesPorCobertura(Cobertura cobertura) {
         return respositorioDerivacion.derivacionesPorCobertura(cobertura);
+    }
+
+    @Override
+    public List<Derivacion> filtrarDerivacionesPorFecha(Long idUsuario, String fechaMin, String fechaMax) throws ParseException {
+        Usuario usuario = repositorioUsuario.obtenerUsuarioPorId(idUsuario);
+
+        Date desde = new SimpleDateFormat("yyyy-MM-dd").parse(fechaMin);
+        Date hasta = new SimpleDateFormat("yyyy-MM-dd").parse(fechaMax);
+        return respositorioDerivacion.filtrarDerivacionesPorFecha(desde, hasta, usuario);
     }
 }

@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.modelo.Cobertura;
 import ar.edu.unlam.tallerweb1.modelo.Derivacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
+import java.util.Date;
 import java.util.List;
 
 public interface RepositorioDerivacion {
@@ -16,4 +17,5 @@ public interface RepositorioDerivacion {
 	List<Derivacion> derivacionesPorCobertura(Cobertura cobertura);
 
     List<Derivacion> obtenerDerivacionesPorAutor(Usuario autor);
+    List<Derivacion> filtrarDerivacionesPorFecha(Date fechaMin, Date fechaMax, Usuario autor);
 }

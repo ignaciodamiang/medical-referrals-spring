@@ -17,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -41,6 +43,9 @@ public class ControladorDerivaciones {
     @RequestMapping(path = "/listado-derivacion")
     public ModelAndView derivaciones(HttpServletRequest request){
         ModelMap model = new ModelMap();
+        if(request.getSession().getAttribute("ROL") == null){
+            return new ModelAndView("redirect:/login");
+        }
         Derivacion derivacion = new Derivacion();
         Cobertura cobertura = servicioCobertura.obtenerCoberturaPorId((Long)request.getSession().getAttribute("ID_COBERTURA"));
         List<Derivacion> listaDerivaciones = servicioDerivacion.derivacionesPorCobertura(cobertura);
@@ -113,5 +118,35 @@ public class ControladorDerivaciones {
         attributes.addFlashAttribute("message","Se elimino exitosamente.");
         return new ModelAndView("redirect:/listado-derivacion");
 
+    }
+
+    @RequestMapping(path = "historialDerivaciones", method = RequestMethod.GET)
+    public ModelAndView historialDerivaciones(HttpServletRequest request) throws ParseException {
+        ModelMap map = new ModelMap();
+        Long idUsuario = (Long) request.getSession().getAttribute("ID_USUARIO");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaMax = sdf.format(new Date());
+        List<Derivacion> derivaciones = servicioDerivacion.filtrarDerivacionesPorFecha(idUsuario, "1900-01-01", fechaMax);
+        map.put("derivaciones", derivaciones);
+        return new ModelAndView("Derivaciones/historial-derivaciones", map);
+    }
+
+    @RequestMapping(path = "filtrarDerivaciones", method = RequestMethod.POST)
+    public ModelAndView filtrarDerivaciones(@RequestParam String fechaMin, @RequestParam String fechaMax, HttpServletRequest request) throws ParseException {
+        ModelMap map = new ModelMap();
+        if(fechaMin.equals("") && fechaMax.equals("")){
+            return new ModelAndView("redirect:/historialDerivaciones");
+        }
+        if(fechaMin.equals("")){
+            fechaMin = "1900-01-01";
+        }
+        if(fechaMax.equals("")){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            fechaMax = sdf.format(new Date());
+        }
+        Long idUsuario = (Long) request.getSession().getAttribute("ID_USUARIO");
+        List<Derivacion> derivaciones = servicioDerivacion.filtrarDerivacionesPorFecha(idUsuario, fechaMin, fechaMax);
+        map.put("derivaciones", derivaciones);
+        return new ModelAndView("Derivaciones/historial-derivaciones", map);
     }
 }
