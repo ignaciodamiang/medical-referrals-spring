@@ -4,7 +4,7 @@
 <html>
 <head>
     <%@ include file="../../../parts/meta.jsp" %>
-    <title>Title</title>
+    <title>Buscar Paciente</title>
 </head>
 <body>
             <!-- se agrega la columna menu -->
@@ -30,8 +30,10 @@
                     <a href="nueva-derivacion/${paciente.id}">Generar nueva derivación</a>
                 </div>
             </c:if>
+            <h2 class="text-center"> Derivaciones activas</h2>
+            <div class="d-flex flex-wrap mb-3">
             <c:forEach items="${derivaciones}" var="derivacion">
-                <div class="card" style="width: 18rem;">
+                <div class="card m-2" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">Derivacion del paciente: ${derivacion.getPaciente().getNombreCompleto()}</h5>
                         <p class="card-text"> ${derivacion.getFechaDerivacion()} </p>
@@ -80,9 +82,8 @@
                         
                     </div>
                 </div>
-
-
             </c:forEach>
+            </div>
         </div>
 
 <%@ include file="../../../parts/footer.jsp" %>

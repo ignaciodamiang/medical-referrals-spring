@@ -7,39 +7,35 @@
             switch (rolMenu){
                 case "Solicitador":
             {%>
-                <div class="col-2"style="background-color:#008000" id="sticky-sidebar">
+                <div class="col-2 d-flex flex-column"style="background-color:#008000" id="sticky-sidebar">
                 <div class="sticky-top">
-                <div class="nav flex-column text-white">
-                <p class="m-auto">Bienvenido Solicitador</p>
+                <p class="text-decoration-none text-white nav-link">Bienvenido Solicitador</p>
                 <a href="./historialDerivaciones" class="text-decoration-none text-white nav-link">Historial derivacion</a>
             <%}
                     break;
                 case "Derivador":
                 {%>
-                <div class="col-2"style="background-color:#d35400" id="sticky-sidebar">
+                <div class="col-2 d-flex flex-column"style="background-color:#d35400" id="sticky-sidebar">
                 <div class="sticky-top">
-                <div class="nav flex-column text-white">
-                <p class="m-auto">Bienvenido Derivador</p>
+                <p class="text-decoration-none text-white nav-link">Bienvenido Derivador</p>
             <%}
                     ;break;
                 case "Administrativo":
                 {%>
-            <div class="col-2"style="background-color:#1338BE" id="sticky-sidebar">
+            <div class="col-2 d-flex flex-column"style="background-color:#1338BE" id="sticky-sidebar">
             <div class="sticky-top">
-            <div class="nav flex-column text-white">
-            <p class="m-auto">Bienvenido Administrativo</p>
+            <p class="text-decoration-none text-white nav-link">Bienvenido Administrativo</p>
             <%} ;break;
                 default:
                 {%>
-            <p class="m-auto">Usted no deberia estar aca ¬¬</p>
+            <p class="text-decoration-none text-white nav-link">Usted no deberia estar aca ¬¬</p>
             <%} ;break;
             }%>
 
             <a href="./BuscarPaciente" class="text-decoration-none text-white nav-link">Buscar paciente</a>
             <a href="./solicitudes-derivaciones" class="text-decoration-none text-white nav-link">Solicitud de derivaciones</a>
             <a href="./listado-derivacion" class="text-decoration-none text-white nav-link">Listado derivaciones</a>
-            <a href="#_" class="nav-link">Link</a>
-            <a href="#_" class="nav-link">Link</a>
+            <a href="#_" class="text-decoration-none text-white nav-link">otro link</a>
+            <a href="#_" class="text-decoration-none text-white nav-link">Loguout</a>
         </div>
-    </div>
 </div>
