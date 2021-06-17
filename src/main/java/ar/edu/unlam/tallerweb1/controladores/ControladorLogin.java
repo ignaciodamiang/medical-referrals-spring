@@ -94,5 +94,15 @@ public class ControladorLogin {
 		}
 		return new ModelAndView("redirect:/login");
 	}
+	@RequestMapping(path = "/logout", method = RequestMethod.GET)
+	public ModelAndView logout(HttpServletRequest request){
+		request.getSession().removeAttribute("ID_USUARIO");
+		request.getSession().removeAttribute("ID_ADMINISTRATIVO");
+		request.getSession().removeAttribute("ID_CENTROMEDICO");
+		request.getSession().removeAttribute("ID_DERIVADOR");
+		request.getSession().removeAttribute("ID_COBERTURA");
+		request.getSession().removeAttribute("ID_SOLICITADOR");
 
+		return new ModelAndView("redirect:/login");
+	}
 }
