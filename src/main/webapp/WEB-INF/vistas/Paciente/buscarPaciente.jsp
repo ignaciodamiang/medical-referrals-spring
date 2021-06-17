@@ -39,11 +39,10 @@
                         <h5 class="card-title">Derivacion del paciente: ${derivacion.getPaciente().getNombreCompleto()}</h5>
                         <p class="card-text"> ${derivacion.getFechaDerivacion()} </p>
                         <p class="card-text">Diagnostico: ${derivacion.getDiagnostico()}</p>
-                        
-                                                <!-- Button to Open the Modal -->
-                                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#derivacion${derivacion.getId()}">
-                                                    Detalles
-                                                </button>
+                        <!-- Button to Open the Modal -->
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#derivacion${derivacion.getId()}">
+                            Detalles
+                        </button>
                                                 <!-- The Modal -->
                                                 <div class="modal fade" id="derivacion${derivacion.getId()}">
                                                     <div class="modal-dialog">
@@ -80,12 +79,13 @@
                                                         <div class="modal-content">
                                                             <!-- Modal Header -->
                                                             <div class="modal-header">
+                                                            <h5>Cancelar derivación</h5>
                                                             </div>
                                                             <!-- Modal body -->
                                                             <div class="modal-body">
                                                                 <form action="cancelar-derivacion/${derivacion.getId() }" method="post">
-                                                                <label>Motivo cancelación</label>
-                                                                <textarea name="mensaje" rows="20" cols="1"></textarea>
+                                                                <label>Motivo:</label>
+                                                                <textarea name="mensaje" rows="5" cols="50"></textarea>
                                                                 <button type="submit" class="btn btn-danger">Confirmar anulacion</button>
                                                                 </form>
                                                             </div>
