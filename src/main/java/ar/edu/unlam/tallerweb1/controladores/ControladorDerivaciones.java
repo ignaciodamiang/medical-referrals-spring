@@ -3,9 +3,12 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.modelo.Cobertura;
 import ar.edu.unlam.tallerweb1.modelo.Derivacion;
 import ar.edu.unlam.tallerweb1.modelo.EstadoDerivacion;
+import ar.edu.unlam.tallerweb1.modelo.Notificacion;
 import ar.edu.unlam.tallerweb1.modelo.Paciente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCobertura;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDerivacion;
+import ar.edu.unlam.tallerweb1.servicios.ServicioNotificacion;
+import ar.edu.unlam.tallerweb1.servicios.ServicioNotificacionUsuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPaciente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPlan;
 import org.dom4j.rule.Mode;
@@ -32,13 +35,17 @@ public class ControladorDerivaciones {
     private ServicioPaciente servicioPaciente;
     private ServicioCobertura servicioCobertura;
     private ServicioPlan servicioPlan;
+    private ServicioNotificacion servicioNotificacion;
+    private ServicioNotificacionUsuario servicioNotificacionUsuario;
 
     @Autowired
-    public ControladorDerivaciones(ServicioDerivacion servicioDerivacion, ServicioPaciente servicioPaciente, ServicioCobertura servicioCobertura, ServicioPlan servicioPlan){
+    public ControladorDerivaciones(ServicioDerivacion servicioDerivacion, ServicioPaciente servicioPaciente, ServicioCobertura servicioCobertura, ServicioPlan servicioPlan, ServicioNotificacion servicioNotificacion, ServicioNotificacionUsuario servicioNotificacionUsuario){
         this.servicioDerivacion = servicioDerivacion;
         this.servicioPaciente = servicioPaciente;
         this.servicioCobertura = servicioCobertura;
         this.servicioPlan = servicioPlan;
+        this.servicioNotificacion=servicioNotificacion;
+        this.servicioNotificacionUsuario=servicioNotificacionUsuario;
     }
 
     @RequestMapping(path = "/listado-derivacion")
@@ -113,10 +120,16 @@ public class ControladorDerivaciones {
     }
 
 
-    @RequestMapping(path = "eliminar-derivacion" , method = RequestMethod.POST)
-    public ModelAndView eliminarDerivacion(@ModelAttribute("derivacion") Derivacion derivacion,RedirectAttributes attributes){
-        servicioDerivacion.eliminarDerivacion(derivacion);
-        attributes.addFlashAttribute("message","Se elimino exitosamente.");
+    @RequestMapping(path = "cancelar-derivacion/id" , method = RequestMethod.POST)
+    public ModelAndView eliminarDerivacion(@PathVariable("id") Long id, @RequestParam("mensaje") String mensaje, HttpServletRequest request) throws Exception{
+        Derivacion derivacion = servicioDerivacion.verDerivacion(id);
+        derivacion.setEstadoDerivacion(EstadoDerivacion.CANCELADA);
+        servicioDerivacion.modificarDerivacion(derivacion);
+        Notificacion notificacion = new Notificacion();
+        notificacion.setDerivacion(derivacion);
+        notificacion.setMensaje(mensaje);
+        servicioNotificacion.guardarNotificacion(notificacion, request);
+        servicioNotificacionUsuario.guardarNotificacionUsuario(notificacion, request);
         return new ModelAndView("redirect:/listado-derivacion");
 
     }
