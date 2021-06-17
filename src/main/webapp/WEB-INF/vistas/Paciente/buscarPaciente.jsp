@@ -35,6 +35,7 @@
             <c:forEach items="${derivaciones}" var="derivacion">
                 <div class="card m-2" style="width: 18rem;">
                     <div class="card-body">
+                    	<button type="button" class="close" data-toggle="modal" data-target="#CancelarDerivacion${derivacion.getId() }">&times;</button>
                         <h5 class="card-title">Derivacion del paciente: ${derivacion.getPaciente().getNombreCompleto()}</h5>
                         <p class="card-text"> ${derivacion.getFechaDerivacion()} </p>
                         <p class="card-text">Diagnostico: ${derivacion.getDiagnostico()}</p>
@@ -66,6 +67,27 @@
                                                                 <span>${derivacion.getParaQueSector()}</span>
                                                                 <h4>Cobertura:</h4>
                                                                 <span>${derivacion.getCobertura().getNombre()}</span>
+                                                            </div>
+                                                            <!-- Modal footer -->
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade" id="CancelarDerivacion${derivacion.getId()}">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <!-- Modal Header -->
+                                                            <div class="modal-header">
+                                                            </div>
+                                                            <!-- Modal body -->
+                                                            <div class="modal-body">
+                                                                <form action="cancelar-derivacion/${derivacion.getId() }" method="post">
+                                                                <label>Motivo cancelación</label>
+                                                                <textarea name="mensaje" rows="20" cols="1"></textarea>
+                                                                <button type="submit" class="btn btn-danger">Confirmar anulacion</button>
+                                                                </form>
                                                             </div>
                                                             <!-- Modal footer -->
                                                             <div class="modal-footer">
