@@ -65,6 +65,7 @@ public class Derivacion {
     }
     public Usuario getAutor() { return autor; }
     public void setAutor(Usuario autor) { this.autor = autor;}
+    
 	public EstadoDerivacion getEstadoDerivacion() {
 		return estadoDerivacion;
 	}
