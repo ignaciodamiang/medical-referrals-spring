@@ -6,6 +6,7 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioNotificacionUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,5 +30,14 @@ import java.util.List;
         map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
         map.put("notificaciones",servicioNotificacionUsuario.obtenerNotificacionPorUsuario(request));
         return new ModelAndView("Notificaciones/notificacionesUsuario", map);
+    }
+
+    @RequestMapping(path = "/detalleNotificacion/{idNotificaciónUsuario}", method = RequestMethod.GET)
+    public ModelAndView verDetalleNotificacion(@PathVariable Long idNotificaciónUsuario, HttpServletRequest request) throws Exception {
+        ModelMap map = new ModelMap();
+        servicioNotificacionUsuario.marcarComoLeida(idNotificaciónUsuario);
+        map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
+        map.put("detalleNotificacion", servicioNotificacionUsuario.mostrarNotificacionUsuario(idNotificaciónUsuario));
+        return new ModelAndView("Notificaciones/detalleNotificacion", map);
     }
 }

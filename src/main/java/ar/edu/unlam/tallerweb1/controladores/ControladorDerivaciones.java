@@ -133,6 +133,7 @@ public class ControladorDerivaciones {
 		Notificacion notificacion = new Notificacion();
 		notificacion.setDerivacion(derivacion);
 		notificacion.setMensaje(mensaje);
+		notificacion.setTitulo("Se ha cancelado la derivación" + derivacion.getId());
 		servicioNotificacion.guardarNotificacion(notificacion);
 		servicioNotificacionUsuario.guardarNotificacionUsuario(notificacion, derivacion.getAutor().getId());
 		return new ModelAndView("redirect:/router");
