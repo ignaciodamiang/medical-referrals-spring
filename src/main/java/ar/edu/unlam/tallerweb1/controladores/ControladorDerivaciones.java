@@ -133,8 +133,8 @@ public class ControladorDerivaciones {
 		Notificacion notificacion = new Notificacion();
 		notificacion.setDerivacion(derivacion);
 		notificacion.setMensaje(mensaje);
-		servicioNotificacion.guardarNotificacion(notificacion, request);
-		servicioNotificacionUsuario.guardarNotificacionUsuario(notificacion, request);
+		servicioNotificacion.guardarNotificacion(notificacion);
+		servicioNotificacionUsuario.guardarNotificacionUsuario(notificacion, derivacion.getAutor().getId());
 		return new ModelAndView("redirect:/router");
 
 	}

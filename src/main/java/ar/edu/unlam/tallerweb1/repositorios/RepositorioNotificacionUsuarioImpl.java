@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -25,13 +26,25 @@ public class RepositorioNotificacionUsuarioImpl implements RepositorioNotificaci
 		final Session session = sessionFactory.getCurrentSession();
 		
 		return session.createCriteria(NotificacionUsuario.class)
-				.add(Restrictions.eq("usuario", usuario)).list();
+				.add(Restrictions.eq("usuario", usuario))
+				.addOrder(Order.asc("notificacion"))
+				.list();
 	}
 
 	@Override
 	public void guardarNotificacionUsuario(NotificacionUsuario notiUsuario) {
 		final Session session = sessionFactory.getCurrentSession();
 		session.save(notiUsuario);
+	}
+
+	@Override
+	public List<NotificacionUsuario> obtenerNotificacionesNoLeidasPorUsuario(Usuario usuario) {
+		final Session session = sessionFactory.getCurrentSession();
+
+		return session.createCriteria(NotificacionUsuario.class)
+				.add(Restrictions.eq("usuario", usuario))
+				.add(Restrictions.eq("leido",false))
+				.list();
 	}
 
 }

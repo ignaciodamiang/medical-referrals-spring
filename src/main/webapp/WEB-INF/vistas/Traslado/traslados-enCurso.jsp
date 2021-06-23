@@ -17,9 +17,34 @@
                 <a href="finalizarTraslado/${traslado.id}" class="btn btn-success">
                     Finalizar
                 </a>
-                <a href="cancelarTraslado/${traslado.id}" class="btn btn-danger">
-                    Cancelar
-                </a>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#traslado${traslado.getId()}">
+                        Cancelar
+                </button>
+                    <!-- The Modal -->
+                    <div class="modal fade" id="traslado${traslado.getId()}">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Cancelar Traslado</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                   <form action="cancelarTraslado/${traslado.getId()}" method="post">
+                                       <label for="mensaje">Escriba motivo de cancelacion</label>
+                                       <textarea id="mensaje" name="mensaje" rows="4" cols="50" required> mensaje... </textarea>
+                                        <input type="submit" class="btn btn-success" value="Confirmar cancelacion">
+                                   </form>
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
             </div>
         </div>
     </c:forEach>

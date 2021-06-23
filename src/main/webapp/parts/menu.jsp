@@ -36,7 +36,7 @@
             <p class="text-decoration-none text-white nav-link">Usted no deberia estar aca ¬¬</p>
             <%} ;break;
             }%>
-            <a href="#_" class="text-decoration-none text-white nav-link">otro link</a>
+            <a href="./notificaciones" class="text-decoration-none text-white nav-link"> Notificaciones (${cantNotificacion})</a>
             <a href="./logout" class="text-decoration-none text-white nav-link">Loguout</a>
         </div>
 </div>
