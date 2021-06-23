@@ -22,7 +22,7 @@ public class ServicioNotificacionImpl implements ServicioNotificacion{
 	}
 	
 	@Override
-	public void guardarNotificacion(Notificacion notificacion, HttpServletRequest request) {
+	public void guardarNotificacion(Notificacion notificacion) {
 		notificacion.setFecha(new Date());
 		repositorioNotificacion.guardarNotificacion(notificacion); 
 	}

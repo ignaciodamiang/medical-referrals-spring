@@ -10,6 +10,7 @@
             <!-- se agrega la columna menu -->
         <%@ include file="../../../parts/menu.jsp" %>
         <div class="col-10" id="main">
+            <!--  fin menu -->
             <form action="ObtenerPaciente" method="post">
                 <label for="documento">Numero de Documento del Paciente</label>
                 <input name="documento" type="number" id="documento"/>
@@ -106,6 +107,8 @@
                 </div>
             </c:forEach>
             </div>
+
+            <!--  footer -->
         </div>
 
 <%@ include file="../../../parts/footer.jsp" %>

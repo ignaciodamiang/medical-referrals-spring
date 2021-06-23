@@ -9,4 +9,5 @@ public interface RepositorioNotificacionUsuario {
 
 	List <NotificacionUsuario> obtenerNotificacionPorUsuario(Usuario usuario);
 	void guardarNotificacionUsuario(NotificacionUsuario notiUsuario);
+	List<NotificacionUsuario> obtenerNotificacionesNoLeidasPorUsuario(Usuario usuario);
 }

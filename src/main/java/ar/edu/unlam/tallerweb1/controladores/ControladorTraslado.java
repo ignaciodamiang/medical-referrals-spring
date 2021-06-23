@@ -1,16 +1,14 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.*;
-import ar.edu.unlam.tallerweb1.servicios.ServicioCentroMedico;
-import ar.edu.unlam.tallerweb1.servicios.ServicioDerivacion;
-import ar.edu.unlam.tallerweb1.servicios.ServicioSolicitudDerivacion;
-import ar.edu.unlam.tallerweb1.servicios.ServicioTraslado;
+import ar.edu.unlam.tallerweb1.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,17 +17,23 @@ import java.util.List;
 @Controller
 public class ControladorTraslado {
 
-    ServicioTraslado servicioTraslado;
-    ServicioCentroMedico servicioCentroMedico;
-    ServicioSolicitudDerivacion serviciosolicitudDerivacion;
-    ServicioDerivacion servicioDerivacion;
+    private ServicioTraslado servicioTraslado;
+    private ServicioCentroMedico servicioCentroMedico;
+    private ServicioSolicitudDerivacion serviciosolicitudDerivacion;
+    private ServicioDerivacion servicioDerivacion;
+    private ServicioNotificacion servicioNotificacion;
+    private ServicioNotificacionUsuario servicioNotificacionUsuario;
 
     @Autowired
-    public ControladorTraslado(ServicioTraslado servicioTraslado, ServicioCentroMedico servicioCentroMedico, ServicioSolicitudDerivacion solicitudDerivacion, ServicioDerivacion servicioDerivacion)
+    public ControladorTraslado(ServicioTraslado servicioTraslado, ServicioCentroMedico servicioCentroMedico, ServicioSolicitudDerivacion solicitudDerivacion, ServicioDerivacion servicioDerivacion, ServicioNotificacion servicioNotificacion,
+                               ServicioNotificacionUsuario servicioNotificacionUsuario)
     {this.servicioTraslado = servicioTraslado;
     this.servicioCentroMedico = servicioCentroMedico;
     this.serviciosolicitudDerivacion = solicitudDerivacion;
-    this.servicioDerivacion = servicioDerivacion;}
+    this.servicioDerivacion = servicioDerivacion;
+    this.servicioNotificacion = servicioNotificacion;
+    this.servicioNotificacionUsuario = servicioNotificacionUsuario;
+    }
 
     @RequestMapping(path = "/crearTraslado/{idSolicitud}", method = RequestMethod.GET)
     public ModelAndView crearTraslado(@PathVariable Long idSolicitud){
@@ -85,12 +89,17 @@ public class ControladorTraslado {
         return new ModelAndView("redirect:/ver-traslados-encurso");
     }
 
-    @RequestMapping(value = "/cancelararTraslado/{idTraslado}", method = RequestMethod.GET)
-    public ModelAndView cancelarTraslado(@PathVariable Long idTraslado){
+    @RequestMapping(value = "/cancelarTraslado/{idTraslado}", method = RequestMethod.POST)
+    public ModelAndView cancelarTraslado(@PathVariable Long idTraslado, @RequestParam("mensaje") String mensaje){
         Traslado traslado = servicioTraslado.obtenerTrasladoPorId(idTraslado);
         traslado.setEstadoTraslado(EstadoTraslado.CANCELADO);
+        Notificacion notificacion = new Notificacion();
+        notificacion.setTraslado(traslado);
+        notificacion.setMensaje(mensaje);
         Derivacion derivacion = traslado.getDerivacion();
         derivacion.setEstadoDerivacion(EstadoDerivacion.ENBUSQUEDA);
+        servicioNotificacion.guardarNotificacion(notificacion);
+        servicioNotificacionUsuario.guardarNotificacionUsuario(notificacion,traslado.getDerivacion().getAutor().getId());
         servicioDerivacion.modificarDerivacion(derivacion);
         servicioTraslado.modificarTraslado(traslado);
         return new ModelAndView("redirect:/ver-traslados-encurso");

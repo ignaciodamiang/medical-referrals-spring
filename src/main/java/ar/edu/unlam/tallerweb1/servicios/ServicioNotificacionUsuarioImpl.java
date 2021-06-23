@@ -29,11 +29,12 @@ public class ServicioNotificacionUsuarioImpl implements ServicioNotificacionUsua
 		this.repositorioNotificacionUsuario=repositorioNotificacionUsuario;
 	}
 	@Override
-	public void guardarNotificacionUsuario(Notificacion notificacion, HttpServletRequest request) {
+	public void guardarNotificacionUsuario(Notificacion notificacion, Long idUsuario) {
 		NotificacionUsuario notiUsuario = new NotificacionUsuario();
-		Usuario usuario = repositorioUsuario.obtenerUsuarioPorId((Long)request.getSession().getAttribute("ID_USUARIO"));
+		Usuario usuario = repositorioUsuario.obtenerUsuarioPorId(idUsuario);
 		notiUsuario.setNotificacion(notificacion);
 		notiUsuario.setUsuario(usuario);
+		notiUsuario.setLeido(false);
 		repositorioNotificacionUsuario.guardarNotificacionUsuario(notiUsuario);
 	}
 
@@ -41,6 +42,12 @@ public class ServicioNotificacionUsuarioImpl implements ServicioNotificacionUsua
 	public List<NotificacionUsuario> obtenerNotificacionPorUsuario(HttpServletRequest request) {
 		Usuario usuario = repositorioUsuario.obtenerUsuarioPorId((Long)request.getSession().getAttribute("ID_USUARIO"));
 		return repositorioNotificacionUsuario.obtenerNotificacionPorUsuario(usuario);
+	}
+
+	@Override
+	public Integer obtenerNotificacionesNoLeidas(HttpServletRequest request) {
+		Usuario usuario = repositorioUsuario.obtenerUsuarioPorId((Long)request.getSession().getAttribute("ID_USUARIO"));
+		return repositorioNotificacionUsuario.obtenerNotificacionesNoLeidasPorUsuario(usuario).size();
 	}
 
 }

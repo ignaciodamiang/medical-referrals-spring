@@ -3,9 +3,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.modelo.Derivacion;
 import ar.edu.unlam.tallerweb1.modelo.Paciente;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
-import ar.edu.unlam.tallerweb1.servicios.ServicioDerivacion;
-import ar.edu.unlam.tallerweb1.servicios.ServicioPaciente;
-import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
+import ar.edu.unlam.tallerweb1.servicios.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,13 +23,15 @@ public class ControladorPaciente {
     private ServicioPaciente servicioPaciente;
     private ServicioDerivacion servicioDerivacion;
     private ServicioUsuario servicioUsuario;
+    private ServicioNotificacionUsuario servicioNotificacionUsuario;
 
     @Autowired
-    public ControladorPaciente(ServicioPaciente servicioPaciente, ServicioDerivacion servicioDerivacion, ServicioUsuario servicioUsuario){
+    public ControladorPaciente(ServicioPaciente servicioPaciente, ServicioDerivacion servicioDerivacion, ServicioUsuario servicioUsuario, ServicioNotificacionUsuario servicioNotificacionUsuario){
     	this.servicioPaciente = servicioPaciente;
     	this.servicioDerivacion = servicioDerivacion;
     	this.servicioUsuario=servicioUsuario;
-	}
+        this.servicioNotificacionUsuario = servicioNotificacionUsuario;
+    }
 
     @RequestMapping(path = "/BuscarPaciente")
     public ModelAndView irABuscarPaciente(HttpServletRequest request){
@@ -39,6 +39,7 @@ public class ControladorPaciente {
         Usuario autor = servicioUsuario.consultarUsuarioPorId((Long)request.getSession().getAttribute("ID_USUARIO"));
         //String solicitador= request.getSession().getAttribute("ID_SOLICITADOR");
         List<Derivacion> derivaciones = servicioDerivacion.obtenerDerivacionesPorAutor(autor);
+        map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
         map.put("derivaciones", derivaciones);
         return new ModelAndView("Paciente/buscarPaciente", map);
     }

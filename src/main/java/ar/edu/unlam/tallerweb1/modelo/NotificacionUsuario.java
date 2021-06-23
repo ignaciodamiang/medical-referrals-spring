@@ -16,7 +16,8 @@ public class NotificacionUsuario {
 	private Usuario usuario;
 	@ManyToOne
 	private Notificacion notificacion;
-	
+	private Boolean leido;
+
 	public Long getId() {
 		return id;
 	}
@@ -35,4 +36,6 @@ public class NotificacionUsuario {
 	public void setNotificacion(Notificacion notificacion) {
 		this.notificacion = notificacion;
 	}
+	public Boolean getLeido() {return leido;}
+	public void setLeido(Boolean leido) {this.leido = leido;}
 }
