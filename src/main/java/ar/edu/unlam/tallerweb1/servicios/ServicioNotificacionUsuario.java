@@ -15,4 +15,6 @@ public interface ServicioNotificacionUsuario {
 	void guardarNotificacionUsuario(Notificacion notificacion, Long id);
 	List<NotificacionUsuario> obtenerNotificacionPorUsuario(HttpServletRequest request);
 	Integer obtenerNotificacionesNoLeidas(HttpServletRequest request);
+	void marcarComoLeida(Long idNotificacionUsuario);
+	NotificacionUsuario mostrarNotificacionUsuario(Long idNotificacionUsuario);
 }

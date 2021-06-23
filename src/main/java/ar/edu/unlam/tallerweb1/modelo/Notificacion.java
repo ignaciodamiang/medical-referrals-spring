@@ -13,6 +13,7 @@ public class Notificacion {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+	private String titulo;
 	private String mensaje;
 	private Date fecha;
 	@ManyToOne
@@ -50,5 +51,6 @@ public class Notificacion {
 	public void setDerivacion(Derivacion derivacion) {
 		this.derivacion = derivacion;
 	}
-	
+	public String getTitulo() {return titulo; }
+	public void setTitulo(String titulo) {this.titulo = titulo;}
 }

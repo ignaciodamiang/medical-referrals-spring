@@ -50,4 +50,18 @@ public class ServicioNotificacionUsuarioImpl implements ServicioNotificacionUsua
 		return repositorioNotificacionUsuario.obtenerNotificacionesNoLeidasPorUsuario(usuario).size();
 	}
 
+	@Override
+	public void marcarComoLeida(Long idNotificación) {
+		NotificacionUsuario notificacionUsuario = repositorioNotificacionUsuario.mostrarNotificacionUsuario(idNotificación);
+		if(!notificacionUsuario.getLeido()){
+			notificacionUsuario.setLeido(true);
+			repositorioNotificacionUsuario.modificarNotificacionUsuario(notificacionUsuario);
+		}
+	}
+
+	@Override
+	public NotificacionUsuario mostrarNotificacionUsuario(Long idNotificacionUsuario) {
+		return repositorioNotificacionUsuario.mostrarNotificacionUsuario(idNotificacionUsuario);
+	}
+
 }

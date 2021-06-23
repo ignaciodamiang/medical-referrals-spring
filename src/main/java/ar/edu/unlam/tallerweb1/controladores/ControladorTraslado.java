@@ -96,6 +96,7 @@ public class ControladorTraslado {
         Notificacion notificacion = new Notificacion();
         notificacion.setTraslado(traslado);
         notificacion.setMensaje(mensaje);
+        notificacion.setTitulo("Se ha cancelado el traslado "+ traslado.getId());
         Derivacion derivacion = traslado.getDerivacion();
         derivacion.setEstadoDerivacion(EstadoDerivacion.ENBUSQUEDA);
         servicioNotificacion.guardarNotificacion(notificacion);
