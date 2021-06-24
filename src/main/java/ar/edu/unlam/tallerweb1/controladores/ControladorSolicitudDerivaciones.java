@@ -43,11 +43,12 @@ public class ControladorSolicitudDerivaciones {
         List<SolicitudDerivacion> lista = servicioSolicitudDerivacion.obtenerSolicitudesDeDerivacionPorCentroMedico(centro);
         modelo.put("listaSolicitudesDerivaciones", lista);
         modelo.put("rol",request.getSession().getAttribute("ROL"));
+        modelo.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
         return new ModelAndView("/solicitud-derivaciones/solicitud-derivaciones", modelo);
     }
 
     @RequestMapping(path = "/nueva-solicitud-derivacion/{idDerivacion}",method = RequestMethod.GET)
-    public ModelAndView nuevaSolicitudDerivacion(@PathVariable Long idDerivacion) throws Exception {
+    public ModelAndView nuevaSolicitudDerivacion(@PathVariable Long idDerivacion, HttpServletRequest request) throws Exception {
         ModelMap model = new ModelMap();
         SolicitudDerivacion solicitudDerivacion = new SolicitudDerivacion();
         Derivacion derivacion = servicioDerivacion.verDerivacion(idDerivacion);
@@ -55,6 +56,7 @@ public class ControladorSolicitudDerivaciones {
         model.put("centrosMedicos", servicioCentroMedico.obtenerCentrosMedicosPorPaciente(derivacion.getPaciente()));
         //model.put("centrosMedicos", servicioCentroMedico.obtenerCentrosMedicos());
         model.put("solicitudDerivacion", solicitudDerivacion);
+        model.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
         return new ModelAndView("/solicitud-derivaciones/agregar-solicitud-derivacion", model);
     }
 
@@ -118,6 +120,7 @@ public class ControladorSolicitudDerivaciones {
         List<SolicitudDerivacion> lista= servicioSolicitudDerivacion.obtenerSolicitudesDeDerivacionPorDerivacion(idDerivacion);
         model.put("rol",request.getSession().getAttribute("ROL"));
         model.put("listaSolicitudesDerivaciones",lista);
+        model.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
         return new ModelAndView("/solicitud-derivaciones/solicitud-derivaciones", model);
 
     }
