@@ -20,6 +20,8 @@ public class Derivacion {
     private Cobertura cobertura;
     @OneToOne
     private Usuario autor;
+    @OneToOne
+    RequerimientosMedicos requerimientosMedicos;
 
     public Long getId() {
         return id;
@@ -72,4 +74,12 @@ public class Derivacion {
 	public void setEstadoDerivacion(EstadoDerivacion estadoDerivacion) {
 		this.estadoDerivacion = estadoDerivacion;
 	}
+
+    public RequerimientosMedicos getRequerimientosMedicos() {
+        return requerimientosMedicos;
+    }
+
+    public void setRequerimientosMedicos(RequerimientosMedicos requerimientosMedicos) {
+        this.requerimientosMedicos = requerimientosMedicos;
+    }
 }

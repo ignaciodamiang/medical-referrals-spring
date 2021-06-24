@@ -54,6 +54,7 @@ public class ControladorPaciente {
         }else{
             map.put("error","No se encontro al paciente");
         }
+        map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
         return new ModelAndView("Paciente/buscarPaciente", map);
     }
 }

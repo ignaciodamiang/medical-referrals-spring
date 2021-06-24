@@ -51,6 +51,18 @@
 
             <input type="number" name="idPaciente" value="${paciente.getId()}"hidden>
 
+            <div class="form-group">
+                <label>Requerimientos medicos necesarios</label>
+                <label for="tomografo">tomógrafo</label>
+                <input type="checkbox" name="tomografo" id="tomografo">
+                <label for="traumatologoGuardia">traumatólogo de guardia</label>
+                <input type="checkbox" name="traumatologoGuardia" id="traumatologoGuardia">
+                <label for="cirujanoGuardia">cirujano de guardia</label>
+                <input type="checkbox" name="cirujanoGuardia" id="cirujanoGuardia">
+                <label for="cardiologoGuardia">cardiólogo de guardia</label>
+                <input type="checkbox" name="cardiologoGuardia" id="cardiologoGuardia">
+            </div>
+
             <button class="btn btn-lg btn-info btn-block" Type="Submit"/>Crear Derivacion</button>
         </form:form>
     </div>

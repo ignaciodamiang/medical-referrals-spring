@@ -1,16 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.modelo.Cobertura;
-import ar.edu.unlam.tallerweb1.modelo.Derivacion;
-import ar.edu.unlam.tallerweb1.modelo.EstadoDerivacion;
-import ar.edu.unlam.tallerweb1.modelo.Notificacion;
-import ar.edu.unlam.tallerweb1.modelo.Paciente;
-import ar.edu.unlam.tallerweb1.servicios.ServicioCobertura;
-import ar.edu.unlam.tallerweb1.servicios.ServicioDerivacion;
-import ar.edu.unlam.tallerweb1.servicios.ServicioNotificacion;
-import ar.edu.unlam.tallerweb1.servicios.ServicioNotificacionUsuario;
-import ar.edu.unlam.tallerweb1.servicios.ServicioPaciente;
-import ar.edu.unlam.tallerweb1.servicios.ServicioPlan;
+import ar.edu.unlam.tallerweb1.modelo.*;
+import ar.edu.unlam.tallerweb1.servicios.*;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,17 +28,19 @@ public class ControladorDerivaciones {
 	private ServicioPlan servicioPlan;
 	private ServicioNotificacion servicioNotificacion;
 	private ServicioNotificacionUsuario servicioNotificacionUsuario;
+	private ServicioRequerimientosMedicos servicioRequerimientosMedicos;
 
 	@Autowired
 	public ControladorDerivaciones(ServicioDerivacion servicioDerivacion, ServicioPaciente servicioPaciente,
 			ServicioCobertura servicioCobertura, ServicioPlan servicioPlan, ServicioNotificacion servicioNotificacion,
-			ServicioNotificacionUsuario servicioNotificacionUsuario) {
+			ServicioNotificacionUsuario servicioNotificacionUsuario, ServicioRequerimientosMedicos servicioRequerimientosMedicos) {
 		this.servicioDerivacion = servicioDerivacion;
 		this.servicioPaciente = servicioPaciente;
 		this.servicioCobertura = servicioCobertura;
 		this.servicioPlan = servicioPlan;
 		this.servicioNotificacion = servicioNotificacion;
 		this.servicioNotificacionUsuario = servicioNotificacionUsuario;
+		this.servicioRequerimientosMedicos = servicioRequerimientosMedicos;
 	}
 
 	@RequestMapping(path = "/listado-derivacion")
@@ -89,14 +82,23 @@ public class ControladorDerivaciones {
 	@RequestMapping(path = "agregar-derivacion", method = RequestMethod.POST)
 	public ModelAndView agregarDerivacion(@ModelAttribute("derivacion") Derivacion derivacion,
 			RedirectAttributes attributes, @RequestParam("idPaciente") Long idPaciente,
-			@RequestParam("urgente") Boolean urgente, HttpServletRequest request) {
+			@RequestParam("urgente") Boolean urgente, @RequestParam(name = "tomografo",defaultValue = "false") Boolean tomografo,
+		    @RequestParam(name = "traumatologoGuardia",defaultValue = "false") Boolean traumatologoGuardia,
+		    @RequestParam(name = "cirujanoGuardia",defaultValue = "false") Boolean cirujanoGuardia,
+		    @RequestParam(name = "cardiologoGuardia",defaultValue = "false") Boolean cardiologoGuardia,HttpServletRequest request) {
 
 		Paciente paciente = servicioPaciente.obtenerPacientePorId(idPaciente);
 		derivacion.setPaciente(paciente);
 		derivacion.setUrgente(urgente);
 		derivacion.setFechaDerivacion(new Date());
 		derivacion.setEstadoDerivacion(EstadoDerivacion.ENBUSQUEDA);
-
+		RequerimientosMedicos requerimientosMedicos = new RequerimientosMedicos();
+		requerimientosMedicos.setCirujanoDeGuardia(cirujanoGuardia);
+		requerimientosMedicos.setCardiologoSeGuardia(cardiologoGuardia);
+		requerimientosMedicos.setTomografo(tomografo);
+		requerimientosMedicos.setTraumatologoDeguardia(traumatologoGuardia);
+		servicioRequerimientosMedicos.guardaRequerimientosMedicos(requerimientosMedicos);
+		derivacion.setRequerimientosMedicos(requerimientosMedicos);
 		servicioDerivacion.guardarDerivacion(derivacion, request);
 		attributes.addFlashAttribute("message", "Se creo la derivación correctamente");
 		return new ModelAndView("redirect:/BuscarPaciente");

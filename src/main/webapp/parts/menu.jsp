@@ -30,6 +30,7 @@
             <p class="text-decoration-none text-white nav-link">Bienvenido Administrativo</p>
                 <a href="/proyecto_derivaciones_war_exploded/BuscarPaciente" class="text-decoration-none text-white nav-link">Buscar paciente</a>
                 <a href="/proyecto_derivaciones_war_exploded/solicitudes-derivaciones" class="text-decoration-none text-white nav-link">Solicitud de derivaciones</a>
+                <a href="/proyecto_derivaciones_war_exploded/RequerimientosMedicos">Requerimientos Médicos</a>
             <%} ;break;
                 default:
                 {%>
