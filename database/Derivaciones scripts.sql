@@ -202,3 +202,32 @@ INSERT INTO `proyecto-derivaciones`.`planpaciente` (`idPaciente_id`, `idPlan_id`
 INSERT INTO `proyecto-derivaciones`.`planpaciente` (`idPaciente_id`, `idPlan_id`) VALUES ('27', '4');
 INSERT INTO `proyecto-derivaciones`.`planpaciente` (`idPaciente_id`, `idPlan_id`) VALUES ('27', '10');
 
+-- Requerimientos Medicos
+INSERT INTO `proyecto-derivaciones`.`requerimientosmedicos` (`cardiologoSeGuardia`, `cirujanoDeGuardia`, `tomografo`, `traumatologoDeguardia`) VALUES (true, true, true, true);
+INSERT INTO `proyecto-derivaciones`.`requerimientosmedicos` (`cardiologoSeGuardia`, `cirujanoDeGuardia`, `tomografo`, `traumatologoDeguardia`) VALUES (true, true, true, true);
+INSERT INTO `proyecto-derivaciones`.`requerimientosmedicos` (`cardiologoSeGuardia`, `cirujanoDeGuardia`, `tomografo`, `traumatologoDeguardia`) VALUES (true, true, true, true);
+INSERT INTO `proyecto-derivaciones`.`requerimientosmedicos` (`cardiologoSeGuardia`, `cirujanoDeGuardia`, `tomografo`, `traumatologoDeguardia`) VALUES (true, true, true, true);
+INSERT INTO `proyecto-derivaciones`.`requerimientosmedicos` (`cardiologoSeGuardia`, `cirujanoDeGuardia`, `tomografo`, `traumatologoDeguardia`) VALUES (true, true, true, true);
+INSERT INTO `proyecto-derivaciones`.`requerimientosmedicos` (`cardiologoSeGuardia`, `cirujanoDeGuardia`, `tomografo`, `traumatologoDeguardia`) VALUES (true, true, true, true);
+INSERT INTO `proyecto-derivaciones`.`requerimientosmedicos` (`cardiologoSeGuardia`, `cirujanoDeGuardia`, `tomografo`, `traumatologoDeguardia`) VALUES (true, true, true, true);
+INSERT INTO `proyecto-derivaciones`.`requerimientosmedicos` (`cardiologoSeGuardia`, `cirujanoDeGuardia`, `tomografo`, `traumatologoDeguardia`) VALUES (true, true, true, true);
+INSERT INTO `proyecto-derivaciones`.`requerimientosmedicos` (`cardiologoSeGuardia`, `cirujanoDeGuardia`, `tomografo`, `traumatologoDeguardia`) VALUES (true, true, true, true);
+INSERT INTO `proyecto-derivaciones`.`requerimientosmedicos` (`cardiologoSeGuardia`, `cirujanoDeGuardia`, `tomografo`, `traumatologoDeguardia`) VALUES (true, true, true, true);
+INSERT INTO `proyecto-derivaciones`.`requerimientosmedicos` (`cardiologoSeGuardia`, `cirujanoDeGuardia`, `tomografo`, `traumatologoDeguardia`) VALUES (true, true, true, true);
+
+-- Requerimientos medicos Centro Medico
+UPDATE `proyecto-derivaciones`.`centromedico` SET `requerimientosMedicos_id` = '1' WHERE (`id` = '1');
+UPDATE `proyecto-derivaciones`.`centromedico` SET `requerimientosMedicos_id` = '2' WHERE (`id` = '2');
+UPDATE `proyecto-derivaciones`.`centromedico` SET `requerimientosMedicos_id` = '3' WHERE (`id` = '3');
+UPDATE `proyecto-derivaciones`.`centromedico` SET `requerimientosMedicos_id` = '4' WHERE (`id` = '4');
+UPDATE `proyecto-derivaciones`.`centromedico` SET `requerimientosMedicos_id` = '5' WHERE (`id` = '5');
+UPDATE `proyecto-derivaciones`.`centromedico` SET `requerimientosMedicos_id` = '6' WHERE (`id` = '6');
+UPDATE `proyecto-derivaciones`.`centromedico` SET `requerimientosMedicos_id` = '7' WHERE (`id` = '7');
+UPDATE `proyecto-derivaciones`.`centromedico` SET `requerimientosMedicos_id` = '8' WHERE (`id` = '8');
+UPDATE `proyecto-derivaciones`.`centromedico` SET `requerimientosMedicos_id` = '9' WHERE (`id` = '9');
+UPDATE `proyecto-derivaciones`.`centromedico` SET `requerimientosMedicos_id` = '10' WHERE (`id` = '10');
+UPDATE `proyecto-derivaciones`.`centromedico` SET `requerimientosMedicos_id` = '11' WHERE (`id` = '11');
+
+
+
+

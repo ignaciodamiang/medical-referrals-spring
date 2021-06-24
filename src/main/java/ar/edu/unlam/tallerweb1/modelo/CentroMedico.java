@@ -1,9 +1,6 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class CentroMedico {
@@ -15,6 +12,8 @@ public class CentroMedico {
     private Boolean guardia;
     private Boolean salaComun;
     private Boolean terapia;
+    @OneToOne
+    RequerimientosMedicos requerimientosMedicos;
 
     public Long getId() {
         return id;
@@ -51,5 +50,13 @@ public class CentroMedico {
     }
     public void setTerapia(Boolean terapia) {
         this.terapia = terapia;
+    }
+
+    public RequerimientosMedicos getRequerimientosMedicos() {
+        return requerimientosMedicos;
+    }
+
+    public void setRequerimientosMedicos(RequerimientosMedicos requerimientosMedicos) {
+        this.requerimientosMedicos = requerimientosMedicos;
     }
 }

@@ -53,7 +53,7 @@ public class ControladorSolicitudDerivaciones {
         SolicitudDerivacion solicitudDerivacion = new SolicitudDerivacion();
         Derivacion derivacion = servicioDerivacion.verDerivacion(idDerivacion);
         model.put("derivaciones", derivacion);
-        model.put("centrosMedicos", servicioCentroMedico.obtenerCentrosMedicosPorPaciente(derivacion.getPaciente()));
+        model.put("centrosMedicos", servicioCentroMedico.centrosMedicosQuePoseenRequerimientosMedicos(servicioCentroMedico.obtenerCentrosMedicosPorPaciente(derivacion.getPaciente()), derivacion.getRequerimientosMedicos()));
         //model.put("centrosMedicos", servicioCentroMedico.obtenerCentrosMedicos());
         model.put("solicitudDerivacion", solicitudDerivacion);
         model.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));

@@ -1,8 +1,5 @@
 package ar.edu.unlam.tallerweb1.servicios;
-import ar.edu.unlam.tallerweb1.modelo.CentroMedico;
-import ar.edu.unlam.tallerweb1.modelo.Paciente;
-import ar.edu.unlam.tallerweb1.modelo.PlanCentroMedico;
-import ar.edu.unlam.tallerweb1.modelo.PlanPaciente;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioCentroMedico;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioPlanPaciente;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +48,36 @@ public class ServicioCentroMedicoImpl implements ServicioCentroMedico {
             return repositorioCentroMedico.obtenerCentroMedicoPorId(id);
         }
         throw new Exception("Hubo un error al buscar los datos");
+    }
+
+    @Override
+    public HashSet<CentroMedico> centrosMedicosQuePoseenRequerimientosMedicos(HashSet<CentroMedico> centrosMedicos, RequerimientosMedicos requerimientosMedicos) {
+        HashSet<CentroMedico> centrosHabilitados = new HashSet<>();
+        RequerimientosMedicos requerimientosMedicos1;
+        for (CentroMedico centroMedico : centrosMedicos){
+            requerimientosMedicos1 = centroMedico.getRequerimientosMedicos();
+            if(requerimientosMedicos.getTomografo()){
+                if(!requerimientosMedicos1.getTomografo()){
+                    continue;
+                }
+            }
+            if(requerimientosMedicos.getCardiologoSeGuardia()){
+                if(!requerimientosMedicos1.getCardiologoSeGuardia()){
+                    continue;
+                }
+            }
+            if(requerimientosMedicos.getCirujanoDeGuardia()){
+                if(!requerimientosMedicos1.getCirujanoDeGuardia()){
+                    continue;
+                }
+            }
+            if(requerimientosMedicos.getTraumatologoDeguardia()){
+                if(!requerimientosMedicos1.getTraumatologoDeguardia()){
+                    continue;
+                }
+            }
+            centrosHabilitados.add(centroMedico);
+        }
+        return null;
     }
 }
