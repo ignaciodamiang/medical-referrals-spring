@@ -13,7 +13,7 @@ public class CentroMedico {
     private Boolean salaComun;
     private Boolean terapia;
     @OneToOne
-    RequerimientosMedicos requerimientosMedicos;
+    private RequerimientosMedicos requerimientosMedicos;
 
     public Long getId() {
         return id;
