@@ -58,11 +58,12 @@ public class ControladorDerivaciones {
 		List<Derivacion> listaDerivaciones = servicioDerivacion.derivacionesPorCobertura(cobertura);
 		model.put("derivaciones", listaDerivaciones);
 		model.put("eliminarDerivacion", derivacion);
+		model.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
 		return new ModelAndView("Derivaciones/derivaciones", model);
 	}
 
 	@RequestMapping(path = "/nueva-derivacion/{id}", method = RequestMethod.GET)
-	public ModelAndView nuevaDerivacion(@PathVariable("id") Long idPaciente) {
+	public ModelAndView nuevaDerivacion(@PathVariable("id") Long idPaciente,HttpServletRequest request) {
 		ModelMap model = new ModelMap();
 		Paciente paciente = servicioPaciente.obtenerPacientePorId(idPaciente);
 		HashSet<Cobertura> coberturas = servicioPlan.obetenerCoberturasPaciente(idPaciente);
@@ -75,7 +76,7 @@ public class ControladorDerivaciones {
 		model.put("derivacion", derivacion);
 		model.put("paciente", paciente);
 		model.put("coberturas", coberturas);
-
+		model.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
 		return new ModelAndView("Derivaciones/agregar-derivacion", model);
 	}
 
@@ -105,7 +106,7 @@ public class ControladorDerivaciones {
 	}
 
 	@RequestMapping(path = "/modificar-derivacion/editar", method = RequestMethod.GET)
-	public ModelAndView modificarDerivacion(@RequestParam("id") Long id) throws Exception {
+	public ModelAndView modificarDerivacion(@RequestParam("id") Long id ,HttpServletRequest request) throws Exception {
 		ModelMap model = new ModelMap();
 		Derivacion derivacion = servicioDerivacion.verDerivacion(id);
 //        Paciente paciente = servicioPaciente.obtenerPacientePorDocumento(id);
@@ -113,7 +114,7 @@ public class ControladorDerivaciones {
 		model.put("derivacion", derivacion);
 //        model.put("pacientes",paciente);
 //        model.put("coberturas",coberturas);
-
+		model.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
 		return new ModelAndView("Derivaciones/modificar-derivacion", model);
 	}
 
@@ -150,6 +151,7 @@ public class ControladorDerivaciones {
 		List<Derivacion> derivaciones = servicioDerivacion.filtrarDerivacionesPorFecha(idUsuario, "1900-01-01",
 				fechaMax);
 		map.put("derivaciones", derivaciones);
+		map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
 		return new ModelAndView("Derivaciones/historial-derivaciones", map);
 	}
 
@@ -170,6 +172,7 @@ public class ControladorDerivaciones {
 		Long idUsuario = (Long) request.getSession().getAttribute("ID_USUARIO");
 		List<Derivacion> derivaciones = servicioDerivacion.filtrarDerivacionesPorFecha(idUsuario, fechaMin, fechaMax);
 		map.put("derivaciones", derivaciones);
+		map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
 		return new ModelAndView("Derivaciones/historial-derivaciones", map);
 	}
 }
