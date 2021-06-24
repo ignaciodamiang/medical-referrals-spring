@@ -60,18 +60,20 @@ public class ControladorTraslado {
     }
 
     @RequestMapping(path = "/traslados", method = RequestMethod.GET)
-    public ModelAndView verTraslados(){
+    public ModelAndView verTraslados(HttpServletRequest request){
         List<Traslado> traslados = servicioTraslado.obtenerTraslados();
         ModelMap map = new ModelMap();
         map.put("traslados", traslados);
+        map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
         return new ModelAndView("Traslado/traslados", map);
     }
 
     @RequestMapping(path = "/ver-traslado/{idDerivacion}", method = RequestMethod.GET)
-    public ModelAndView verTraslados(@PathVariable Long idDerivacion){
+    public ModelAndView verTraslados(@PathVariable Long idDerivacion, HttpServletRequest request){
         Traslado traslado = servicioTraslado.obtenerTrasladoPorDerivacion(idDerivacion);
         ModelMap map = new ModelMap();
         map.put("traslado", traslado);
+        map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
         return new ModelAndView("Traslado/ver-traslado", map);
     }
 
@@ -82,6 +84,7 @@ public class ControladorTraslado {
                 (Long) request.getSession().getAttribute("ID_CENTROMEDICO"));
         List<Traslado> traslados = servicioTraslado.obtenerTrasladosPorCentroMedico(centroMedico);
         map.put("traslados", traslados);
+        map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
         return new ModelAndView("Traslado/traslados-enCurso", map);
 
     }
