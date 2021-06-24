@@ -1,8 +1,11 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.CentroMedico;
+import ar.edu.unlam.tallerweb1.modelo.Plan;
+import ar.edu.unlam.tallerweb1.modelo.PlanCentroMedico;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -26,5 +29,13 @@ public class RepositorioCentroMedicoImpl implements RepositorioCentroMedico {
         final Session session = sessionFactory.getCurrentSession();
         CentroMedico centroMedico = session.get(CentroMedico.class,id);
         return  centroMedico;
+    }
+
+    @Override
+    public List<PlanCentroMedico> obtenerPlanesCentrosMedicosPorPlan(Plan plan) {
+        final Session session = sessionFactory.getCurrentSession();
+        return session.createCriteria(PlanCentroMedico.class)
+                .add(Restrictions.eq("idPlan.id", plan.getId()))
+                .list();
     }
 }
