@@ -5,12 +5,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import ar.edu.unlam.tallerweb1.modelo.*;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioDerivador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.unlam.tallerweb1.modelo.Notificacion;
-import ar.edu.unlam.tallerweb1.modelo.NotificacionUsuario;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioNotificacion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioNotificacionUsuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
@@ -21,12 +20,15 @@ public class ServicioNotificacionUsuarioImpl implements ServicioNotificacionUsua
 	private RepositorioUsuario repositorioUsuario;
 	private RepositorioNotificacion repositorioNotificacion;
 	private RepositorioNotificacionUsuario repositorioNotificacionUsuario;
+	private RepositorioDerivador repositorioDerivador;
 	
 	@Autowired
-	public ServicioNotificacionUsuarioImpl(RepositorioUsuario repositorioUsuario, RepositorioNotificacion repositorioNotificacion, RepositorioNotificacionUsuario repositorioNotificacionUsuario) {
+	public ServicioNotificacionUsuarioImpl(RepositorioUsuario repositorioUsuario, RepositorioNotificacion repositorioNotificacion, RepositorioNotificacionUsuario repositorioNotificacionUsuario,
+										   RepositorioDerivador repositorioDerivador) {
 		this.repositorioNotificacion=repositorioNotificacion;
 		this.repositorioUsuario=repositorioUsuario;
 		this.repositorioNotificacionUsuario=repositorioNotificacionUsuario;
+		this.repositorioDerivador = repositorioDerivador;
 	}
 	@Override
 	public void guardarNotificacionUsuario(Notificacion notificacion, Long idUsuario) {
@@ -62,6 +64,14 @@ public class ServicioNotificacionUsuarioImpl implements ServicioNotificacionUsua
 	@Override
 	public NotificacionUsuario mostrarNotificacionUsuario(Long idNotificacionUsuario) {
 		return repositorioNotificacionUsuario.mostrarNotificacionUsuario(idNotificacionUsuario);
+	}
+
+	@Override
+	public void guardarNotificacionDerivadores(Cobertura cobertura, Notificacion notificacion) {
+		List<Derivador> derivadores = repositorioDerivador.obtenerDerivadoresPorCobertura(cobertura);
+		for (Derivador derivador : derivadores){
+			this.guardarNotificacionUsuario(notificacion, derivador.getUsuario().getId());
+		}
 	}
 
 }

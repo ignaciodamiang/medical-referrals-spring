@@ -45,9 +45,16 @@ public class ControladorTraslado {
         solicitudDerivacion.setConfirmado(true);
         Derivacion derivacion = solicitudDerivacion.getDerivacion();
         derivacion.setEstadoDerivacion(EstadoDerivacion.ENTRASLADO);
+        Notificacion notificacion = new Notificacion();
         servicioDerivacion.modificarDerivacion(derivacion);
         serviciosolicitudDerivacion.modificarSolicitudDerivacion(solicitudDerivacion);
         servicioTraslado.guardarTraslado(traslado);
+        notificacion.setTraslado(traslado);
+        notificacion.setTitulo("Se ha generado un nuevo traslado");
+        notificacion.setMensaje("Se ha generado el traslado "+traslado.getId()+ " correspondiente a la derivación "+traslado.getDerivacion().getId() +
+                " con destino al centro médico "+traslado.getCentroMedico().getNombre()+ " situado en "+traslado.getCentroMedico().getDireccion());
+        servicioNotificacion.guardarNotificacion(notificacion);
+        servicioNotificacionUsuario.guardarNotificacionUsuario(notificacion, traslado.getDerivacion().getAutor().getId());
         return new ModelAndView("redirect:/listado-derivacion");
     }
 
