@@ -56,7 +56,7 @@ public class ControladorDerivaciones {
 		if (request.getSession().getAttribute("ROL") == null) {
 			return new ModelAndView("redirect:/login");
 		}
-		if (request.getSession().getAttribute("ROL") != "Derivador") {
+		if (!request.getSession().getAttribute("ROL").equals("Derivador")) {
 			return new ModelAndView("redirect:/router", model);
 		}
 		Derivacion derivacion = new Derivacion();
