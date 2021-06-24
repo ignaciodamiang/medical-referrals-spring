@@ -4,12 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import ar.edu.unlam.tallerweb1.modelo.Cobertura;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import org.springframework.stereotype.Service;
-
-import ar.edu.unlam.tallerweb1.modelo.Notificacion;
-import ar.edu.unlam.tallerweb1.modelo.NotificacionUsuario;
 
 public interface ServicioNotificacionUsuario {
 
@@ -19,4 +15,5 @@ public interface ServicioNotificacionUsuario {
 	void marcarComoLeida(Long idNotificacionUsuario);
 	NotificacionUsuario mostrarNotificacionUsuario(Long idNotificacionUsuario);
 	void guardarNotificacionDerivadores(Cobertura cobertura, Notificacion notificacion);
+	void guardarNotificacionAdministrativos(CentroMedico centroMedico, Notificacion notificacion);
 }
