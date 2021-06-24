@@ -101,6 +101,15 @@ public class ControladorDerivaciones {
 		servicioRequerimientosMedicos.guardaRequerimientosMedicos(requerimientosMedicos);
 		derivacion.setRequerimientosMedicos(requerimientosMedicos);
 		servicioDerivacion.guardarDerivacion(derivacion, request);
+		if(derivacion.getUrgente()){
+			Notificacion notificacion = new Notificacion();
+			notificacion.setDerivacion(derivacion);
+			notificacion.setTitulo("Se ha generado una Derivacion Urgente");
+			notificacion.setMensaje("Se ha generado una derivacion urgente para el paciente " +derivacion.getPaciente().getNombreCompleto()
+									+" , por favor buscar lo antes posible un centro medico para poder generar un traslado");
+			servicioNotificacion.guardarNotificacion(notificacion);
+			servicioNotificacionUsuario.guardarNotificacionDerivadores(derivacion.getCobertura(), notificacion);
+		}
 		attributes.addFlashAttribute("message", "Se creo la derivación correctamente");
 		return new ModelAndView("redirect:/BuscarPaciente");
 	}
