@@ -78,6 +78,6 @@ public class ServicioCentroMedicoImpl implements ServicioCentroMedico {
             }
             centrosHabilitados.add(centroMedico);
         }
-        return null;
+        return centrosHabilitados;
     }
 }
