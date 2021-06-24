@@ -56,8 +56,8 @@ public class ControladorDerivaciones {
 		if (request.getSession().getAttribute("ROL") == null) {
 			return new ModelAndView("redirect:/login");
 		}
-		if (request.getSession().getAttribute("ROL") == "Solicitador") {
-			return new ModelAndView("Paciente/buscarPaciente", model);
+		if (request.getSession().getAttribute("ROL") != "Derivador") {
+			return new ModelAndView("redirect:/router", model);
 		}
 		Derivacion derivacion = new Derivacion();
 		Cobertura cobertura = servicioCobertura
@@ -135,9 +135,8 @@ public class ControladorDerivaciones {
 		notificacion.setMensaje(mensaje);
 		notificacion.setTitulo("Se ha cancelado la derivación" + derivacion.getId());
 		servicioNotificacion.guardarNotificacion(notificacion);
-		servicioNotificacionUsuario.guardarNotificacionUsuario(notificacion, derivacion.getAutor().getId());
+		servicioNotificacionUsuario.guardarNotificacionDerivadores(derivacion.getCobertura(), notificacion);
 		return new ModelAndView("redirect:/router");
-
 	}
 
 	@RequestMapping(path = "historialDerivaciones", method = RequestMethod.GET)

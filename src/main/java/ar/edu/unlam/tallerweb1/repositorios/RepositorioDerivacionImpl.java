@@ -56,6 +56,7 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
         return session.createCriteria(Derivacion.class)
                 .add(Restrictions.eq("cobertura", cobertura))
                 .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.FINALIZADA))
+                .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.CANCELADA))
                 .list();
     }
 

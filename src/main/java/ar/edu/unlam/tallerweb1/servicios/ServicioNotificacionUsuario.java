@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import ar.edu.unlam.tallerweb1.modelo.Cobertura;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.springframework.stereotype.Service;
 
@@ -17,4 +18,5 @@ public interface ServicioNotificacionUsuario {
 	Integer obtenerNotificacionesNoLeidas(HttpServletRequest request);
 	void marcarComoLeida(Long idNotificacionUsuario);
 	NotificacionUsuario mostrarNotificacionUsuario(Long idNotificacionUsuario);
+	void guardarNotificacionDerivadores(Cobertura cobertura, Notificacion notificacion);
 }
