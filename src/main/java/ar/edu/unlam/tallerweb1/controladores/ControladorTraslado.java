@@ -55,6 +55,7 @@ public class ControladorTraslado {
                 " con destino al centro médico "+traslado.getCentroMedico().getNombre()+ " situado en "+traslado.getCentroMedico().getDireccion());
         servicioNotificacion.guardarNotificacion(notificacion);
         servicioNotificacionUsuario.guardarNotificacionUsuario(notificacion, traslado.getDerivacion().getAutor().getId());
+        servicioNotificacionUsuario.guardarNotificacionAdministrativos(traslado.getCentroMedico(), notificacion);
         return new ModelAndView("redirect:/listado-derivacion");
     }
 

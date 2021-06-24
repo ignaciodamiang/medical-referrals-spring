@@ -1,9 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.*;
-import ar.edu.unlam.tallerweb1.servicios.ServicioCentroMedico;
-import ar.edu.unlam.tallerweb1.servicios.ServicioDerivacion;
-import ar.edu.unlam.tallerweb1.servicios.ServicioSolicitudDerivacion;
+import ar.edu.unlam.tallerweb1.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,13 +21,18 @@ public class ControladorSolicitudDerivaciones {
     private ServicioSolicitudDerivacion servicioSolicitudDerivacion;
     private ServicioDerivacion servicioDerivacion;
     private ServicioCentroMedico servicioCentroMedico;
+    private ServicioNotificacion servicioNotificacion;
+    private ServicioNotificacionUsuario servicioNotificacionUsuario;
 
     @Autowired
     public ControladorSolicitudDerivaciones
-            (ServicioSolicitudDerivacion servicio, ServicioDerivacion servicioDerivacion, ServicioCentroMedico servicioCentroMedico) {
+            (ServicioSolicitudDerivacion servicio, ServicioDerivacion servicioDerivacion, ServicioCentroMedico servicioCentroMedico,
+             ServicioNotificacion servicioNotificacion, ServicioNotificacionUsuario servicioNotificacionUsuario) {
         this.servicioSolicitudDerivacion = servicio;
         this.servicioDerivacion = servicioDerivacion;
         this.servicioCentroMedico = servicioCentroMedico;
+        this.servicioNotificacion = servicioNotificacion;
+        this.servicioNotificacionUsuario = servicioNotificacionUsuario;
     }
 
     @RequestMapping("/solicitudes-derivaciones")
@@ -64,6 +67,13 @@ public class ControladorSolicitudDerivaciones {
         Derivacion derivacion = servicioDerivacion.verDerivacion(idDerivacion);
         solicitudDerivacion.setDerivacion(derivacion);
         servicioSolicitudDerivacion.guardarSolicitudDerivacion(solicitudDerivacion);
+        Notificacion notificacion = new Notificacion();
+        notificacion.setTitulo("Se ha generado una nueva solicitud de derivación");
+        notificacion.setMensaje("Se ha generado una nueva solicitud de derivación para el centro medico " +solicitudDerivacion.getCentroMedico()
+                                +" perteneciente al paciente "+solicitudDerivacion.getDerivacion().getPaciente().getNombreCompleto());
+        notificacion.setDerivacion(solicitudDerivacion.getDerivacion());
+        servicioNotificacion.guardarNotificacion(notificacion);
+        servicioNotificacionUsuario.guardarNotificacionAdministrativos(solicitudDerivacion.getCentroMedico(), notificacion);
         attributes.addFlashAttribute("message","Se creo la solicitud derivación correctamente");
         return new ModelAndView("redirect:/listado-derivacion");
     }
@@ -74,6 +84,14 @@ public class ControladorSolicitudDerivaciones {
     solicitudDerivacion.setAceptado(true);
     solicitudDerivacion.setId(idSolicitud);
     servicioSolicitudDerivacion.modificarSolicitudDerivacion(solicitudDerivacion);
+    Notificacion notificacion = new Notificacion();
+    notificacion.setDerivacion(solicitudDerivacion.getDerivacion());
+    notificacion.setTitulo("Se ha aceptado la solicitud de Derivación numero "+solicitudDerivacion.getId());
+    notificacion.setMensaje("La solicitud realizada al centro médico "+solicitudDerivacion.getCentroMedico().getNombre()
+            +" para derivar al paciente "+solicitudDerivacion.getDerivacion().getPaciente().getNombreCompleto()
+            + " ha sido aceptada ya puede generar el traslado correspondiente");
+    servicioNotificacion.guardarNotificacion(notificacion);
+    servicioNotificacionUsuario.guardarNotificacionDerivadores(solicitudDerivacion.getDerivacion().getCobertura(), notificacion);
     return new ModelAndView("redirect:/solicitudes-derivaciones");
     }
 
@@ -83,6 +101,14 @@ public class ControladorSolicitudDerivaciones {
         solicitudDerivacion.setAceptado(false);
         solicitudDerivacion.setId(idSolicitud);
         servicioSolicitudDerivacion.modificarSolicitudDerivacion(solicitudDerivacion);
+        Notificacion notificacion = new Notificacion();
+        notificacion.setDerivacion(solicitudDerivacion.getDerivacion());
+        notificacion.setTitulo("Se ha rechazado la solicitud de Derivación numero "+solicitudDerivacion.getId());
+        notificacion.setMensaje("La solicitud realizada al centro médico "+solicitudDerivacion.getCentroMedico().getNombre()
+                +" para derivar al paciente "+solicitudDerivacion.getDerivacion().getPaciente().getNombreCompleto()
+                + " ha sido rechazada por favor buscar otro centro médico");
+        servicioNotificacion.guardarNotificacion(notificacion);
+        servicioNotificacionUsuario.guardarNotificacionDerivadores(solicitudDerivacion.getDerivacion().getCobertura(), notificacion);
         return new ModelAndView("redirect:/solicitudes-derivaciones");
     }
     @RequestMapping(path = "verSolicitudes/{idDerivacion}",method = RequestMethod.GET)
