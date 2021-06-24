@@ -6,13 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 import ar.edu.unlam.tallerweb1.modelo.*;
-import ar.edu.unlam.tallerweb1.repositorios.RepositorioDerivador;
+import ar.edu.unlam.tallerweb1.repositorios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.unlam.tallerweb1.repositorios.RepositorioNotificacion;
-import ar.edu.unlam.tallerweb1.repositorios.RepositorioNotificacionUsuario;
-import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 @Service("servicioNotificacionUsuario")
 @Transactional
 public class ServicioNotificacionUsuarioImpl implements ServicioNotificacionUsuario {
@@ -21,14 +18,16 @@ public class ServicioNotificacionUsuarioImpl implements ServicioNotificacionUsua
 	private RepositorioNotificacion repositorioNotificacion;
 	private RepositorioNotificacionUsuario repositorioNotificacionUsuario;
 	private RepositorioDerivador repositorioDerivador;
+	private RepositorioAdministrativo repositorioAdministrativo;
 	
 	@Autowired
 	public ServicioNotificacionUsuarioImpl(RepositorioUsuario repositorioUsuario, RepositorioNotificacion repositorioNotificacion, RepositorioNotificacionUsuario repositorioNotificacionUsuario,
-										   RepositorioDerivador repositorioDerivador) {
+										   RepositorioDerivador repositorioDerivador, RepositorioAdministrativo repositorioAdministrativo) {
 		this.repositorioNotificacion=repositorioNotificacion;
 		this.repositorioUsuario=repositorioUsuario;
 		this.repositorioNotificacionUsuario=repositorioNotificacionUsuario;
 		this.repositorioDerivador = repositorioDerivador;
+		this.repositorioAdministrativo = repositorioAdministrativo;
 	}
 	@Override
 	public void guardarNotificacionUsuario(Notificacion notificacion, Long idUsuario) {
@@ -71,6 +70,14 @@ public class ServicioNotificacionUsuarioImpl implements ServicioNotificacionUsua
 		List<Derivador> derivadores = repositorioDerivador.obtenerDerivadoresPorCobertura(cobertura);
 		for (Derivador derivador : derivadores){
 			this.guardarNotificacionUsuario(notificacion, derivador.getUsuario().getId());
+		}
+	}
+
+	@Override
+	public void guardarNotificacionAdministrativos(CentroMedico centroMedico, Notificacion notificacion) {
+		List<Administrativo> administrativos = repositorioAdministrativo.obtenerArdministrativoPorCentroMedico(centroMedico);
+		for (Administrativo administrativo : administrativos){
+			this.guardarNotificacionUsuario(notificacion, administrativo.getUsuario().getId());
 		}
 	}
 
