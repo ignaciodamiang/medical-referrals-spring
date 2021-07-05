@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -23,16 +24,18 @@ public class ControladorTraslado {
     private ServicioDerivacion servicioDerivacion;
     private ServicioNotificacion servicioNotificacion;
     private ServicioNotificacionUsuario servicioNotificacionUsuario;
+    private ServicioMail servicioMail;
 
     @Autowired
     public ControladorTraslado(ServicioTraslado servicioTraslado, ServicioCentroMedico servicioCentroMedico, ServicioSolicitudDerivacion solicitudDerivacion, ServicioDerivacion servicioDerivacion, ServicioNotificacion servicioNotificacion,
-                               ServicioNotificacionUsuario servicioNotificacionUsuario)
+                               ServicioNotificacionUsuario servicioNotificacionUsuario, ServicioMail servicioMail)
     {this.servicioTraslado = servicioTraslado;
     this.servicioCentroMedico = servicioCentroMedico;
     this.serviciosolicitudDerivacion = solicitudDerivacion;
     this.servicioDerivacion = servicioDerivacion;
     this.servicioNotificacion = servicioNotificacion;
     this.servicioNotificacionUsuario = servicioNotificacionUsuario;
+    this.servicioMail = servicioMail;
     }
 
     @RequestMapping(path = "/crearTraslado/{idSolicitud}", method = RequestMethod.GET)
@@ -90,18 +93,22 @@ public class ControladorTraslado {
     }
 
     @RequestMapping(value = "/finalizarTraslado/{idTraslado}", method = RequestMethod.GET)
-    public ModelAndView finalizarTraslado(@PathVariable Long idTraslado){
+    public ModelAndView finalizarTraslado(@PathVariable Long idTraslado) throws MessagingException {
         Traslado traslado = servicioTraslado.obtenerTrasladoPorId(idTraslado);
         traslado.setEstadoTraslado(EstadoTraslado.FINALIZADO);
         Derivacion derivacion = traslado.getDerivacion();
         derivacion.setEstadoDerivacion(EstadoDerivacion.FINALIZADA);
         servicioDerivacion.modificarDerivacion(derivacion);
         servicioTraslado.modificarTraslado(traslado);
+        servicioMail.enviarMsj(derivacion.getAutor().getEmail(),"Ha finalizado un translado",
+                "El traslado del paciente:  '"+derivacion.getPaciente().getNombreCompleto()+
+                        "', destino: '"+ traslado.getCentroMedico().getNombre()+" ("+traslado.getCentroMedico().getDireccion()+")"+
+                        " ha finalizado correctamente. <br> <a href='http://localhost:8080/proyecto_derivaciones_war_exploded/listado-derivacion'>ver derivaciones</a> <br>");
         return new ModelAndView("redirect:/ver-traslados-encurso");
     }
 
     @RequestMapping(value = "/cancelarTraslado/{idTraslado}", method = RequestMethod.POST)
-    public ModelAndView cancelarTraslado(@PathVariable Long idTraslado, @RequestParam("mensaje") String mensaje){
+    public ModelAndView cancelarTraslado(@PathVariable Long idTraslado, @RequestParam("mensaje") String mensaje) throws MessagingException {
         Traslado traslado = servicioTraslado.obtenerTrasladoPorId(idTraslado);
         traslado.setEstadoTraslado(EstadoTraslado.CANCELADO);
         Notificacion notificacion = new Notificacion();
@@ -114,6 +121,11 @@ public class ControladorTraslado {
         servicioNotificacionUsuario.guardarNotificacionUsuario(notificacion,traslado.getDerivacion().getAutor().getId());
         servicioDerivacion.modificarDerivacion(derivacion);
         servicioTraslado.modificarTraslado(traslado);
+        servicioMail.enviarMsj(derivacion.getAutor().getEmail(),"Se ha cancelado un translado",
+                "El traslado del paciente:  '"+derivacion.getPaciente().getNombreCompleto()+
+                        "', destino: '"+
+                        traslado.getCentroMedico().getNombre()+" ("+traslado.getCentroMedico().getDireccion()+")"+
+                ", MOTIVO: "+notificacion.getMensaje()+" "+"<br> <a href='http://localhost:8080/proyecto_derivaciones_war_exploded/listado-derivacion'>ver derivaciones</a>");
         return new ModelAndView("redirect:/ver-traslados-encurso");
     }
 
