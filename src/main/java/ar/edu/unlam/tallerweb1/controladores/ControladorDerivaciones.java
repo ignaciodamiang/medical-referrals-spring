@@ -2,7 +2,6 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.*;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,15 +9,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.zip.DeflaterInputStream;
 
 @Controller
 public class ControladorDerivaciones {
@@ -29,11 +27,14 @@ public class ControladorDerivaciones {
 	private ServicioNotificacion servicioNotificacion;
 	private ServicioNotificacionUsuario servicioNotificacionUsuario;
 	private ServicioRequerimientosMedicos servicioRequerimientosMedicos;
+	private ServicioMail servicioMail;
+	private ServicioDerivador servicioDerivador;
 
 	@Autowired
-	public ControladorDerivaciones(ServicioDerivacion servicioDerivacion, ServicioPaciente servicioPaciente,
+	public ControladorDerivaciones(
+			ServicioDerivacion servicioDerivacion, ServicioPaciente servicioPaciente,
 			ServicioCobertura servicioCobertura, ServicioPlan servicioPlan, ServicioNotificacion servicioNotificacion,
-			ServicioNotificacionUsuario servicioNotificacionUsuario, ServicioRequerimientosMedicos servicioRequerimientosMedicos) {
+			ServicioNotificacionUsuario servicioNotificacionUsuario, ServicioRequerimientosMedicos servicioRequerimientosMedicos, ServicioMail servicioMail, ServicioDerivador servicioDerivador) {
 		this.servicioDerivacion = servicioDerivacion;
 		this.servicioPaciente = servicioPaciente;
 		this.servicioCobertura = servicioCobertura;
@@ -41,6 +42,8 @@ public class ControladorDerivaciones {
 		this.servicioNotificacion = servicioNotificacion;
 		this.servicioNotificacionUsuario = servicioNotificacionUsuario;
 		this.servicioRequerimientosMedicos = servicioRequerimientosMedicos;
+		this.servicioMail = servicioMail;
+		this.servicioDerivador = servicioDerivador;
 	}
 
 	@RequestMapping(path = "/listado-derivacion")
@@ -86,7 +89,7 @@ public class ControladorDerivaciones {
 			@RequestParam("urgente") Boolean urgente, @RequestParam(name = "tomografo",defaultValue = "false") Boolean tomografo,
 		    @RequestParam(name = "traumatologoGuardia",defaultValue = "false") Boolean traumatologoGuardia,
 		    @RequestParam(name = "cirujanoGuardia",defaultValue = "false") Boolean cirujanoGuardia,
-		    @RequestParam(name = "cardiologoGuardia",defaultValue = "false") Boolean cardiologoGuardia,HttpServletRequest request) {
+		    @RequestParam(name = "cardiologoGuardia",defaultValue = "false") Boolean cardiologoGuardia,HttpServletRequest request) throws MessagingException {
 
 		Paciente paciente = servicioPaciente.obtenerPacientePorId(idPaciente);
 		derivacion.setPaciente(paciente);
@@ -111,6 +114,12 @@ public class ControladorDerivaciones {
 			servicioNotificacionUsuario.guardarNotificacionDerivadores(derivacion.getCobertura(), notificacion);
 		}
 		attributes.addFlashAttribute("message", "Se creo la derivación correctamente");
+		/*  se mande un mail a todos los derivadores de esa cobertura cuando se genera una derivacion  */
+		/* testear correctamente con correos reales */
+		Cobertura cobertura= derivacion.getCobertura();
+		for (Derivador derivador : servicioDerivador.obtenerDerivadoresPorCobertura(cobertura)){
+			servicioMail.enviarMsj(derivador.getUsuario().getEmail(),"Se ha generado una derivacion.","se ha generado una derivacion para paciente: "+derivacion.getPaciente().getNombreCompleto());
+		}
 		return new ModelAndView("redirect:/BuscarPaciente");
 	}
 
