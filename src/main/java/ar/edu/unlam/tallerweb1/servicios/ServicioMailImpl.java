@@ -26,6 +26,9 @@ public class ServicioMailImpl implements ServicioMail {
         mailSender.setJavaMailProperties(prop);
         System.out.println("MAIL: " + mailSender.getJavaMailProperties());
         System.out.println("MAIL: " + mailSender.getPassword() + mailSender.getUsername() + mailSender.getHost());
+        System.out.println("MAIL TO: " + destinatario);
+        System.out.println("MAIL SUBJECT: " + asunto);
+        System.out.println("MAIL MESSAGE: " + msj);
         MimeMessage mensaje = mailSender.createMimeMessage();
         mensaje.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
         mensaje.setSubject(asunto);
