@@ -3,7 +3,7 @@ package ar.edu.unlam.tallerweb1.repositorios;
 import ar.edu.unlam.tallerweb1.modelo.Cobertura;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
+import org.springframework.transaction.annotation.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -29,7 +29,7 @@ public class RepositorioDerivadorImpl implements RepositorioDerivador {
 			.add(Restrictions.eq("usuario", usuario))
 			.uniqueResult();
 	}
-
+	@Transactional
 	@Override
 	public List<Derivador> obtenerDerivadoresPorCobertura(Cobertura cobertura) {
 		final Session session = sessionFactory.getCurrentSession();

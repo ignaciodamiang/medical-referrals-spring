@@ -35,9 +35,10 @@
                     <th scope="col" class="text-center">Diagnostico</th>
                     <th scope="col" class="text-center">Fecha</th>
                     <th scope="col" class="text-center">Sector</th>
-                    <th scope="col" class="text-center" style="width: 21%">Acciones</th>
-                    <th scope="col" class="text-center" style="width: 21%"></th>
-                    <th scope="col" class="text-center" style="width: 21%"></th>
+                    <th scope="col" class="text-center">Urgencia</th>
+                    <th scope="col" class="text-center">Acciones</th>
+                    <th scope="col" class="text-center"></th>
+                    <th scope="col" class="text-center"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -49,6 +50,15 @@
                         <td class="text-center">${derivacion.diagnostico}</td>
                         <td class="text-center">${derivacion.fechaDerivacion}</td>
                         <td class="text-center">${derivacion.paraQueSector}</td>
+
+                        <c:choose>
+                        <c:when test="${derivacion.getUrgente()}">
+                            <td class="text-center" style="background: darkred;color: white;">URGENTE</td>
+                        </c:when>
+                        <c:otherwise>
+                            <td class="text-center">---</td>
+                        </c:otherwise>
+                        </c:choose>
                                                                     <td>
                                                                         <!-- Button to Open the Modal -->
                                                                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#derivacion${derivacion.getId()}">

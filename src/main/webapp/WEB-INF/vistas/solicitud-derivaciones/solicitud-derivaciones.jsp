@@ -39,6 +39,7 @@
                     <th scope="col">Aceptado</th>
                     <th scope="col">Confirmado</th>
                     <th scope="col">Fecha</th>
+                    <th scope="col">Urgencia</th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -52,7 +53,20 @@
                         <td>${solicitud.getAceptado()}</td>
                         <td>${solicitud.getConfirmado()}</td>
                         <td>${solicitud.getFechaCreacion().toLocaleString()}</td>
+                        <c:choose>
+                            <c:when test="${solicitud.getDerivacion().getUrgente()}">
+                                <td class="text-center" style="background: darkred;color: white;">URGENTE</td>
+                            </c:when>
+                            <c:otherwise>
+                                <td class="text-center">---</td>
+                            </c:otherwise>
+                        </c:choose>
                                         <td>
+
+<%--                                            <div class="modal-header">--%>
+<%--                                                <h4 class="modal-title">Detalles de Solicitud</h4>--%>
+<%--                                                <div class="m-auto btn btn-danger" data-dismiss="modal">URGENTE</div>                                                  <button type="button" class="close" data-dismiss="modal">×</button>--%>
+<%--                                            </div>--%>
                                             <!-- Button to Open the Modal -->
                                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#solicitud${solicitud.getId()}">
                                                 Detalles
@@ -62,10 +76,22 @@
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <!-- Modal Header -->
-                                                        <div class="modal-header">
+                                                        <c:choose>
+                                                        <c:when test="${solicitud.getDerivacion().getUrgente()}">
+                                                            <div class="modal-header">
                                                             <h4 class="modal-title">Detalles de Solicitud</h4>
-                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                        </div>
+                                                            <div class="m-auto btn btn-danger">URGENTE</div>
+                                                            <button type="button" class="close" data-dismiss="modal">×</button>
+                                                            </div>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Detalles de Solicitud</h4>
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            </div>
+                                                        </c:otherwise>
+                                                        </c:choose>
+
                                                         <!-- Modal body -->
                                                         <div class="modal-body">
                                                             <h4>Nombre de paciente: </h4>
