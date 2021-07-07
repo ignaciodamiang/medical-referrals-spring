@@ -28,7 +28,7 @@
         </div>
 
     </div>
-    <div id="map" class="w-50 h-50">
+    <div id="map" class="w-100 h-100">
     </div>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtr4ecOGJjwlxG3eXQeDCksZdMe2PNxBs&callback=initMap"        type="text/javascript"></script>
     <script>
@@ -42,31 +42,52 @@
                 lat: latitud,
                 lng: longitud
             }
+
             // Centramos el mapa en la ubicacion del centro medico
+            const directionsRenderer = new google.maps.DirectionsRenderer();
+            const directionsService = new google.maps.DirectionsService();
             const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 12,
                 center: centroMedico,
             });
             console.log(latitud+','+longitud);
+
+            var icon = {
+                url: "https://image.flaticon.com/icons/png/512/504/504276.png", // url
+                scaledSize: new google.maps.Size(35, 35), // scaled size
+                origin: new google.maps.Point(0,0), // origin
+                anchor: new google.maps.Point(0, 0) // anchor
+            };
+
             // Creamos la marca de la ubicacion del centro medico
             const marker = new google.maps.Marker({
                 position: centroMedico,
                 map: map,
+                icon: icon
             });
 
             // geolocalizamos la ubicacion del usuarip
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
-                        const pos = {
+                         const pos = {
                             lat: position.coords.latitude,
                             lng: position.coords.longitude,
                         };
-                        // Creamos la marca de la ubicacion del usuario
-                        const user = new google.maps.Marker({
-                            position: pos,
-                            map: map,
-                        });
+
+                        directionsRenderer.setMap(map);
+
+                        //funcion que calcula la ruta
+                        directionsService
+                            .route({
+                                origin: pos ,
+                                destination: centroMedico,
+                                travelMode: google.maps.TravelMode.DRIVING,
+                            })
+                            .then((response) => {
+                                directionsRenderer.setDirections(response);
+                            })
+                            .catch((e) => window.alert("Directions request failed due to " + e));
                     });
             }
         }
