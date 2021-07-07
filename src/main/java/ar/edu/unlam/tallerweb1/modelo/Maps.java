@@ -14,12 +14,12 @@ public class Maps {
         String request = this.url + "place/findplacefromtext/json?input=";
         String inputType = "&inputtype=textquery";
         String field = "&fields=geometry";
-        //URI apiRequest=new URI(request+direccion+inputType+field+key);
+        String ubicacion = direccion.trim().replace(" ", "%20");
+
         //creando el request
         final HttpRequest requestPosts = HttpRequest.newBuilder().GET().uri(
-                //URI.create(request+direccion+inputType+field+key)
-                URI.create("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Esteban%20Bonorino%201729&inputtype=textquery&fields=geometry&key=AIzaSyCtr4ecOGJjwlxG3eXQeDCksZdMe2PNxBs")
-        ).build();
+                URI.create(request+ubicacion+inputType+field+key)
+                ).build();
         //obtieniendo el response
         try {
             final HttpResponse<String> apiResponse = httpClient.send(requestPosts, HttpResponse.BodyHandlers.ofString());
