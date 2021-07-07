@@ -13,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @Controller
@@ -72,10 +74,12 @@ public class ControladorTraslado {
     }
 
     @RequestMapping(path = "/ver-traslado/{idDerivacion}", method = RequestMethod.GET)
-    public ModelAndView verTraslados(@PathVariable Long idDerivacion, HttpServletRequest request){
+    public ModelAndView verTraslados(@PathVariable Long idDerivacion, HttpServletRequest request) throws InterruptedException, IOException, URISyntaxException {
         Traslado traslado = servicioTraslado.obtenerTrasladoPorDerivacion(idDerivacion);
         ModelMap map = new ModelMap();
+        Maps coordenadas = new Maps();
         map.put("traslado", traslado);
+        map.put("coordenadas",coordenadas.obtenerCoordenadas(traslado.getCentroMedico().getDireccion()));
         map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
         return new ModelAndView("Traslado/ver-traslado", map);
     }

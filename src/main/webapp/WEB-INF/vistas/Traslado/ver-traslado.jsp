@@ -28,7 +28,33 @@
         </div>
 
     </div>
-
+    <div id="map" class="w-50 h-50">
+    </div>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtr4ecOGJjwlxG3eXQeDCksZdMe2PNxBs&callback=initMap"        type="text/javascript"></script>
+    <script>
+        // Initialize and add the map
+        function initMap() {
+            // The location of Uluru
+            let mostrar = JSON.parse(`${coordenadas}`);
+            let latitud = mostrar.candidates[0].geometry.location.lat;
+            let longitud = mostrar.candidates[0].geometry.location.lng;
+            const centroMedico = {
+                lat: latitud,
+                lng: longitud
+            }
+            // The map, centered at Uluru
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 12,
+                center: centroMedico,
+            });
+            console.log(latitud+','+longitud);
+            // The marker, positioned at Uluru
+            const marker = new google.maps.Marker({
+                position: centroMedico,
+                map: map,
+            });
+        }
+    </script>
 
 <%@ include file="../../../parts/footer.jsp" %>
 </body>
