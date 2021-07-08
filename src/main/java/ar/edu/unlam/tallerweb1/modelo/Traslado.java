@@ -9,7 +9,6 @@ public class Traslado {
     private Long id;
     @OneToOne
     private Derivacion derivacion;
-    private String direccionOrigen;
     @ManyToOne
     private CentroMedico centroMedico;
     @Enumerated(EnumType.STRING)
@@ -26,12 +25,6 @@ public class Traslado {
     }
     public void setDerivacion(Derivacion derivacion) {
         this.derivacion = derivacion;
-    }
-    public String getDireccionOrigen() {
-        return direccionOrigen;
-    }
-    public void setDireccionOrigen(String direccionOrigen) {
-        this.direccionOrigen = direccionOrigen;
     }
     public CentroMedico getCentroMedico() { return centroMedico; }
     public void setCentroMedico(CentroMedico centroMedico) { this.centroMedico = centroMedico; }

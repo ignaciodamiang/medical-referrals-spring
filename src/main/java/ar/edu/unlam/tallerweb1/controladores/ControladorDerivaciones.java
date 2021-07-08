@@ -89,13 +89,15 @@ public class ControladorDerivaciones {
 			@RequestParam("urgente") Boolean urgente, @RequestParam(name = "tomografo",defaultValue = "false") Boolean tomografo,
 		    @RequestParam(name = "traumatologoGuardia",defaultValue = "false") Boolean traumatologoGuardia,
 		    @RequestParam(name = "cirujanoGuardia",defaultValue = "false") Boolean cirujanoGuardia,
-		    @RequestParam(name = "cardiologoGuardia",defaultValue = "false") Boolean cardiologoGuardia,HttpServletRequest request) throws MessagingException {
+		    @RequestParam(name = "cardiologoGuardia",defaultValue = "false") Boolean cardiologoGuardia,
+			@RequestParam(name = "ubicacionPaciente") String ubicacionPaciente, HttpServletRequest request) throws MessagingException {
 
 		Paciente paciente = servicioPaciente.obtenerPacientePorId(idPaciente);
 		derivacion.setPaciente(paciente);
 		derivacion.setUrgente(urgente);
 		derivacion.setFechaDerivacion(new Date());
 		derivacion.setEstadoDerivacion(EstadoDerivacion.ENBUSQUEDA);
+		derivacion.setUbicacionPaciente(ubicacionPaciente);
 		RequerimientosMedicos requerimientosMedicos = new RequerimientosMedicos();
 		requerimientosMedicos.setCirujanoDeGuardia(cirujanoGuardia);
 		requerimientosMedicos.setCardiologoSeGuardia(cardiologoGuardia);

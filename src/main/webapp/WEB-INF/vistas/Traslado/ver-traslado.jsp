@@ -19,7 +19,7 @@
                 <div class="card-body p-0">
                     <h1>${traslado.getDerivacion().getPaciente().getNombreCompleto()}</h1>
                     <h1>${traslado.getCentroMedico().getNombre()}</h1>
-                    <h1>${traslado.getDireccionOrigen()}</h1>
+                    <h1>${traslado.getDerivacion().getUbicacionPaciente()}</h1>
                     <h1>${traslado.getCentroMedico().getDireccion()}</h1>
                     <a href="../BuscarPaciente">
                         <button type="button" class="btn btn-success"> Volver </button></a>
@@ -30,7 +30,7 @@
     </div>
     <div id="map" class="w-100 h-100">
     </div>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtr4ecOGJjwlxG3eXQeDCksZdMe2PNxBs&callback=initMap"        type="text/javascript"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtr4ecOGJjwlxG3eXQeDCksZdMe2PNxBs&callback=initMap" type="text/javascript"></script>
     <script>
         // inicializar mapa
         function initMap() {
@@ -52,6 +52,7 @@
             });
             console.log(latitud+','+longitud);
 
+           // modificamos el icono que va a definir el centro medico para mostrar una imagen
             var icon = {
                 url: "https://image.flaticon.com/icons/png/512/504/504276.png", // url
                 scaledSize: new google.maps.Size(35, 35), // scaled size
