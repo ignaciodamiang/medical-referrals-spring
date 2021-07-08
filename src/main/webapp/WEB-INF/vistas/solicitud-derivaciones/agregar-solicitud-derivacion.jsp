@@ -24,9 +24,11 @@
 
             <div class="form-group">
                 <label for="centroMedico">Centro Medico</label>
-                <form:select id="centroMedico" path="centroMedico.id" class="form-control">
-                    <form:options items="${centrosMedicos}" itemLabel="nombre" itemValue="id"/>
-                </form:select>
+                <select name="centroMedico" id="centroMedico" >
+                    <form:select id="centroMedico" path="centroMedico.id" class="form-control">
+                        <form:options items="${centrosMedicos}" itemLabel="nombre" itemValue="id"/>
+                    </form:select>
+                </select>
             </div>
 
             <button class="btn btn-lg btn-info btn-block" Type="Submit"/>Generar Solicitud de derivación</button>

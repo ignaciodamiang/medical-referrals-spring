@@ -13,7 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -23,6 +26,7 @@ public class ControladorSolicitudDerivaciones {
     private ServicioCentroMedico servicioCentroMedico;
     private ServicioNotificacion servicioNotificacion;
     private ServicioNotificacionUsuario servicioNotificacionUsuario;
+    private ServicioCentroMedicoDistancia servicioCentroMedicoDistancia;
 
     @Autowired
     public ControladorSolicitudDerivaciones
@@ -33,6 +37,7 @@ public class ControladorSolicitudDerivaciones {
         this.servicioCentroMedico = servicioCentroMedico;
         this.servicioNotificacion = servicioNotificacion;
         this.servicioNotificacionUsuario = servicioNotificacionUsuario;
+        this.servicioCentroMedicoDistancia = new ServicioCentroMedicoDistanciaImpl();
     }
 
     @RequestMapping("/solicitudes-derivaciones")
@@ -52,8 +57,11 @@ public class ControladorSolicitudDerivaciones {
         ModelMap model = new ModelMap();
         SolicitudDerivacion solicitudDerivacion = new SolicitudDerivacion();
         Derivacion derivacion = servicioDerivacion.verDerivacion(idDerivacion);
+        HashSet<CentroMedico> centroMedicos = servicioCentroMedico.centrosMedicosQuePoseenRequerimientosMedicos(servicioCentroMedico.obtenerCentrosMedicosPorPaciente(derivacion.getPaciente()), derivacion.getRequerimientosMedicos());
+        //List<CentroMedicoDistancia> centroMedicoDistancias = servicioCentroMedicoDistancia.obtenerDistanciaCentroMedicoPaciente(centroMedicos,derivacion);
         model.put("derivaciones", derivacion);
-        model.put("centrosMedicos", servicioCentroMedico.centrosMedicosQuePoseenRequerimientosMedicos(servicioCentroMedico.obtenerCentrosMedicosPorPaciente(derivacion.getPaciente()), derivacion.getRequerimientosMedicos()));
+        //model.put("centrosMedicos", centroMedicoDistancias);
+        model.put("centrosMedicos",centroMedicos);
         //model.put("centrosMedicos", servicioCentroMedico.obtenerCentrosMedicos());
         model.put("solicitudDerivacion", solicitudDerivacion);
         model.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
@@ -62,9 +70,12 @@ public class ControladorSolicitudDerivaciones {
 
     @RequestMapping(path="agregar-solicitud-derivacion", method = RequestMethod.POST)
     public ModelAndView agregarSolicitudDerivacion(SolicitudDerivacion solicitudDerivacion, RedirectAttributes attributes,
-                                                   @RequestParam("idDerivacion") Long idDerivacion) throws Exception {
+                                                   @RequestParam("idDerivacion") Long idDerivacion
+                                                    //,@RequestParam("centroMedico") Long idCentroMedico
+    ) throws Exception {
 
         solicitudDerivacion.setFechaCreacion(new Date());
+        //solicitudDerivacion.setCentroMedico(servicioCentroMedico.obtenerCentroMedicoPorId(idCentroMedico));
         solicitudDerivacion.setAceptado(false);
         solicitudDerivacion.setConfirmado(false);
         Derivacion derivacion = servicioDerivacion.verDerivacion(idDerivacion);
