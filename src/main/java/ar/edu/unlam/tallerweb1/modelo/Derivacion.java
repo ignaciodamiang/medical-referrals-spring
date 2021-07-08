@@ -16,6 +16,7 @@ public class Derivacion {
     private String diagnostico;
     private Date fechaDerivacion;
     private String paraQueSector;
+    private String ubicacionPaciente;
     @ManyToOne
     private Cobertura cobertura;
     @OneToOne
@@ -67,19 +68,16 @@ public class Derivacion {
     }
     public Usuario getAutor() { return autor; }
     public void setAutor(Usuario autor) { this.autor = autor;}
-    
-	public EstadoDerivacion getEstadoDerivacion() {
+    public EstadoDerivacion getEstadoDerivacion() {
 		return estadoDerivacion;
 	}
 	public void setEstadoDerivacion(EstadoDerivacion estadoDerivacion) {
 		this.estadoDerivacion = estadoDerivacion;
 	}
-
-    public RequerimientosMedicos getRequerimientosMedicos() {
+	public RequerimientosMedicos getRequerimientosMedicos() {
         return requerimientosMedicos;
     }
-
-    public void setRequerimientosMedicos(RequerimientosMedicos requerimientosMedicos) {
-        this.requerimientosMedicos = requerimientosMedicos;
-    }
+    public void setRequerimientosMedicos(RequerimientosMedicos requerimientosMedicos) { this.requerimientosMedicos = requerimientosMedicos; }
+    public String getUbicacionPaciente() { return ubicacionPaciente; }
+    public void setUbicacionPaciente(String ubicacionPaciente) { this.ubicacionPaciente = ubicacionPaciente; }
 }

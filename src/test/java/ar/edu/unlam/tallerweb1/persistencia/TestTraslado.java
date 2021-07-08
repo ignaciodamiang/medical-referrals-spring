@@ -55,7 +55,7 @@ public class TestTraslado extends SpringTest {
         session().save(centroMedico);
 
         traslado.setDerivacion(derivacion);
-        traslado.setDireccionOrigen("Madariaga 3935");
+        //traslado.setDireccionOrigen("Madariaga 3935");
         traslado.setCentroMedico(centroMedico);
 
         repositorioTraslado.guardarTraslado(traslado);
@@ -102,15 +102,15 @@ public class TestTraslado extends SpringTest {
         session().save(centroMedico);
 
         traslado.setDerivacion(derivacion);
-        traslado.setDireccionOrigen("Madariaga 3935");
+        //traslado.setDireccionOrigen("Madariaga 3935");
         traslado.setCentroMedico(centroMedico);
 
         session().save(traslado);
 
-        traslado.setDireccionOrigen("Jose Marmol 4051");
+        //traslado.setDireccionOrigen("Jose Marmol 4051");
 
         repositorioTraslado.modificarTraslado(traslado);
 
-        assertThat(traslado.getDireccionOrigen()).isEqualTo("Jose Marmol 4051");
+        //assertThat(traslado.getDireccionOrigen()).isEqualTo("Jose Marmol 4051");
     }
 }
