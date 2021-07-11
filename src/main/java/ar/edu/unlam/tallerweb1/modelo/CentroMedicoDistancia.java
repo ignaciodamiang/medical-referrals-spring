@@ -3,7 +3,12 @@ package ar.edu.unlam.tallerweb1.modelo;
 public class CentroMedicoDistancia {
 
     private CentroMedico centroMedico;
-    private String distancia;
+    private Double distancia;
+
+    public CentroMedicoDistancia(CentroMedico centroMedico, Double distancia) {
+        this.centroMedico = centroMedico;
+        this.distancia = distancia;
+    }
 
     public CentroMedico getCentroMedico() {
         return centroMedico;
@@ -13,11 +18,11 @@ public class CentroMedicoDistancia {
         this.centroMedico = centroMedico;
     }
 
-    public String getDistancia() {
+    public Double getDistancia() {
         return distancia;
     }
 
-    public void setDistancia(String distancia) {
+    public void setDistancia(Double distancia) {
         this.distancia = distancia;
     }
 }

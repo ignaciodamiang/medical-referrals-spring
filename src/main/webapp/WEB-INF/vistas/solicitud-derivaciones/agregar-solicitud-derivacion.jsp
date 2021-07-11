@@ -25,9 +25,9 @@
             <div class="form-group">
                 <label for="centroMedico">Centro Medico</label>
                 <select name="centroMedico" id="centroMedico" >
-                    <form:select id="centroMedico" path="centroMedico.id" class="form-control">
-                        <form:options items="${centrosMedicos}" itemLabel="nombre" itemValue="id"/>
-                    </form:select>
+                    <c:forEach items="${centrosMedicos}" var="centroMedico">
+                        <option value="${centroMedico.centroMedico.id}">${centroMedico.centroMedico.nombre}  ${centroMedico.distancia}Km</option>
+                    </c:forEach>
                 </select>
             </div>
 
