@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
@@ -18,7 +20,7 @@ public class Maps {
     private final String key = "&key=AIzaSyCtr4ecOGJjwlxG3eXQeDCksZdMe2PNxBs";
     private HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
 
-    public  String obtenerCoordenadas(String direccion) throws URISyntaxException, IOException, InterruptedException {
+    public  String obtenerCoordenadas(String direccion){
         // Armando URL
         String request = this.url + "place/findplacefromtext/json?input=";
         String inputType = "&inputtype=textquery";
@@ -39,7 +41,7 @@ public class Maps {
         }
     }
 
-    public String calcularDistancia(String origen, String destino) throws URISyntaxException, IOException, InterruptedException {
+    public Double calcularDistancia(String origen, String destino) throws IOException {
         String punto1 = this.obtenerCoordenadas(origen);
         String punto2 = this.obtenerCoordenadas(destino);
 
@@ -52,69 +54,44 @@ public class Maps {
         JsonParser jp2 = factory.createJsonParser(punto2);
         ArrayNode jsonDestino = (ArrayNode) mapper.readTree(jp2).get("candidates");
 
-        String latOrigen ="";
-        String lngOrigen ="";
+        double latOrigen = 0.0;
+        double lngOrigen = 0.0;
 
-        if(jsonOrigen.isArray()) {
-            for(JsonNode jsonNode : jsonOrigen) {
-                latOrigen = jsonNode.get("geometry").get("location").get("lat").asText();
-                lngOrigen = jsonNode.get("geometry").get("location").get("lng").asText();
+        if (jsonOrigen.isArray()) {
+            for (JsonNode jsonNode : jsonOrigen) {
+                latOrigen = jsonNode.get("geometry").get("location").get("lat").asDouble();
+                lngOrigen = jsonNode.get("geometry").get("location").get("lng").asDouble();
                 break;
             }
         }
 
 
-        String latDestino = "";
-        String lngDestino = "";
+        double latDestino = 0.0;
+        double lngDestino = 0.0;
 
-        if(jsonOrigen.isArray()) {
-            for(JsonNode jsonNode : jsonDestino) {
-                latDestino = jsonNode.get("geometry").get("location").get("lat").asText();
-                lngDestino = jsonNode.get("geometry").get("location").get("lng").asText();
+        if (jsonOrigen.isArray()) {
+            for (JsonNode jsonNode : jsonDestino) {
+                latDestino = jsonNode.get("geometry").get("location").get("lat").asDouble();
+                lngDestino = jsonNode.get("geometry").get("location").get("lng").asDouble();
                 break;
             }
         }
 
-        // Armando URL
-        String request = this.url + "distancematrix/json?units=metric";
+        //double radioTierra = 3958.75;//en millas
+        double radioTierra = 6371;//en kilómetros
+        double dLat = Math.toRadians(latDestino - latOrigen);
+        double dLng = Math.toRadians(lngDestino - lngOrigen);
+        double sindLat = Math.sin(dLat / 2);
+        double sindLng = Math.sin(dLng / 2);
+        double va1 = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)
+                * Math.cos(Math.toRadians(latOrigen)) * Math.cos(Math.toRadians(latDestino));
+        double va2 = 2 * Math.atan2(Math.sqrt(va1), Math.sqrt(1 - va1));
+        double distancia = radioTierra * va2;
 
+        BigDecimal bd=new BigDecimal(distancia).setScale(2, RoundingMode.HALF_DOWN);
 
-        //creando el request
-        final HttpRequest requestPosts = HttpRequest.newBuilder().GET().uri(
-                URI.create(request+"&origins="+latOrigen+","+lngOrigen+"&destinations="+latDestino+","+lngDestino+key)
-        ).build();
+        return bd.doubleValue();
 
-        //obtieniendo el response
-        try {
-            final HttpResponse<String> apiResponse = httpClient.send(requestPosts, HttpResponse.BodyHandlers.ofString());
-            return apiResponse.body();
-        }catch (IOException | InterruptedException ex) {
-            System.out.println(ex);
-            return null;
-        }
-    }
-
-    public String devolverDistancia(String json) throws IOException {
-        String distancia = "";
-
-        ObjectMapper mapper = new ObjectMapper();
-        JsonFactory factory = mapper.getJsonFactory(); // since 2.1 use mapper.getFactory() instead
-
-        JsonParser jp1 = factory.createJsonParser(json);
-        ArrayNode jsonRows = (ArrayNode) mapper.readTree(jp1).get("rows");
-
-        ArrayNode jsonElements = null;
-
-        if(jsonRows.isArray()) {
-            for(JsonNode jsonNode : jsonRows) {
-                jsonElements = (ArrayNode) jsonNode.get("elements");
-                break;
-            }
-            for(JsonNode jsonNode : jsonElements){
-                distancia = jsonNode.get("distance").get("text").asText();
-            }
-        }
-        return distancia;
     }
 }
 

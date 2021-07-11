@@ -58,10 +58,10 @@ public class ControladorSolicitudDerivaciones {
         SolicitudDerivacion solicitudDerivacion = new SolicitudDerivacion();
         Derivacion derivacion = servicioDerivacion.verDerivacion(idDerivacion);
         HashSet<CentroMedico> centroMedicos = servicioCentroMedico.centrosMedicosQuePoseenRequerimientosMedicos(servicioCentroMedico.obtenerCentrosMedicosPorPaciente(derivacion.getPaciente()), derivacion.getRequerimientosMedicos());
-        //List<CentroMedicoDistancia> centroMedicoDistancias = servicioCentroMedicoDistancia.obtenerDistanciaCentroMedicoPaciente(centroMedicos,derivacion);
+        List<CentroMedicoDistancia> centroMedicoDistancias = servicioCentroMedicoDistancia.obtenerDistanciaCentroMedicoPaciente(centroMedicos,derivacion);
         model.put("derivaciones", derivacion);
-        //model.put("centrosMedicos", centroMedicoDistancias);
-        model.put("centrosMedicos",centroMedicos);
+        model.put("centrosMedicos", centroMedicoDistancias);
+        //model.put("centrosMedicos",centroMedicos);
         //model.put("centrosMedicos", servicioCentroMedico.obtenerCentrosMedicos());
         model.put("solicitudDerivacion", solicitudDerivacion);
         model.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
@@ -70,12 +70,12 @@ public class ControladorSolicitudDerivaciones {
 
     @RequestMapping(path="agregar-solicitud-derivacion", method = RequestMethod.POST)
     public ModelAndView agregarSolicitudDerivacion(SolicitudDerivacion solicitudDerivacion, RedirectAttributes attributes,
-                                                   @RequestParam("idDerivacion") Long idDerivacion
-                                                    //,@RequestParam("centroMedico") Long idCentroMedico
+                                                   @RequestParam("idDerivacion") Long idDerivacion,
+                                                    @RequestParam("centroMedico") Long idCentroMedico
     ) throws Exception {
 
         solicitudDerivacion.setFechaCreacion(new Date());
-        //solicitudDerivacion.setCentroMedico(servicioCentroMedico.obtenerCentroMedicoPorId(idCentroMedico));
+        solicitudDerivacion.setCentroMedico(servicioCentroMedico.obtenerCentroMedicoPorId(idCentroMedico));
         solicitudDerivacion.setAceptado(false);
         solicitudDerivacion.setConfirmado(false);
         Derivacion derivacion = servicioDerivacion.verDerivacion(idDerivacion);
