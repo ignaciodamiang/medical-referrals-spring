@@ -68,26 +68,13 @@ public class ControladorSolicitudDerivaciones {
         return new ModelAndView("/solicitud-derivaciones/agregar-solicitud-derivacion", model);
     }
 
-    @RequestMapping(path="agregar-solicitud-derivacion", method = RequestMethod.POST)
-    public ModelAndView agregarSolicitudDerivacion(SolicitudDerivacion solicitudDerivacion, RedirectAttributes attributes,
+    @RequestMapping(path="/agregar-solicitud-derivacion", method = RequestMethod.POST)
+    public ModelAndView agregarSolicitudDerivacion(RedirectAttributes attributes,
                                                    @RequestParam("idDerivacion") Long idDerivacion,
                                                     @RequestParam("centroMedico") Long idCentroMedico
     ) throws Exception {
 
-        solicitudDerivacion.setFechaCreacion(new Date());
-        solicitudDerivacion.setCentroMedico(servicioCentroMedico.obtenerCentroMedicoPorId(idCentroMedico));
-        solicitudDerivacion.setAceptado(false);
-        solicitudDerivacion.setConfirmado(false);
-        Derivacion derivacion = servicioDerivacion.verDerivacion(idDerivacion);
-        solicitudDerivacion.setDerivacion(derivacion);
-        servicioSolicitudDerivacion.guardarSolicitudDerivacion(solicitudDerivacion);
-        Notificacion notificacion = new Notificacion();
-        notificacion.setTitulo("Se ha generado una nueva solicitud de derivación");
-        notificacion.setMensaje("Se ha generado una nueva solicitud de derivación para el centro medico " +solicitudDerivacion.getCentroMedico()
-                                +" perteneciente al paciente "+solicitudDerivacion.getDerivacion().getPaciente().getNombreCompleto());
-        notificacion.setDerivacion(solicitudDerivacion.getDerivacion());
-        servicioNotificacion.guardarNotificacion(notificacion);
-        servicioNotificacionUsuario.guardarNotificacionAdministrativos(solicitudDerivacion.getCentroMedico(), notificacion);
+        servicioSolicitudDerivacion.guardarSolicitudDerivacion(idDerivacion, idCentroMedico);
         attributes.addFlashAttribute("message","Se creo la solicitud derivación correctamente");
         return new ModelAndView("redirect:/listado-derivacion");
     }

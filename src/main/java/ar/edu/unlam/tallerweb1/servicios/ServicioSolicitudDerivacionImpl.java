@@ -1,7 +1,9 @@
 package ar.edu.unlam.tallerweb1.servicios;
 import ar.edu.unlam.tallerweb1.modelo.CentroMedico;
 import ar.edu.unlam.tallerweb1.modelo.Derivacion;
+import ar.edu.unlam.tallerweb1.modelo.Notificacion;
 import ar.edu.unlam.tallerweb1.modelo.SolicitudDerivacion;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioCentroMedico;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioDerivacion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioSolicitudDerivacion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +18,36 @@ import java.util.List;
 public class ServicioSolicitudDerivacionImpl implements ServicioSolicitudDerivacion{
     private RepositorioSolicitudDerivacion servicioSoliciturDerivacionDao;
     private RepositorioDerivacion servicioDerivacion;
+    private RepositorioCentroMedico repositorioCentroMedico;
     @Autowired
-    public ServicioSolicitudDerivacionImpl(RepositorioSolicitudDerivacion servicioSoliciturDerivacionDao,RepositorioDerivacion servicioDerivacion)
+    public ServicioSolicitudDerivacionImpl(RepositorioSolicitudDerivacion servicioSoliciturDerivacionDao,RepositorioDerivacion servicioDerivacion,
+                                           RepositorioCentroMedico repositorioCentroMedico)
     {this.servicioSoliciturDerivacionDao= servicioSoliciturDerivacionDao;
      this.servicioDerivacion=servicioDerivacion;
+     this.repositorioCentroMedico= repositorioCentroMedico;
     }
 
 
     @Override
-    public void guardarSolicitudDerivacion(SolicitudDerivacion solicitudDerivacion) {
-        Date now = new Date();
-        solicitudDerivacion.setFechaCreacion(now);
-        servicioSoliciturDerivacionDao.guardarSolicitudDerivacion(solicitudDerivacion);
+    public void guardarSolicitudDerivacion(Long idDerivacion, Long idCentroMedico) {
+        SolicitudDerivacion solicitudDerivacion = new SolicitudDerivacion();
+        solicitudDerivacion.setFechaCreacion(new Date());
+        solicitudDerivacion.setAceptado(false);
+        solicitudDerivacion.setConfirmado(false);
+        Derivacion derivacion = servicioDerivacion.verDerivacion(idDerivacion);
+        CentroMedico centroMedico = repositorioCentroMedico.obtenerCentroMedicoPorId(idCentroMedico);
+        if(centroMedico != null && derivacion !=null){
+            solicitudDerivacion.setCentroMedico(centroMedico);
+            solicitudDerivacion.setDerivacion(derivacion);
+            servicioSoliciturDerivacionDao.guardarSolicitudDerivacion(solicitudDerivacion);
+            //Notificacion notificacion = new Notificacion();
+            //notificacion.setTitulo("Se ha generado una nueva solicitud de derivación");
+            //notificacion.setMensaje("Se ha generado una nueva solicitud de derivación para el centro medico " +solicitudDerivacion.getCentroMedico()
+              //      +" perteneciente al paciente "+solicitudDerivacion.getDerivacion().getPaciente().getNombreCompleto());
+            //notificacion.setDerivacion(solicitudDerivacion.getDerivacion());
+            //servicioNotificacion.guardarNotificacion(notificacion);
+            //servicioNotificacionUsuario.guardarNotificacionAdministrativos(solicitudDerivacion.getCentroMedico(), notificacion);
+        }
     }
 
     @Override

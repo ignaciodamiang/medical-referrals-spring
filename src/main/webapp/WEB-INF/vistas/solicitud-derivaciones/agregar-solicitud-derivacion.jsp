@@ -16,7 +16,7 @@
 <body>
 <div class="d-flex">
     <div class="col-lg-6 justify-content-center mx-auto">
-        <form:form action="../agregar-solicitud-derivacion" method="post" modelAttribute="solicitudDerivacion" class="mt-4">
+        <form action="../agregar-solicitud-derivacion" method="post" class="mt-4">
             <h3 class="form-signin-heading text-center">Crear Solicitud para derivar al Paciente ${derivaciones.paciente.nombreCompleto}</h3>
             <hr class="colorgraph"><br>
 
@@ -32,7 +32,7 @@
             </div>
 
             <button class="btn btn-lg btn-info btn-block" Type="Submit"/>Generar Solicitud de derivación</button>
-        </form:form>
+        </form>
     </div>
 </div>
 </body>
