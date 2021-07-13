@@ -8,6 +8,13 @@
     <title>Traslados en Curso</title>
 </head>
 <body>
+<!-- se agrega la columna menu -->
+<%@ include file="../../../parts/menu.jsp" %>
+<div class="col-10" id="main">
+    <!--  fin menu -->
+    <c:if test="${traslados.isEmpty()}">
+        <h4 class="mt-4 text-center">No hay traslados en curso</h4>
+    </c:if>
     <c:forEach items="${traslados}" var="traslado">
         <div class="card" style="width: 18rem;">
             <div class="card-body">
@@ -48,6 +55,9 @@
             </div>
         </div>
     </c:forEach>
+    <!--  footer -->
+</div>
+
 <%@ include file="../../../parts/footer.jsp" %>
 </body>
 </html>

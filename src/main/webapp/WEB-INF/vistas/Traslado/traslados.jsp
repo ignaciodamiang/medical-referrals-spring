@@ -4,14 +4,14 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
+    <%@ include file="../../../parts/meta.jsp" %>
     <title>Traslado</title>
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-</head>
+   </head>
 <body>
+<!-- se agrega la columna menu -->
+<%@ include file="../../../parts/menu.jsp" %>
+<div class="col-10" id="main">
+    <!--  fin menu -->
     <c:if test="${traslados.isEmpty()}">
         <h4>No hay traslados disponibles</h4>
     </c:if>
@@ -27,5 +27,9 @@
                 </div>
             </div>
         </c:forEach>
+    <!--  footer -->
+</div>
+
+<%@ include file="../../../parts/footer.jsp" %>
 </body>
 </html>
