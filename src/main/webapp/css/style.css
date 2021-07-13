@@ -1,0 +1,19 @@
+/*.sticky-top a:hover {background: #903900;}*/
+.administrativo{
+background-color:#1338BE;
+}
+.administrativo a:hover{
+    background-color: #0c2177;
+}
+.solicitador{
+    background-color:#008000;
+}
+.solicitador a:hover{
+    background-color: #015401;
+}
+.derivador{
+    background-color:#d35400;
+}
+.derivador a:hover{
+    background: #903900;
+}
