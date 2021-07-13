@@ -42,7 +42,7 @@ public class ControladorTraslado {
 
     @RequestMapping(path = "/crearTraslado/{idSolicitud}", method = RequestMethod.GET)
     public ModelAndView crearTraslado(@PathVariable Long idSolicitud){
-        SolicitudDerivacion solicitudDerivacion = serviciosolicitudDerivacion.obetenerSolicitudDerivacionPorId(idSolicitud);
+        SolicitudDerivacion solicitudDerivacion = serviciosolicitudDerivacion.obtenerSolicitudDerivacionPorId(idSolicitud);
         Traslado traslado = new Traslado();
         traslado.setCentroMedico(solicitudDerivacion.getCentroMedico());
         traslado.setDerivacion(solicitudDerivacion.getDerivacion());

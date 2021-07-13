@@ -61,8 +61,6 @@ public class ControladorSolicitudDerivaciones {
         List<CentroMedicoDistancia> centroMedicoDistancias = servicioCentroMedicoDistancia.obtenerDistanciaCentroMedicoPaciente(centroMedicos,derivacion);
         model.put("derivaciones", derivacion);
         model.put("centrosMedicos", centroMedicoDistancias);
-        //model.put("centrosMedicos",centroMedicos);
-        //model.put("centrosMedicos", servicioCentroMedico.obtenerCentrosMedicos());
         model.put("solicitudDerivacion", solicitudDerivacion);
         model.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
         return new ModelAndView("/solicitud-derivaciones/agregar-solicitud-derivacion", model);
@@ -81,35 +79,13 @@ public class ControladorSolicitudDerivaciones {
 
     @RequestMapping(path = "aceptarSolicitud/{idSolicitud}", method = RequestMethod.GET)
     public ModelAndView aceptarSolicitud(@PathVariable Long idSolicitud){
-    SolicitudDerivacion solicitudDerivacion = servicioSolicitudDerivacion.obetenerSolicitudDerivacionPorId(idSolicitud);
-    solicitudDerivacion.setAceptado(true);
-    solicitudDerivacion.setId(idSolicitud);
-    servicioSolicitudDerivacion.modificarSolicitudDerivacion(solicitudDerivacion);
-    Notificacion notificacion = new Notificacion();
-    notificacion.setDerivacion(solicitudDerivacion.getDerivacion());
-    notificacion.setTitulo("Se ha aceptado la solicitud de Derivación numero "+solicitudDerivacion.getId());
-    notificacion.setMensaje("La solicitud realizada al centro médico "+solicitudDerivacion.getCentroMedico().getNombre()
-            +" para derivar al paciente "+solicitudDerivacion.getDerivacion().getPaciente().getNombreCompleto()
-            + " ha sido aceptada ya puede generar el traslado correspondiente");
-    servicioNotificacion.guardarNotificacion(notificacion);
-    servicioNotificacionUsuario.guardarNotificacionDerivadores(solicitudDerivacion.getDerivacion().getCobertura(), notificacion);
+        servicioSolicitudDerivacion.aceptarSolicitudDerivacion(idSolicitud);
     return new ModelAndView("redirect:/solicitudes-derivaciones");
     }
 
     @RequestMapping(path = "rechazarSolicitud/{idSolicitud}", method = RequestMethod.GET)
     public ModelAndView rechazarSolicitud(@PathVariable Long idSolicitud){
-        SolicitudDerivacion solicitudDerivacion = servicioSolicitudDerivacion.obetenerSolicitudDerivacionPorId(idSolicitud);
-        solicitudDerivacion.setAceptado(false);
-        solicitudDerivacion.setId(idSolicitud);
-        servicioSolicitudDerivacion.modificarSolicitudDerivacion(solicitudDerivacion);
-        Notificacion notificacion = new Notificacion();
-        notificacion.setDerivacion(solicitudDerivacion.getDerivacion());
-        notificacion.setTitulo("Se ha rechazado la solicitud de Derivación numero "+solicitudDerivacion.getId());
-        notificacion.setMensaje("La solicitud realizada al centro médico "+solicitudDerivacion.getCentroMedico().getNombre()
-                +" para derivar al paciente "+solicitudDerivacion.getDerivacion().getPaciente().getNombreCompleto()
-                + " ha sido rechazada por favor buscar otro centro médico");
-        servicioNotificacion.guardarNotificacion(notificacion);
-        servicioNotificacionUsuario.guardarNotificacionDerivadores(solicitudDerivacion.getDerivacion().getCobertura(), notificacion);
+        servicioSolicitudDerivacion.rechazarSolicitudDerivacion(idSolicitud);
         return new ModelAndView("redirect:/solicitudes-derivaciones");
     }
     @RequestMapping(path = "verSolicitudes/{idDerivacion}",method = RequestMethod.GET)

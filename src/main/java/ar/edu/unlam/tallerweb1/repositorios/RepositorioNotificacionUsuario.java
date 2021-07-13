@@ -12,5 +12,5 @@ public interface RepositorioNotificacionUsuario {
 	void guardarNotificacionUsuario(NotificacionUsuario notiUsuario);
 	List<NotificacionUsuario> obtenerNotificacionesNoLeidasPorUsuario(Usuario usuario);
 	void modificarNotificacionUsuario(NotificacionUsuario notificacionUsuario);
-	NotificacionUsuario mostrarNotificacionUsuario(Long idNotificacionUsuario);
+	NotificacionUsuario mostrarNotificacionUsuario(Long idNotificacion);
 }
