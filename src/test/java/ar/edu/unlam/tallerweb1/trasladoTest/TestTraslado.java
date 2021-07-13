@@ -1,4 +1,4 @@
-package ar.edu.unlam.tallerweb1.persistencia;
+package ar.edu.unlam.tallerweb1.trasladoTest;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
 import ar.edu.unlam.tallerweb1.modelo.*;

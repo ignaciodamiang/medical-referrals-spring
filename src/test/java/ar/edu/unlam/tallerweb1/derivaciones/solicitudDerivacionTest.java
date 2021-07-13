@@ -1,4 +1,4 @@
-package ar.edu.unlam.tallerweb1.solicitudDerivacion;
+package ar.edu.unlam.tallerweb1.derivaciones;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
 import ar.edu.unlam.tallerweb1.controladores.ControladorDerivaciones;
