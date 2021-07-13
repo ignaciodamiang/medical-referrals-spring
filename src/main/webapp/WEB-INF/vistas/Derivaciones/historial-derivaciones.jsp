@@ -24,7 +24,12 @@
                                   <h5 class="card-title">Derivacion del paciente: ${derivacion.getPaciente().getNombreCompleto()}</h5>
                                   <p class="card-text"> ${derivacion.getFechaDerivacion()} </p>
                                   <p class="card-text">Diagnostico: ${derivacion.getDiagnostico()}</p>
-
+                                  <c:if test="${derivacion.getEstadoDerivacion().toString().equals('CANCELADA')}">
+                                     <p class="card-text font-weight-bolder text-danger">Estado: cancelada</p>
+                                  </c:if>
+                                  <c:if test="${derivacion.getEstadoDerivacion().toString().equals('FINALIZADA')}">
+                                     <p class="card-text font-weight-bolder text-danger">Estado: finalizada</p>
+                                  </c:if>
                                   <!-- Button to Open the Modal -->
                                   <button type="button" class="btn btn-info" data-toggle="modal" data-target="#derivacion${derivacion.getId()}">
                                   Detalles

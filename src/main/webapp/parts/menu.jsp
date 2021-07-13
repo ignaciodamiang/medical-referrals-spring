@@ -7,7 +7,7 @@
             switch (rolMenu){
                 case "Solicitador":
             {%>
-                <div class="col-2 d-flex flex-column"style="background-color:#008000" id="sticky-sidebar">
+                <div class="col-2 d-flex flex-column solicitador" id="sticky-sidebar">
                 <div class="sticky-top">
                 <p class="text-decoration-none text-white nav-link">Bienvenido Solicitador</p>
                 <a href="/proyecto_derivaciones_war_exploded/historialDerivaciones" class="text-decoration-none text-white nav-link">Historial derivacion</a>
@@ -16,7 +16,7 @@
                     break;
                 case "Derivador":
                 {%>
-                <div class="col-2 d-flex flex-column"style="background-color:#d35400" id="sticky-sidebar">
+                <div class="col-2 d-flex flex-column derivador" id="sticky-sidebar">
                 <div class="sticky-top">
                 <p class="text-decoration-none text-white nav-link">Bienvenido Derivador</p>
                 <a href="/proyecto_derivaciones_war_exploded/BuscarPaciente" class="text-decoration-none text-white nav-link">Buscar paciente</a>
@@ -25,7 +25,7 @@
                     ;break;
                 case "Administrativo":
                 {%>
-            <div class="col-2 d-flex flex-column"style="background-color:#1338BE" id="sticky-sidebar">
+            <div class="col-2 d-flex flex-column administrativo" id="sticky-sidebar">
             <div class="sticky-top">
             <p class="text-decoration-none text-white nav-link">Bienvenido Administrativo</p>
                 <a href="/proyecto_derivaciones_war_exploded/BuscarPaciente" class="text-decoration-none text-white nav-link">Buscar paciente</a>
