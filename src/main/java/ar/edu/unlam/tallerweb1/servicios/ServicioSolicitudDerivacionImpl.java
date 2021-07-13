@@ -19,12 +19,15 @@ public class ServicioSolicitudDerivacionImpl implements ServicioSolicitudDerivac
     private RepositorioSolicitudDerivacion servicioSoliciturDerivacionDao;
     private RepositorioDerivacion servicioDerivacion;
     private RepositorioCentroMedico repositorioCentroMedico;
+    private ServicioNotificacion servicioNotificacion;
+
     @Autowired
     public ServicioSolicitudDerivacionImpl(RepositorioSolicitudDerivacion servicioSoliciturDerivacionDao,RepositorioDerivacion servicioDerivacion,
-                                           RepositorioCentroMedico repositorioCentroMedico)
+                                           RepositorioCentroMedico repositorioCentroMedico, ServicioNotificacion servicioNotificacion)
     {this.servicioSoliciturDerivacionDao= servicioSoliciturDerivacionDao;
      this.servicioDerivacion=servicioDerivacion;
      this.repositorioCentroMedico= repositorioCentroMedico;
+     this.servicioNotificacion = servicioNotificacion;
     }
 
 
@@ -40,19 +43,31 @@ public class ServicioSolicitudDerivacionImpl implements ServicioSolicitudDerivac
             solicitudDerivacion.setCentroMedico(centroMedico);
             solicitudDerivacion.setDerivacion(derivacion);
             servicioSoliciturDerivacionDao.guardarSolicitudDerivacion(solicitudDerivacion);
-            //Notificacion notificacion = new Notificacion();
-            //notificacion.setTitulo("Se ha generado una nueva solicitud de derivación");
-            //notificacion.setMensaje("Se ha generado una nueva solicitud de derivación para el centro medico " +solicitudDerivacion.getCentroMedico()
-              //      +" perteneciente al paciente "+solicitudDerivacion.getDerivacion().getPaciente().getNombreCompleto());
-            //notificacion.setDerivacion(solicitudDerivacion.getDerivacion());
-            //servicioNotificacion.guardarNotificacion(notificacion);
-            //servicioNotificacionUsuario.guardarNotificacionAdministrativos(solicitudDerivacion.getCentroMedico(), notificacion);
+            servicioNotificacion.guardarNotificacion(solicitudDerivacion, "G");
         }
     }
 
     @Override
     public void modificarSolicitudDerivacion(SolicitudDerivacion solicitudDerivacion) {
         servicioSoliciturDerivacionDao.modificarSolicitudDerivacion(solicitudDerivacion);
+    }
+
+    @Override
+    public void aceptarSolicitudDerivacion(Long idSolicitudDerivacion) {
+        SolicitudDerivacion solicitudDerivacion = this.obtenerSolicitudDerivacionPorId(idSolicitudDerivacion);
+        solicitudDerivacion.setAceptado(true);
+        solicitudDerivacion.setId(idSolicitudDerivacion);
+        this.modificarSolicitudDerivacion(solicitudDerivacion);
+        servicioNotificacion.guardarNotificacion(solicitudDerivacion, "A");
+    }
+
+    @Override
+    public void rechazarSolicitudDerivacion(Long idSolicitudDerivacion) {
+        SolicitudDerivacion solicitudDerivacion = this.obtenerSolicitudDerivacionPorId(idSolicitudDerivacion);
+        solicitudDerivacion.setAceptado(false);
+        solicitudDerivacion.setId(idSolicitudDerivacion);
+        this.modificarSolicitudDerivacion(solicitudDerivacion);
+        servicioNotificacion.guardarNotificacion(solicitudDerivacion, "R");
     }
 
     @Override
@@ -66,12 +81,12 @@ public class ServicioSolicitudDerivacionImpl implements ServicioSolicitudDerivac
     }
 
     @Override
-    public SolicitudDerivacion obetenerSolicitudDerivacionPorId(Long id) {
+    public SolicitudDerivacion obtenerSolicitudDerivacionPorId(Long id) {
         return servicioSoliciturDerivacionDao.buscarSolicitudDerivacionPorId(id);
     }
 
     @Override
-    public List<SolicitudDerivacion> obtenerSolicitudesDeDerivacionPorDerivacion(Long id) {
+            public List<SolicitudDerivacion> obtenerSolicitudesDeDerivacionPorDerivacion(Long id) {
         Derivacion derivacion = servicioDerivacion.verDerivacion(id);
         return servicioSoliciturDerivacionDao.obtenerSolicitudesDeDerivacionPorDerivacion(derivacion);
     }

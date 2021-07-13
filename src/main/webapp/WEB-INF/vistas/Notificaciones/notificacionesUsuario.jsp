@@ -14,7 +14,7 @@
 <c:forEach items="${notificaciones}" var="notificacion">
     <div class="card m-2" style="width: 18rem;">
         <div class="card-body">
-            <a href="detalleNotificacion/${notificacion.notificacion.id}"><h5 class="card-title">Derivacion del paciente: ${notificacion.notificacion.titulo}</h5></a>
+            <a href="detalleNotificacion/${notificacion.id}"><h5 class="card-title">Derivacion del paciente: ${notificacion.notificacion.titulo}</h5></a>
             <p class="card-text"> ${notificacion.notificacion.fecha} </p>
         </div>
     </div>

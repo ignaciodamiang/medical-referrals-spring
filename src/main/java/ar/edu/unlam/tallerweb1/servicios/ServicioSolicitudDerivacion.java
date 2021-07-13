@@ -9,8 +9,11 @@ import java.util.List;
 public interface ServicioSolicitudDerivacion {
     void guardarSolicitudDerivacion(Long idDerivacion, Long idCentroMedico);
     void modificarSolicitudDerivacion(SolicitudDerivacion solicitudDerivacion);
+    void aceptarSolicitudDerivacion(Long idSolicitudDerivacion);
+    void rechazarSolicitudDerivacion(Long idSolicitudDerivacion);
     List<SolicitudDerivacion> obtenerSolicitudesDeDerivacion();
     List<SolicitudDerivacion> obtenerSolicitudesDeDerivacionPorCentroMedico(CentroMedico centroMedico);
-    SolicitudDerivacion obetenerSolicitudDerivacionPorId(Long id);
+    SolicitudDerivacion obtenerSolicitudDerivacionPorId(Long id);
     List<SolicitudDerivacion> obtenerSolicitudesDeDerivacionPorDerivacion(Long id);
+
 }

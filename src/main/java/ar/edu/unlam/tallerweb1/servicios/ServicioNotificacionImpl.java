@@ -5,6 +5,9 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import ar.edu.unlam.tallerweb1.modelo.Derivacion;
+import ar.edu.unlam.tallerweb1.modelo.SolicitudDerivacion;
+import ar.edu.unlam.tallerweb1.modelo.Traslado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +18,68 @@ import ar.edu.unlam.tallerweb1.repositorios.RepositorioNotificacion;
 public class ServicioNotificacionImpl implements ServicioNotificacion{
 
 	private RepositorioNotificacion repositorioNotificacion;
+	private ServicioNotificacionUsuario servicioNotificacionUsuario;
 	
 	@Autowired
-	public ServicioNotificacionImpl(RepositorioNotificacion repositorioNotificacion) {
+	public ServicioNotificacionImpl(RepositorioNotificacion repositorioNotificacion, ServicioNotificacionUsuario servicioNotificacionUsuario) {
 		this.repositorioNotificacion=repositorioNotificacion;
+		this.servicioNotificacionUsuario=servicioNotificacionUsuario;
 	}
 	
 	@Override
 	public void guardarNotificacion(Notificacion notificacion) {
 		notificacion.setFecha(new Date());
 		repositorioNotificacion.guardarNotificacion(notificacion); 
+	}
+
+	@Override
+	public void guardarNotificacion(SolicitudDerivacion solicitudDerivacion, String funcion) {
+		Notificacion notificacion = new Notificacion();
+
+		switch (funcion.toUpperCase()){
+
+			case "G": {
+				notificacion.setTitulo("Se ha generado una nueva solicitud de derivación");
+				notificacion.setMensaje("Se ha generado una nueva solicitud de derivación para el centro medico " +solicitudDerivacion.getCentroMedico()
+				     +" perteneciente al paciente "+solicitudDerivacion.getDerivacion().getPaciente().getNombreCompleto());
+				notificacion.setDerivacion(solicitudDerivacion.getDerivacion());
+				this.guardarNotificacion(notificacion);
+				servicioNotificacionUsuario.guardarNotificacionAdministrativos(solicitudDerivacion.getCentroMedico(), notificacion);
+				break;
+			}
+
+			case "A":{
+				notificacion.setDerivacion(solicitudDerivacion.getDerivacion());
+				notificacion.setTitulo("Se ha aceptado la solicitud de Derivación numero "+solicitudDerivacion.getId());
+				notificacion.setMensaje("La solicitud realizada al centro médico "+solicitudDerivacion.getCentroMedico().getNombre()
+						+" para derivar al paciente "+solicitudDerivacion.getDerivacion().getPaciente().getNombreCompleto()
+						+ " ha sido aceptada ya puede generar el traslado correspondiente");
+				this.guardarNotificacion(notificacion);
+				servicioNotificacionUsuario.guardarNotificacionDerivadores(solicitudDerivacion.getDerivacion().getCobertura(), notificacion);
+				break;
+			}
+
+			case "R":{
+				notificacion.setDerivacion(solicitudDerivacion.getDerivacion());
+				notificacion.setTitulo("Se ha rechazado la solicitud de Derivación numero "+solicitudDerivacion.getId());
+				notificacion.setMensaje("La solicitud realizada al centro médico "+solicitudDerivacion.getCentroMedico().getNombre()
+						+" para derivar al paciente "+solicitudDerivacion.getDerivacion().getPaciente().getNombreCompleto()
+						+ " ha sido rechazada por favor buscar otro centro médico");
+				this.guardarNotificacion(notificacion);
+				servicioNotificacionUsuario.guardarNotificacionDerivadores(solicitudDerivacion.getDerivacion().getCobertura(), notificacion);
+				break;
+			}
+		}
+	}
+
+	@Override
+	public Notificacion guardarNotificacion(Derivacion derivacion, String funcion) {
+		return null;
+	}
+
+	@Override
+	public Notificacion guardarNotificacion(Traslado traslado, String funcion) {
+		return null;
 	}
 
 	@Override
