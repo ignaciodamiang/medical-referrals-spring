@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.solicitudDerivacion;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
+import ar.edu.unlam.tallerweb1.controladores.ControladorDerivaciones;
+import ar.edu.unlam.tallerweb1.controladores.ControladorPaciente;
 import ar.edu.unlam.tallerweb1.modelo.Derivacion;
 import ar.edu.unlam.tallerweb1.modelo.SolicitudDerivacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
