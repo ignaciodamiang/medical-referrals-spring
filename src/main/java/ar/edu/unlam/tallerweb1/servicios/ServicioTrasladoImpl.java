@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service("servicioTraslado")
@@ -20,17 +21,20 @@ public class ServicioTrasladoImpl implements ServicioTraslado{
     private ServicioNotificacion servicioNotificacion;
     private ServicioMail servicioMail;
     private ServicioSolicitudDerivacion servicioSolicitudDerivacion;
+    private ServicioComentario servicioComentario;
 
     @Autowired
     public ServicioTrasladoImpl(RepositorioTraslado repositorioTraslado, RepositorioDerivacion repositorioDerivacion,
                                 ServicioDerivacion servicioDerivacion,ServicioNotificacion servicioNotificacion,
-                                ServicioMail servicioMail, ServicioSolicitudDerivacion servicioSolicitudDerivacion)
+                                ServicioMail servicioMail, ServicioSolicitudDerivacion servicioSolicitudDerivacion,
+                                ServicioComentario servicioComentario)
     {this.repositorioTraslado = repositorioTraslado;
      this.repositorioDerivacion=repositorioDerivacion;
      this.servicioDerivacion=servicioDerivacion;
      this.servicioNotificacion=servicioNotificacion;
      this.servicioMail=servicioMail;
      this.servicioSolicitudDerivacion = servicioSolicitudDerivacion;
+     this.servicioComentario = servicioComentario;
     }
 
 
@@ -56,13 +60,14 @@ public class ServicioTrasladoImpl implements ServicioTraslado{
     }
 
     @Override
-    public void finalizarTraslado(Long idTraslado) throws MessagingException {
+    public void finalizarTraslado(Long idTraslado, HttpServletRequest request) throws Exception {
         Traslado traslado = this.obtenerTrasladoPorId(idTraslado);
         traslado.setEstadoTraslado(EstadoTraslado.FINALIZADO);
         Derivacion derivacion = traslado.getDerivacion();
         derivacion.setEstadoDerivacion(EstadoDerivacion.FINALIZADA);
         servicioDerivacion.modificarDerivacion(derivacion);
         this.modificarTraslado(traslado);
+        servicioComentario.guardarComentarioDerivacion(derivacion.getId(),"",request,"F");
         servicioNotificacion.guardarNotificacion(traslado, "F","");
         servicioMail.enviarMsj(derivacion.getAutor().getEmail(),"Ha finalizado un translado",
                 "El traslado del paciente:  '"+derivacion.getPaciente().getNombreCompleto()+

@@ -6,12 +6,13 @@ import ar.edu.unlam.tallerweb1.modelo.Traslado;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface ServicioTraslado {
     void guardarTraslado(Long idSolicitud);
     void modificarTraslado(Traslado traslado);
-    void finalizarTraslado(Long idTraslado) throws MessagingException;
+    void finalizarTraslado(Long idTraslado, HttpServletRequest request) throws Exception;
     void cancelarTraslado(Long idTraslado, String mensaje) throws MessagingException;
     List<Traslado> obtenerTrasladosPorCentroMedico(CentroMedico centroMedico);
     Traslado obtenerTrasladoPorDerivacion(Long idDerivacion);

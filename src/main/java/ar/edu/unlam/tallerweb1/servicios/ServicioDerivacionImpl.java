@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,11 +23,12 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
     private ServicioNotificacion servicioNotificacion;
     private ServicioDerivador servicioDerivador;
     private ServicioMail servicioMail;
+    private ServicioComentario servicioComentario;
 
     @Autowired
     public ServicioDerivacionImpl (RepositorioDerivacion respositorioDerivacion, RepositorioUsuario repositorioUsuario, ServicioPaciente servicioPaciente,
                                    ServicioRequerimientosMedicos servicioRequerimientosMedicos, ServicioNotificacion servicioNotificacion,
-                                   ServicioDerivador servicioDerivador, ServicioMail servicioMail) {
+                                   ServicioDerivador servicioDerivador, ServicioMail servicioMail, ServicioComentario servicioComentario) {
         this.respositorioDerivacion = respositorioDerivacion;
         this.repositorioUsuario = repositorioUsuario;
         this.servicioPaciente = servicioPaciente;
@@ -36,10 +36,11 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
         this.servicioNotificacion = servicioNotificacion;
         this.servicioDerivador = servicioDerivador;
         this.servicioMail = servicioMail;
+        this.servicioComentario = servicioComentario;
     }
 
     @Override
-    public void guardarDerivacion(Derivacion derivacion,HttpServletRequest request, Long idPaciente, RequerimientosMedicos requerimientosMedicos, Boolean urgente, String ubicacionPaciente) throws MessagingException {
+    public void guardarDerivacion(Derivacion derivacion,HttpServletRequest request, Long idPaciente, RequerimientosMedicos requerimientosMedicos, Boolean urgente, String ubicacionPaciente) throws Exception {
         Paciente paciente = servicioPaciente.obtenerPacientePorId(idPaciente);
         servicioRequerimientosMedicos.guardaRequerimientosMedicos(requerimientosMedicos);
         if(paciente != null && requerimientosMedicos.getId() != 0) {
@@ -61,12 +62,22 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
                     servicioMail.enviarMsj(derivador.getUsuario().getEmail(),"Se ha generado una derivacion.","se ha generado una derivacion para paciente: "+derivacion.getPaciente().getNombreCompleto());
                 }
             }
+            servicioComentario.guardarComentarioDerivacion(derivacion.getId(), "",request, "G");
         }
     }
 
     @Override
     public void modificarDerivacion(Derivacion derivacion) {
         respositorioDerivacion.modificarDerivacion(derivacion);
+    }
+
+    @Override
+    public void cancelarDerivacion(Long idDerivacion, String mensaje, HttpServletRequest request) throws Exception {
+        Derivacion derivacion = this.verDerivacion(idDerivacion);
+        derivacion.setEstadoDerivacion(EstadoDerivacion.CANCELADA);
+        this.modificarDerivacion(derivacion);
+        servicioNotificacion.guardarNotificacion(derivacion, "C", mensaje);
+        servicioComentario.guardarComentarioDerivacion(derivacion.getId(), mensaje, request,"C");
     }
 
     @Override

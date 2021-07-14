@@ -84,7 +84,7 @@ public class ControladorDerivaciones {
 		    @RequestParam(name = "traumatologoGuardia",defaultValue = "false") Boolean traumatologoGuardia,
 		    @RequestParam(name = "cirujanoGuardia",defaultValue = "false") Boolean cirujanoGuardia,
 		    @RequestParam(name = "cardiologoGuardia",defaultValue = "false") Boolean cardiologoGuardia,
-			@RequestParam(name = "ubicacionPaciente") String ubicacionPaciente, HttpServletRequest request) throws MessagingException {
+			@RequestParam(name = "ubicacionPaciente") String ubicacionPaciente, HttpServletRequest request) throws Exception {
 
 		RequerimientosMedicos requerimientosMedicos = new RequerimientosMedicos();
 		requerimientosMedicos.setCirujanoDeGuardia(cirujanoGuardia);
@@ -121,15 +121,7 @@ public class ControladorDerivaciones {
 	@RequestMapping(path = "cancelar-derivacion/{id}", method = RequestMethod.POST)
 	public ModelAndView eliminarDerivacion(@PathVariable("id") Long id, @RequestParam("mensaje") String mensaje,
 			HttpServletRequest request) throws Exception {
-		Derivacion derivacion = servicioDerivacion.verDerivacion(id);
-		derivacion.setEstadoDerivacion(EstadoDerivacion.CANCELADA);
-		servicioDerivacion.modificarDerivacion(derivacion);
-		Notificacion notificacion = new Notificacion();
-		notificacion.setDerivacion(derivacion);
-		notificacion.setMensaje(mensaje);
-		notificacion.setTitulo("Se ha cancelado la derivación" + derivacion.getId());
-		servicioNotificacion.guardarNotificacion(notificacion);
-		servicioNotificacionUsuario.guardarNotificacionDerivadores(derivacion.getCobertura(), notificacion);
+		servicioDerivacion.cancelarDerivacion(id,mensaje,request);
 		return new ModelAndView("redirect:/router");
 	}
 
