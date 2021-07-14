@@ -7,4 +7,5 @@ import javax.servlet.http.HttpServletRequest;
 public interface ServicioComentario {
     void guardarComentario(Comentario comentario);
     void guardarComentarioDerivacion(Long idDerivacion,String mensaje ,HttpServletRequest request, String funcion) throws Exception;
+    void guardarComentarioSolicitudDerivacion(Long idSolicitudDerivacion, String mensaje, HttpServletRequest request, String funcion);
 }
