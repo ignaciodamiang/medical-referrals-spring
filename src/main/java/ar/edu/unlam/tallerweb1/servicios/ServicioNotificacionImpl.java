@@ -69,12 +69,34 @@ public class ServicioNotificacionImpl implements ServicioNotificacion{
 				servicioNotificacionUsuario.guardarNotificacionDerivadores(solicitudDerivacion.getDerivacion().getCobertura(), notificacion);
 				break;
 			}
+
+			default: {
+				break;
+			}
 		}
 	}
 
 	@Override
-	public Notificacion guardarNotificacion(Derivacion derivacion, String funcion) {
-		return null;
+	public void guardarNotificacion(Derivacion derivacion, String funcion) {
+		Notificacion notificacion = new Notificacion();
+
+		switch (funcion.toUpperCase()){
+
+			case "U": {
+				notificacion.setDerivacion(derivacion);
+				notificacion.setTitulo("Se ha generado una Derivacion Urgente");
+				notificacion.setMensaje("Se ha generado una derivacion urgente para el paciente " +derivacion.getPaciente().getNombreCompleto()
+						+" , por favor buscar lo antes posible un centro medico para poder generar un traslado");
+				this.guardarNotificacion(notificacion);
+				servicioNotificacionUsuario.guardarNotificacionDerivadores(derivacion.getCobertura(), notificacion);
+				break;
+			}
+
+			default:{
+				break;
+			}
+		}
+
 	}
 
 	@Override
