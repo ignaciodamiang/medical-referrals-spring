@@ -36,11 +36,16 @@
         function initMap() {
             // Setear obtener latitud y longitud del centro medico
             let mostrar = JSON.parse(`${coordenadas}`);
+            let origen = JSON.parse(`${origen}`);
             let latitud = mostrar.candidates[0].geometry.location.lat;
             let longitud = mostrar.candidates[0].geometry.location.lng;
             const centroMedico = {
                 lat: latitud,
                 lng: longitud
+            }
+            const pos = {
+                lat: origen.candidates[0].geometry.location.lat,
+                lng: origen.candidates[0].geometry.location.lng
             }
 
             // Centramos el mapa en la ubicacion del centro medico
@@ -68,14 +73,6 @@
             });
 
             // geolocalizamos la ubicacion del usuarip
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                         const pos = {
-                            lat: position.coords.latitude,
-                            lng: position.coords.longitude,
-                        };
-
                         directionsRenderer.setMap(map);
 
                         //funcion que calcula la ruta
@@ -89,8 +86,6 @@
                                 directionsRenderer.setDirections(response);
                             })
                             .catch((e) => window.alert("Directions request failed due to " + e));
-                    });
-            }
         }
     </script>
 
