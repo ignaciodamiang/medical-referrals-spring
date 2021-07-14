@@ -72,8 +72,8 @@ public class ControladorTraslado {
     }
 
     @RequestMapping(value = "/finalizarTraslado/{idTraslado}", method = RequestMethod.GET)
-    public ModelAndView finalizarTraslado(@PathVariable Long idTraslado) throws MessagingException {
-        servicioTraslado.finalizarTraslado(idTraslado);
+    public ModelAndView finalizarTraslado(@PathVariable Long idTraslado, HttpServletRequest request) throws Exception {
+        servicioTraslado.finalizarTraslado(idTraslado, request);
         return new ModelAndView("redirect:/ver-traslados-encurso");
     }
 

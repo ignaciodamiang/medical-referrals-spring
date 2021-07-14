@@ -16,9 +16,7 @@ public class Derivacion {
     private String diagnostico;
     private Date fechaDerivacion;
     private String paraQueSector;
-    private String ubicacionPaciente;
-    @OneToOne
-    private Registro registro;
+    private String ubicacionPaciente;;
     @ManyToOne
     private Cobertura cobertura;
     @OneToOne
@@ -82,6 +80,4 @@ public class Derivacion {
     public void setRequerimientosMedicos(RequerimientosMedicos requerimientosMedicos) { this.requerimientosMedicos = requerimientosMedicos; }
     public String getUbicacionPaciente() { return ubicacionPaciente; }
     public void setUbicacionPaciente(String ubicacionPaciente) { this.ubicacionPaciente = ubicacionPaciente; }
-    public Registro getRegistro() {return registro; }
-    public void setRegistro(Registro registro) { this.registro = registro; }
 }
