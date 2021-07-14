@@ -92,29 +92,12 @@ public class ControladorDerivaciones {
 		    @RequestParam(name = "cardiologoGuardia",defaultValue = "false") Boolean cardiologoGuardia,
 			@RequestParam(name = "ubicacionPaciente") String ubicacionPaciente, HttpServletRequest request) throws MessagingException {
 
-		Paciente paciente = servicioPaciente.obtenerPacientePorId(idPaciente);
-		derivacion.setPaciente(paciente);
-		derivacion.setUrgente(urgente);
-		derivacion.setFechaDerivacion(new Date());
-		derivacion.setEstadoDerivacion(EstadoDerivacion.ENBUSQUEDA);
-		derivacion.setUbicacionPaciente(ubicacionPaciente);
 		RequerimientosMedicos requerimientosMedicos = new RequerimientosMedicos();
 		requerimientosMedicos.setCirujanoDeGuardia(cirujanoGuardia);
 		requerimientosMedicos.setCardiologoSeGuardia(cardiologoGuardia);
 		requerimientosMedicos.setTomografo(tomografo);
 		requerimientosMedicos.setTraumatologoDeguardia(traumatologoGuardia);
-		servicioRequerimientosMedicos.guardaRequerimientosMedicos(requerimientosMedicos);
-		derivacion.setRequerimientosMedicos(requerimientosMedicos);
-		servicioDerivacion.guardarDerivacion(derivacion, request);
-		if(derivacion.getUrgente()){
-			Notificacion notificacion = new Notificacion();
-			notificacion.setDerivacion(derivacion);
-			notificacion.setTitulo("Se ha generado una Derivacion Urgente");
-			notificacion.setMensaje("Se ha generado una derivacion urgente para el paciente " +derivacion.getPaciente().getNombreCompleto()
-									+" , por favor buscar lo antes posible un centro medico para poder generar un traslado");
-			servicioNotificacion.guardarNotificacion(notificacion);
-			servicioNotificacionUsuario.guardarNotificacionDerivadores(derivacion.getCobertura(), notificacion);
-		}
+		servicioDerivacion.guardarDerivacion(derivacion, request, idPaciente, requerimientosMedicos, urgente, ubicacionPaciente);
 		attributes.addFlashAttribute("message", "Se creo la derivación correctamente");
 		/*  se mande un mail a todos los derivadores de esa cobertura cuando se genera una derivacion  */
 		/* testear correctamente con correos reales */

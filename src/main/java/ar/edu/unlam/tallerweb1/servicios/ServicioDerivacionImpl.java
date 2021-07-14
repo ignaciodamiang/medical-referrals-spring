@@ -1,7 +1,5 @@
 package ar.edu.unlam.tallerweb1.servicios;
-import ar.edu.unlam.tallerweb1.modelo.Cobertura;
-import ar.edu.unlam.tallerweb1.modelo.Derivacion;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioDerivacion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +18,34 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
 
     private RepositorioDerivacion respositorioDerivacion;
     private RepositorioUsuario repositorioUsuario;
+    private ServicioPaciente servicioPaciente;
+    private ServicioRequerimientosMedicos servicioRequerimientosMedicos;
 
     @Autowired
-    public ServicioDerivacionImpl (RepositorioDerivacion respositorioDerivacion, RepositorioUsuario repositorioUsuario) {
+    public ServicioDerivacionImpl (RepositorioDerivacion respositorioDerivacion, RepositorioUsuario repositorioUsuario, ServicioPaciente servicioPaciente,
+                                   ServicioRequerimientosMedicos servicioRequerimientosMedicos) {
         this.respositorioDerivacion = respositorioDerivacion;
         this.repositorioUsuario = repositorioUsuario;
+        this.servicioPaciente = servicioPaciente;
+        this.servicioRequerimientosMedicos = servicioRequerimientosMedicos;
     }
 
     @Override
-    public void guardarDerivacion(Derivacion derivacion, HttpServletRequest request) {
-        Usuario autor =  repositorioUsuario.obtenerUsuarioPorId((Long)request.getSession().getAttribute("ID_USUARIO"));
-        derivacion.setAutor(autor);
-        respositorioDerivacion.guardarDerivacion(derivacion);
+    public void guardarDerivacion(Derivacion derivacion,HttpServletRequest request, Long idPaciente, RequerimientosMedicos requerimientosMedicos, Boolean urgente, String ubicacionPaciente) {
+        Paciente paciente = servicioPaciente.obtenerPacientePorId(idPaciente);
+        servicioRequerimientosMedicos.guardaRequerimientosMedicos(requerimientosMedicos);
+        if(paciente != null && requerimientosMedicos.getId() != 0) {
+            Usuario autor = repositorioUsuario.obtenerUsuarioPorId((Long) request.getSession().getAttribute("ID_USUARIO"));
+
+            derivacion.setAutor(autor);
+            derivacion.setFechaDerivacion(new Date());
+            derivacion.setPaciente(paciente);
+            derivacion.setEstadoDerivacion(EstadoDerivacion.ENBUSQUEDA);
+            derivacion.setRequerimientosMedicos(requerimientosMedicos);
+            derivacion.setUrgente(urgente);
+            derivacion.setUbicacionPaciente(ubicacionPaciente);
+            respositorioDerivacion.guardarDerivacion(derivacion);
+        }
     }
 
     @Override
