@@ -54,6 +54,7 @@ public class ControladorTraslado {
         Maps coordenadas = new Maps();
         map.put("traslado", traslado);
         map.put("coordenadas",coordenadas.obtenerCoordenadas(traslado.getCentroMedico().getDireccion()));
+        map.put("origen", coordenadas.obtenerCoordenadas(traslado.getDerivacion().getUbicacionPaciente()));
         map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
         return new ModelAndView("Traslado/ver-traslado", map);
     }
