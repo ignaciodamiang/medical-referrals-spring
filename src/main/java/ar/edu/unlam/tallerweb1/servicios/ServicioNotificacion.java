@@ -9,8 +9,8 @@ import ar.edu.unlam.tallerweb1.modelo.Traslado;
 
 public interface ServicioNotificacion {
 	void guardarNotificacion(Notificacion notificacion);
-	void guardarNotificacion(SolicitudDerivacion solicitudDerivacion, String funcion);
-	void guardarNotificacion(Derivacion derivacion, String funcion);
-	Notificacion guardarNotificacion(Traslado traslado, String funcion);
+	void guardarNotificacion(SolicitudDerivacion solicitudDerivacion, String funcion,String mensaje);
+	void guardarNotificacion(Derivacion derivacion, String funcion,String mensaje);
+	void guardarNotificacion(Traslado traslado, String funcion,String mensaje);
 	Notificacion mostrarNotificacion(Long id) throws Exception;
 }

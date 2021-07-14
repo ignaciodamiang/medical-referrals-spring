@@ -33,7 +33,7 @@ public class ServicioNotificacionImpl implements ServicioNotificacion{
 	}
 
 	@Override
-	public void guardarNotificacion(SolicitudDerivacion solicitudDerivacion, String funcion) {
+	public void guardarNotificacion(SolicitudDerivacion solicitudDerivacion, String funcion, String mensaje) {
 		Notificacion notificacion = new Notificacion();
 
 		switch (funcion.toUpperCase()){
@@ -77,7 +77,7 @@ public class ServicioNotificacionImpl implements ServicioNotificacion{
 	}
 
 	@Override
-	public void guardarNotificacion(Derivacion derivacion, String funcion) {
+	public void guardarNotificacion(Derivacion derivacion, String funcion,String mensaje) {
 		Notificacion notificacion = new Notificacion();
 
 		switch (funcion.toUpperCase()){
@@ -100,8 +100,47 @@ public class ServicioNotificacionImpl implements ServicioNotificacion{
 	}
 
 	@Override
-	public Notificacion guardarNotificacion(Traslado traslado, String funcion) {
-		return null;
+	public void guardarNotificacion(Traslado traslado, String funcion,String mensaje) {
+		Notificacion notificacion = new Notificacion();
+
+		switch (funcion.toUpperCase()){
+			case "G": {
+				notificacion.setTraslado(traslado);
+				notificacion.setTitulo("Se ha generado un nuevo traslado");
+				notificacion.setMensaje("Se ha generado el traslado "+traslado.getId()+ " correspondiente a la derivación "+traslado.getDerivacion().getId() +
+						" con destino al centro médico "+traslado.getCentroMedico().getNombre()+ " situado en "+traslado.getCentroMedico().getDireccion());
+				this.guardarNotificacion(notificacion);
+				servicioNotificacionUsuario.guardarNotificacionUsuario(notificacion, traslado.getDerivacion().getAutor().getId());
+				servicioNotificacionUsuario.guardarNotificacionAdministrativos(traslado.getCentroMedico(), notificacion);
+				break;
+			}
+
+			case "F": {
+				notificacion.setTraslado(traslado);
+				notificacion.setTitulo("Ha finalizado un traslado");
+				notificacion.setMensaje("Ha finalizado el traslado "+traslado.getId()+ " correspondiente a la derivación "+traslado.getDerivacion().getId() +
+						" con destino al centro médico "+traslado.getCentroMedico().getNombre()+ " situado en "+traslado.getCentroMedico().getDireccion());
+				this.guardarNotificacion(notificacion);
+				servicioNotificacionUsuario.guardarNotificacionUsuario(notificacion, traslado.getDerivacion().getAutor().getId());
+				servicioNotificacionUsuario.guardarNotificacionDerivadores(traslado.getDerivacion().getCobertura(), notificacion);
+				break;
+			}
+
+			case "C": {
+				notificacion.setTraslado(traslado);
+				notificacion.setTitulo("Se ha cancelado un traslado");
+				notificacion.setMensaje("Se ha cancelado el traslado "+traslado.getId()+" correspondiente a la derivación "+traslado.getDerivacion().getId() +
+						" con destino al centro médico "+traslado.getCentroMedico().getNombre()+ " situado en "+traslado.getCentroMedico().getDireccion()+" Motivo: "+ mensaje);
+				this.guardarNotificacion(notificacion);
+				servicioNotificacionUsuario.guardarNotificacionUsuario(notificacion, notificacion.getDerivacion().getAutor().getId());
+				servicioNotificacionUsuario.guardarNotificacionDerivadores(traslado.getDerivacion().getCobertura(), notificacion);
+				break;
+			}
+
+			default:{
+				break;
+			}
+		}
 	}
 
 	@Override
