@@ -5,12 +5,13 @@ import ar.edu.unlam.tallerweb1.modelo.Derivacion;
 import ar.edu.unlam.tallerweb1.modelo.RequerimientosMedicos;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.List;
 
 public interface ServicioDerivacion {
-    void guardarDerivacion(Derivacion derivacion ,HttpServletRequest request, Long idPaciente, RequerimientosMedicos requerimientosMedicos, Boolean urgente, String ubicacionPaciente);
+    void guardarDerivacion(Derivacion derivacion ,HttpServletRequest request, Long idPaciente, RequerimientosMedicos requerimientosMedicos, Boolean urgente, String ubicacionPaciente) throws MessagingException;
 
     void modificarDerivacion(Derivacion derivacion);
 

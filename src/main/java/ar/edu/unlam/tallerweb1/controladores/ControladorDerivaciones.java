@@ -26,24 +26,18 @@ public class ControladorDerivaciones {
 	private ServicioPlan servicioPlan;
 	private ServicioNotificacion servicioNotificacion;
 	private ServicioNotificacionUsuario servicioNotificacionUsuario;
-	private ServicioRequerimientosMedicos servicioRequerimientosMedicos;
-	private ServicioMail servicioMail;
-	private ServicioDerivador servicioDerivador;
 
 	@Autowired
 	public ControladorDerivaciones(
 			ServicioDerivacion servicioDerivacion, ServicioPaciente servicioPaciente,
 			ServicioCobertura servicioCobertura, ServicioPlan servicioPlan, ServicioNotificacion servicioNotificacion,
-			ServicioNotificacionUsuario servicioNotificacionUsuario, ServicioRequerimientosMedicos servicioRequerimientosMedicos, ServicioMail servicioMail, ServicioDerivador servicioDerivador) {
+			ServicioNotificacionUsuario servicioNotificacionUsuario) {
 		this.servicioDerivacion = servicioDerivacion;
 		this.servicioPaciente = servicioPaciente;
 		this.servicioCobertura = servicioCobertura;
 		this.servicioPlan = servicioPlan;
 		this.servicioNotificacion = servicioNotificacion;
 		this.servicioNotificacionUsuario = servicioNotificacionUsuario;
-		this.servicioRequerimientosMedicos = servicioRequerimientosMedicos;
-		this.servicioMail = servicioMail;
-		this.servicioDerivador = servicioDerivador;
 	}
 
 	@RequestMapping(path = "/listado-derivacion")
@@ -99,12 +93,6 @@ public class ControladorDerivaciones {
 		requerimientosMedicos.setTraumatologoDeguardia(traumatologoGuardia);
 		servicioDerivacion.guardarDerivacion(derivacion, request, idPaciente, requerimientosMedicos, urgente, ubicacionPaciente);
 		attributes.addFlashAttribute("message", "Se creo la derivación correctamente");
-		/*  se mande un mail a todos los derivadores de esa cobertura cuando se genera una derivacion  */
-		/* testear correctamente con correos reales */
-		Cobertura cobertura= derivacion.getCobertura();
-		for (Derivador derivador : servicioDerivador.obtenerDerivadoresPorCobertura(cobertura)){
-			servicioMail.enviarMsj(derivador.getUsuario().getEmail(),"Se ha generado una derivacion.","se ha generado una derivacion para paciente: "+derivacion.getPaciente().getNombreCompleto());
-		}
 		return new ModelAndView("redirect:/BuscarPaciente");
 	}
 

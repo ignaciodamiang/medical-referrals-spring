@@ -43,7 +43,7 @@ public class ServicioSolicitudDerivacionImpl implements ServicioSolicitudDerivac
             solicitudDerivacion.setCentroMedico(centroMedico);
             solicitudDerivacion.setDerivacion(derivacion);
             servicioSoliciturDerivacionDao.guardarSolicitudDerivacion(solicitudDerivacion);
-            servicioNotificacion.guardarNotificacion(solicitudDerivacion, "G");
+            servicioNotificacion.guardarNotificacion(solicitudDerivacion, "G","");
         }
     }
 
@@ -58,7 +58,7 @@ public class ServicioSolicitudDerivacionImpl implements ServicioSolicitudDerivac
         solicitudDerivacion.setAceptado(true);
         solicitudDerivacion.setId(idSolicitudDerivacion);
         this.modificarSolicitudDerivacion(solicitudDerivacion);
-        servicioNotificacion.guardarNotificacion(solicitudDerivacion, "A");
+        servicioNotificacion.guardarNotificacion(solicitudDerivacion, "A","");
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ServicioSolicitudDerivacionImpl implements ServicioSolicitudDerivac
         solicitudDerivacion.setAceptado(false);
         solicitudDerivacion.setId(idSolicitudDerivacion);
         this.modificarSolicitudDerivacion(solicitudDerivacion);
-        servicioNotificacion.guardarNotificacion(solicitudDerivacion, "R");
+        servicioNotificacion.guardarNotificacion(solicitudDerivacion, "R","");
     }
 
     @Override
