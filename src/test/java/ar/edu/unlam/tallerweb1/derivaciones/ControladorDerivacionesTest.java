@@ -50,7 +50,7 @@ public class ControladorDerivacionesTest extends SpringTest {
         servicioNotiUsuarioMock = mock(ServicioNotificacionUsuario.class);
         sessionMock = mock(HttpSession.class);
 
-        controlador = new ControladorDerivaciones(servicioDerivacionMock, servicioPacienteMock, servicioCoberturaMock, servicioPlanMock, servicioNotificacionMock, servicioNotiUsuarioMock);
+        controlador = new ControladorDerivaciones(servicioDerivacionMock, servicioPacienteMock, servicioCoberturaMock, servicioPlanMock, servicioNotiUsuarioMock);
     }
 
     @Test

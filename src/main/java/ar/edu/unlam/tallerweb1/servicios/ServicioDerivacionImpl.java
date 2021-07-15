@@ -17,7 +17,7 @@ import java.util.List;
 public class ServicioDerivacionImpl implements ServicioDerivacion{
 
     private RepositorioDerivacion respositorioDerivacion;
-    private RepositorioUsuario repositorioUsuario;
+    private ServicioUsuario repositorioUsuario;
     private ServicioPaciente servicioPaciente;
     private ServicioRequerimientosMedicos servicioRequerimientosMedicos;
     private ServicioNotificacion servicioNotificacion;
@@ -26,7 +26,7 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
     private ServicioComentario servicioComentario;
 
     @Autowired
-    public ServicioDerivacionImpl (RepositorioDerivacion respositorioDerivacion, RepositorioUsuario repositorioUsuario, ServicioPaciente servicioPaciente,
+    public ServicioDerivacionImpl (RepositorioDerivacion respositorioDerivacion, ServicioUsuario repositorioUsuario, ServicioPaciente servicioPaciente,
                                    ServicioRequerimientosMedicos servicioRequerimientosMedicos, ServicioNotificacion servicioNotificacion,
                                    ServicioDerivador servicioDerivador, ServicioMail servicioMail, ServicioComentario servicioComentario) {
         this.respositorioDerivacion = respositorioDerivacion;
@@ -44,7 +44,7 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
         Paciente paciente = servicioPaciente.obtenerPacientePorId(idPaciente);
         servicioRequerimientosMedicos.guardaRequerimientosMedicos(requerimientosMedicos);
         if(paciente != null && requerimientosMedicos.getId() != 0) {
-            Usuario autor = repositorioUsuario.obtenerUsuarioPorId((Long) request.getSession().getAttribute("ID_USUARIO"));
+            Usuario autor = repositorioUsuario.consultarUsuarioPorId((Long) request.getSession().getAttribute("ID_USUARIO"));
 
             derivacion.setAutor(autor);
             derivacion.setFechaDerivacion(new Date());
@@ -62,7 +62,7 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
                     servicioMail.enviarMsj(derivador.getUsuario().getEmail(),"Se ha generado una derivacion.","se ha generado una derivacion para paciente: "+derivacion.getPaciente().getNombreCompleto());
                 }
             }
-            servicioComentario.guardarComentarioDerivacion(derivacion.getId(), "",request, "G");
+            servicioComentario.guardarComentarioDerivacion(derivacion, "",autor, "G");
         }
     }
 
@@ -77,7 +77,7 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
         derivacion.setEstadoDerivacion(EstadoDerivacion.CANCELADA);
         this.modificarDerivacion(derivacion);
         servicioNotificacion.guardarNotificacion(derivacion, "C", mensaje);
-        servicioComentario.guardarComentarioDerivacion(derivacion.getId(), mensaje, request,"C");
+        servicioComentario.guardarComentarioDerivacion(derivacion, mensaje, derivacion.getAutor(),"C");
     }
 
     @Override
@@ -110,7 +110,7 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
 
     @Override
     public List<Derivacion> filtrarDerivacionesPorFecha(Long idUsuario, String fechaMin, String fechaMax) throws ParseException {
-        Usuario usuario = repositorioUsuario.obtenerUsuarioPorId(idUsuario);
+        Usuario usuario = repositorioUsuario.consultarUsuarioPorId(idUsuario);
 
         Date desde = new SimpleDateFormat("yyyy-MM-dd").parse(fechaMin);
         Date hasta = new SimpleDateFormat("yyyy-MM-dd").parse(fechaMax);
