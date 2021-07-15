@@ -30,13 +30,8 @@ public class ControladorDerivaciones {
 	@Autowired
 	public ControladorDerivaciones(
 			ServicioDerivacion servicioDerivacion, ServicioPaciente servicioPaciente,
-<<<<<<< Updated upstream
-			ServicioCobertura servicioCobertura, ServicioPlan servicioPlan,
-			ServicioNotificacionUsuario servicioNotificacionUsuario) {
-=======
 			ServicioCobertura servicioCobertura, ServicioPlan servicioPlan, ServicioNotificacion servicioNotificacion,
 			ServicioNotificacionUsuario servicioNotificacionUsuario, ServicioUsuario servicioUsuario, ServicioDerivador servicioDerivador) {
->>>>>>> Stashed changes
 		this.servicioDerivacion = servicioDerivacion;
 		this.servicioPaciente = servicioPaciente;
 		this.servicioCobertura = servicioCobertura;

@@ -54,11 +54,7 @@ public class ControladorDerivacionesTest extends SpringTest {
         servicioDerivadorMock = mock(ServicioDerivador.class);
         sessionMock = mock(HttpSession.class);
 
-<<<<<<< Updated upstream
-        controlador = new ControladorDerivaciones(servicioDerivacionMock, servicioPacienteMock, servicioCoberturaMock, servicioPlanMock, servicioNotiUsuarioMock);
-=======
         controlador = new ControladorDerivaciones(servicioDerivacionMock, servicioPacienteMock, servicioCoberturaMock, servicioPlanMock, servicioNotificacionMock, servicioNotiUsuarioMock, servicioUsuarioMock, servicioDerivadorMock);
->>>>>>> Stashed changes
     }
 
     @Test
