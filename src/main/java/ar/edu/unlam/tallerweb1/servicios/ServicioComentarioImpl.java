@@ -12,22 +12,17 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
-@Transactional
+
 @Service("servicioComentario")
+@Transactional
 public class ServicioComentarioImpl implements ServicioComentario {
+
     private RepositorioComentario repositorioComentario;
-    private ServicioDerivacion servicioDerivacion;
-    private ServicioUsuario servicioUsuario;
-    private ServicioSolicitudDerivacion servicioSolicitudDerivacion;
 
 
     @Autowired
-    public ServicioComentarioImpl(RepositorioComentario repositorioComentario, ServicioDerivacion servicioDerivacion,
-                                  ServicioUsuario servicioUsuario, ServicioSolicitudDerivacion servicioSolicitudDerivacion){
+    public ServicioComentarioImpl(RepositorioComentario repositorioComentario){
         this.repositorioComentario = repositorioComentario;
-        this.servicioDerivacion = servicioDerivacion;
-        this.servicioUsuario = servicioUsuario;
-        this.servicioSolicitudDerivacion=servicioSolicitudDerivacion;
     }
 
     @Override
@@ -36,9 +31,9 @@ public class ServicioComentarioImpl implements ServicioComentario {
     }
 
     @Override
-    public void guardarComentarioDerivacion(Long idDerivacion, String mensaje ,HttpServletRequest request, String funcion) throws Exception {
-        Derivacion derivacion = servicioDerivacion.verDerivacion(idDerivacion);
-        Usuario usuario = servicioUsuario.consultarUsuarioPorId((Long) request.getSession().getAttribute("ID_USUARIO"));
+    public void guardarComentarioDerivacion(Derivacion derivacion, String mensaje ,Usuario usuario, String funcion) throws Exception {
+        //Derivacion derivacion = servicioDerivacion.verDerivacion(idDerivacion);
+        // Usuario usuario = servicioUsuario.consultarUsuarioPorId((Long) request.getSession().getAttribute("ID_USUARIO"));
         if(derivacion != null && usuario != null){
             Comentario comentario = new Comentario();
             comentario.setDerivacion(derivacion);
@@ -83,9 +78,9 @@ public class ServicioComentarioImpl implements ServicioComentario {
     }
 
     @Override
-    public void guardarComentarioSolicitudDerivacion(Long idSolicitudDerivacion, String mensaje, HttpServletRequest request, String funcion) {
-        SolicitudDerivacion solicitudDerivacion = servicioSolicitudDerivacion.obtenerSolicitudDerivacionPorId(idSolicitudDerivacion);
-        Usuario usuario = servicioUsuario.consultarUsuarioPorId((Long) request.getSession().getAttribute("ID_USUARIO"));
+    public void guardarComentarioSolicitudDerivacion(SolicitudDerivacion solicitudDerivacion, String mensaje, Usuario usuario, String funcion) {
+        //SolicitudDerivacion solicitudDerivacion = servicioSolicitudDerivacion.obtenerSolicitudDerivacionPorId(idSolicitudDerivacion);
+        // Usuario usuario = servicioUsuario.consultarUsuarioPorId((Long) request.getSession().getAttribute("ID_USUARIO"));
 
         if (solicitudDerivacion != null && usuario != null){
             Comentario comentario = new Comentario();

@@ -67,7 +67,7 @@ public class ServicioTrasladoImpl implements ServicioTraslado{
         derivacion.setEstadoDerivacion(EstadoDerivacion.FINALIZADA);
         servicioDerivacion.modificarDerivacion(derivacion);
         this.modificarTraslado(traslado);
-        servicioComentario.guardarComentarioDerivacion(derivacion.getId(),"",request,"F");
+        servicioComentario.guardarComentarioDerivacion(derivacion,"",traslado.getDerivacion().getAutor(),"F");
         servicioNotificacion.guardarNotificacion(traslado, "F","");
         servicioMail.enviarMsj(derivacion.getAutor().getEmail(),"Ha finalizado un translado",
                 "El traslado del paciente:  '"+derivacion.getPaciente().getNombreCompleto()+

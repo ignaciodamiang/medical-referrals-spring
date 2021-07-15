@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,19 +23,17 @@ public class ControladorDerivaciones {
 	private ServicioPaciente servicioPaciente;
 	private ServicioCobertura servicioCobertura;
 	private ServicioPlan servicioPlan;
-	private ServicioNotificacion servicioNotificacion;
 	private ServicioNotificacionUsuario servicioNotificacionUsuario;
 
 	@Autowired
 	public ControladorDerivaciones(
 			ServicioDerivacion servicioDerivacion, ServicioPaciente servicioPaciente,
-			ServicioCobertura servicioCobertura, ServicioPlan servicioPlan, ServicioNotificacion servicioNotificacion,
+			ServicioCobertura servicioCobertura, ServicioPlan servicioPlan,
 			ServicioNotificacionUsuario servicioNotificacionUsuario) {
 		this.servicioDerivacion = servicioDerivacion;
 		this.servicioPaciente = servicioPaciente;
 		this.servicioCobertura = servicioCobertura;
 		this.servicioPlan = servicioPlan;
-		this.servicioNotificacion = servicioNotificacion;
 		this.servicioNotificacionUsuario = servicioNotificacionUsuario;
 	}
 
