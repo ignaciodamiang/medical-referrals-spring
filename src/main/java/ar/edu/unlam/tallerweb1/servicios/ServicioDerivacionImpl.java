@@ -23,20 +23,13 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
     private ServicioNotificacion servicioNotificacion;
     private ServicioDerivador servicioDerivador;
     private ServicioMail servicioMail;
-<<<<<<< Updated upstream
     private ServicioComentario servicioComentario;
-=======
     private ServicioCobertura servicioCobertura;
->>>>>>> Stashed changes
 
     @Autowired
     public ServicioDerivacionImpl (RepositorioDerivacion respositorioDerivacion, ServicioUsuario repositorioUsuario, ServicioPaciente servicioPaciente,
                                    ServicioRequerimientosMedicos servicioRequerimientosMedicos, ServicioNotificacion servicioNotificacion,
-<<<<<<< Updated upstream
-                                   ServicioDerivador servicioDerivador, ServicioMail servicioMail, ServicioComentario servicioComentario) {
-=======
-                                   ServicioDerivador servicioDerivador, ServicioMail servicioMail, ServicioCobertura servicioCobertura) {
->>>>>>> Stashed changes
+                                   ServicioDerivador servicioDerivador, ServicioMail servicioMail, ServicioComentario servicioComentario, ServicioCobertura servicioCobertura) {
         this.respositorioDerivacion = respositorioDerivacion;
         this.repositorioUsuario = repositorioUsuario;
         this.servicioPaciente = servicioPaciente;
@@ -44,11 +37,8 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
         this.servicioNotificacion = servicioNotificacion;
         this.servicioDerivador = servicioDerivador;
         this.servicioMail = servicioMail;
-<<<<<<< Updated upstream
         this.servicioComentario = servicioComentario;
-=======
         this.servicioCobertura = servicioCobertura;
->>>>>>> Stashed changes
     }
 
     @Override
