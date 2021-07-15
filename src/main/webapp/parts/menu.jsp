@@ -21,6 +21,7 @@
                 <p class="text-decoration-none text-white nav-link">Bienvenido Derivador</p>
                 <a href="/proyecto_derivaciones_war_exploded/BuscarPaciente" class="text-decoration-none text-white nav-link">Buscar paciente</a>
                 <a href="/proyecto_derivaciones_war_exploded/listado-derivacion" class="text-decoration-none text-white nav-link">Listado derivaciones</a>
+                <a href="/proyecto_derivaciones_war_exploded/historial-derivaciones-derivador" class="text-decoration-none text-white nav-link">Historial derivaciones</a>
             <%}
                     ;break;
                 case "Administrativo":

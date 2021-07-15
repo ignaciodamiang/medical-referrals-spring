@@ -15,6 +15,7 @@ public interface RepositorioDerivacion {
     void eliminarDerivacion(Derivacion derivacion);
     Derivacion verDerivacion(Long id);
 	List<Derivacion> derivacionesPorCobertura(Cobertura cobertura);
+    List<Derivacion> derivacionesPorCoberturaFinalizadasYCanceladas(Cobertura cobertura);
 
     List<Derivacion> obtenerDerivacionesPorAutor(Usuario autor);
     List<Derivacion> filtrarDerivacionesPorFecha(Date fechaMin, Date fechaMax, Usuario autor);

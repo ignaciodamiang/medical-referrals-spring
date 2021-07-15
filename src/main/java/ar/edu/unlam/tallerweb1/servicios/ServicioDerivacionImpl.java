@@ -24,11 +24,12 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
     private ServicioDerivador servicioDerivador;
     private ServicioMail servicioMail;
     private ServicioComentario servicioComentario;
+    private ServicioCobertura servicioCobertura;
 
     @Autowired
     public ServicioDerivacionImpl (RepositorioDerivacion respositorioDerivacion, ServicioUsuario repositorioUsuario, ServicioPaciente servicioPaciente,
                                    ServicioRequerimientosMedicos servicioRequerimientosMedicos, ServicioNotificacion servicioNotificacion,
-                                   ServicioDerivador servicioDerivador, ServicioMail servicioMail, ServicioComentario servicioComentario) {
+                                   ServicioDerivador servicioDerivador, ServicioMail servicioMail, ServicioComentario servicioComentario, ServicioCobertura servicioCobertura) {
         this.respositorioDerivacion = respositorioDerivacion;
         this.repositorioUsuario = repositorioUsuario;
         this.servicioPaciente = servicioPaciente;
@@ -37,6 +38,7 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
         this.servicioDerivador = servicioDerivador;
         this.servicioMail = servicioMail;
         this.servicioComentario = servicioComentario;
+        this.servicioCobertura = servicioCobertura;
     }
 
     @Override
@@ -106,6 +108,16 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
     @Override
     public List<Derivacion> derivacionesPorCobertura(Cobertura cobertura) {
         return respositorioDerivacion.derivacionesPorCobertura(cobertura);
+    }
+
+    @Override
+    public List<Derivacion> derivacionesPorCoberturaFinalizadasYCanceladas(HttpServletRequest request){
+        Long idCobertura = (Long) request.getSession().getAttribute("ID_COBERTURA");
+        Cobertura cobertura = servicioCobertura.obtenerCoberturaPorId(idCobertura);
+        if (cobertura != null){
+            return respositorioDerivacion.derivacionesPorCoberturaFinalizadasYCanceladas(cobertura);
+        }
+        return null;
     }
 
     @Override

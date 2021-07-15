@@ -24,17 +24,21 @@ public class ControladorDerivaciones {
 	private ServicioCobertura servicioCobertura;
 	private ServicioPlan servicioPlan;
 	private ServicioNotificacionUsuario servicioNotificacionUsuario;
+	private ServicioUsuario servicioUsuario;
+	private ServicioDerivador servicioDerivador;
 
 	@Autowired
 	public ControladorDerivaciones(
 			ServicioDerivacion servicioDerivacion, ServicioPaciente servicioPaciente,
-			ServicioCobertura servicioCobertura, ServicioPlan servicioPlan,
-			ServicioNotificacionUsuario servicioNotificacionUsuario) {
+			ServicioCobertura servicioCobertura, ServicioPlan servicioPlan, ServicioNotificacion servicioNotificacion,
+			ServicioNotificacionUsuario servicioNotificacionUsuario, ServicioUsuario servicioUsuario, ServicioDerivador servicioDerivador) {
 		this.servicioDerivacion = servicioDerivacion;
 		this.servicioPaciente = servicioPaciente;
 		this.servicioCobertura = servicioCobertura;
 		this.servicioPlan = servicioPlan;
 		this.servicioNotificacionUsuario = servicioNotificacionUsuario;
+		this.servicioUsuario = servicioUsuario;
+		this.servicioDerivador = servicioDerivador;
 	}
 
 	@RequestMapping(path = "/listado-derivacion")
@@ -155,4 +159,40 @@ public class ControladorDerivaciones {
 		map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
 		return new ModelAndView("Derivaciones/historial-derivaciones", map);
 	}
+
+	@RequestMapping(path = "historial-derivaciones-derivador", method = RequestMethod.GET)
+	public ModelAndView historialDerivacionesDerivador(HttpServletRequest request) throws ParseException {
+		ModelMap map = new ModelMap();
+		
+		Long idUsuario = (Long) request.getSession().getAttribute("ID_USUARIO");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String fechaMax = sdf.format(new Date());
+		List<Derivacion> derivaciones = servicioDerivacion.filtrarDerivacionesPorFecha(idUsuario, "1900-01-01",
+				fechaMax);
+		map.put("derivaciones", derivaciones);
+		map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
+		return new ModelAndView("Derivaciones/historial-derivaciones-derivador", map);
+	}
+
+	@RequestMapping(path = "filtrar-derivaciones-derivador", method = RequestMethod.POST)
+	public ModelAndView filtrarDerivacionesDerivador(@RequestParam String fechaMin, @RequestParam String fechaMax,
+											HttpServletRequest request) throws ParseException {
+		ModelMap map = new ModelMap();
+		if (fechaMin.equals("") && fechaMax.equals("")) {
+			return new ModelAndView("redirect:/historial-derivaciones-derivador");
+		}
+		if (fechaMin.equals("")) {
+			fechaMin = "1900-01-01";
+		}
+		if (fechaMax.equals("")) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			fechaMax = sdf.format(new Date());
+		}
+
+		List<Derivacion> derivaciones = servicioDerivacion.derivacionesPorCoberturaFinalizadasYCanceladas(request);
+		map.put("derivaciones", derivaciones);
+		map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
+		return new ModelAndView("Derivaciones/historial-derivaciones-derivador", map);
+	}
+
 }

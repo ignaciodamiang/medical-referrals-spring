@@ -21,7 +21,8 @@ public class RepositorioDerivadorImpl implements RepositorioDerivador {
 	public RepositorioDerivadorImpl(SessionFactory sessionFactory) {
 		this.sessionFactory=sessionFactory;
 	}
-	
+
+	@Transactional
 	@Override
 	public Derivador obtenerDerivadorPorUsuario(Usuario usuario) {
 	final Session session = sessionFactory.getCurrentSession();

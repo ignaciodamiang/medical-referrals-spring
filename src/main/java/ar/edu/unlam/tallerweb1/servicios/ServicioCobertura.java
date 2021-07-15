@@ -7,4 +7,5 @@ import java.util.List;
 public interface ServicioCobertura {
     List<Cobertura> obtenerCoberturas();
     Cobertura obtenerCoberturaPorId(Long id);
+
 }
