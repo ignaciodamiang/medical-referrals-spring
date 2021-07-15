@@ -23,12 +23,20 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
     private ServicioNotificacion servicioNotificacion;
     private ServicioDerivador servicioDerivador;
     private ServicioMail servicioMail;
+<<<<<<< Updated upstream
     private ServicioComentario servicioComentario;
+=======
+    private ServicioCobertura servicioCobertura;
+>>>>>>> Stashed changes
 
     @Autowired
     public ServicioDerivacionImpl (RepositorioDerivacion respositorioDerivacion, ServicioUsuario repositorioUsuario, ServicioPaciente servicioPaciente,
                                    ServicioRequerimientosMedicos servicioRequerimientosMedicos, ServicioNotificacion servicioNotificacion,
+<<<<<<< Updated upstream
                                    ServicioDerivador servicioDerivador, ServicioMail servicioMail, ServicioComentario servicioComentario) {
+=======
+                                   ServicioDerivador servicioDerivador, ServicioMail servicioMail, ServicioCobertura servicioCobertura) {
+>>>>>>> Stashed changes
         this.respositorioDerivacion = respositorioDerivacion;
         this.repositorioUsuario = repositorioUsuario;
         this.servicioPaciente = servicioPaciente;
@@ -36,7 +44,11 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
         this.servicioNotificacion = servicioNotificacion;
         this.servicioDerivador = servicioDerivador;
         this.servicioMail = servicioMail;
+<<<<<<< Updated upstream
         this.servicioComentario = servicioComentario;
+=======
+        this.servicioCobertura = servicioCobertura;
+>>>>>>> Stashed changes
     }
 
     @Override
@@ -106,6 +118,16 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
     @Override
     public List<Derivacion> derivacionesPorCobertura(Cobertura cobertura) {
         return respositorioDerivacion.derivacionesPorCobertura(cobertura);
+    }
+
+    @Override
+    public List<Derivacion> derivacionesPorCoberturaFinalizadasYCanceladas(HttpServletRequest request){
+        Long idCobertura = (Long) request.getSession().getAttribute("ID_COBERTURA");
+        Cobertura cobertura = servicioCobertura.obtenerCoberturaPorId(idCobertura);
+        if (cobertura != null){
+            return respositorioDerivacion.derivacionesPorCoberturaFinalizadasYCanceladas(cobertura);
+        }
+        return null;
     }
 
     @Override
