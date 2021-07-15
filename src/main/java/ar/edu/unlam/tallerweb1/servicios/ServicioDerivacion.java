@@ -15,7 +15,11 @@ public interface ServicioDerivacion {
 
     void modificarDerivacion(Derivacion derivacion);
 
+    void finalizarDerivacion(Derivacion derivacion,HttpServletRequest request );
+
     void cancelarDerivacion(Long idDerivacion, String mensaje, HttpServletRequest request) throws Exception;
+
+    void derivacionEnTraslado(Derivacion derivacion,HttpServletRequest request);
 
     List<Derivacion> listadoDerivaciones();
 

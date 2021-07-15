@@ -74,12 +74,52 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
     }
 
     @Override
+    public void finalizarDerivacion(Derivacion derivacion, HttpServletRequest request) {
+        Usuario usuario = repositorioUsuario.consultarUsuarioPorId((Long) request.getSession().getAttribute("ID_USUARIO"));
+        String estadoAnterior = derivacion.getEstadoDerivacion().toString();
+        derivacion.setEstadoDerivacion(EstadoDerivacion.FINALIZADA);
+        this.modificarDerivacion(derivacion);
+        servicioComentario.guardarComentarioDerivacion(derivacion,"",derivacion.getAutor(),"F");
+        Comentario comentario = new Comentario();
+        comentario.setAsunto("Cambio de estado");
+        comentario.setDerivacion(derivacion);
+        comentario.setAutor(usuario);
+        comentario.setFechaCreacion(new Date());
+        comentario.setMensaje("cambio de estado "+estadoAnterior+ " a "+derivacion.getEstadoDerivacion().toString());
+        servicioComentario.guardarComentario(comentario);
+    }
+
+    @Override
     public void cancelarDerivacion(Long idDerivacion, String mensaje, HttpServletRequest request) throws Exception {
+        Usuario usuario = repositorioUsuario.consultarUsuarioPorId((Long) request.getSession().getAttribute("ID_USUARIO"));
         Derivacion derivacion = this.verDerivacion(idDerivacion);
+        String estadoAnterior = derivacion.getEstadoDerivacion().toString();
         derivacion.setEstadoDerivacion(EstadoDerivacion.CANCELADA);
         this.modificarDerivacion(derivacion);
         servicioNotificacion.guardarNotificacion(derivacion, "C", mensaje);
         servicioComentario.guardarComentarioDerivacion(derivacion, mensaje, derivacion.getAutor(),"C");
+        Comentario comentario = new Comentario();
+        comentario.setAsunto("Cambio de estado");
+        comentario.setDerivacion(derivacion);
+        comentario.setAutor(usuario);
+        comentario.setFechaCreacion(new Date());
+        comentario.setMensaje("cambio de estado "+estadoAnterior+ " a "+derivacion.getEstadoDerivacion().toString());
+        servicioComentario.guardarComentario(comentario);
+    }
+
+    @Override
+    public void derivacionEnTraslado(Derivacion derivacion, HttpServletRequest request) {
+        Usuario usuario = repositorioUsuario.consultarUsuarioPorId((Long) request.getSession().getAttribute("ID_USUARIO"));
+        String estadoAnterior = derivacion.getEstadoDerivacion().toString();
+        derivacion.setEstadoDerivacion(EstadoDerivacion.ENTRASLADO);
+        this.modificarDerivacion(derivacion);
+        Comentario comentario = new Comentario();
+        comentario.setAsunto("Cambio de estado");
+        comentario.setDerivacion(derivacion);
+        comentario.setAutor(usuario);
+        comentario.setFechaCreacion(new Date());
+        comentario.setMensaje("cambio de estado "+estadoAnterior+ " a "+derivacion.getEstadoDerivacion().toString());
+        servicioComentario.guardarComentario(comentario);
     }
 
     @Override
