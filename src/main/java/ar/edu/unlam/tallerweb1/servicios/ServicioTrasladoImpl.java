@@ -46,9 +46,6 @@ public class ServicioTrasladoImpl implements ServicioTraslado{
         traslado.setDerivacion(solicitudDerivacion.getDerivacion());
         traslado.setEstadoTraslado(EstadoTraslado.ENCURSO);
         solicitudDerivacion.setConfirmado(true);
-        Derivacion derivacion = solicitudDerivacion.getDerivacion();
-        derivacion.setEstadoDerivacion(EstadoDerivacion.ENTRASLADO);
-        servicioDerivacion.modificarDerivacion(derivacion);
         servicioSolicitudDerivacion.modificarSolicitudDerivacion(solicitudDerivacion);
         repositorioTraslado.guardarTraslado(traslado);
         servicioNotificacion.guardarNotificacion(traslado, "G", "");
@@ -63,14 +60,11 @@ public class ServicioTrasladoImpl implements ServicioTraslado{
     public void finalizarTraslado(Long idTraslado, HttpServletRequest request) throws Exception {
         Traslado traslado = this.obtenerTrasladoPorId(idTraslado);
         traslado.setEstadoTraslado(EstadoTraslado.FINALIZADO);
-        Derivacion derivacion = traslado.getDerivacion();
-        derivacion.setEstadoDerivacion(EstadoDerivacion.FINALIZADA);
-        servicioDerivacion.modificarDerivacion(derivacion);
         this.modificarTraslado(traslado);
-        servicioComentario.guardarComentarioDerivacion(derivacion,"",traslado.getDerivacion().getAutor(),"F");
+        servicioDerivacion.finalizarDerivacion(traslado.getDerivacion(),request);
         servicioNotificacion.guardarNotificacion(traslado, "F","");
-        servicioMail.enviarMsj(derivacion.getAutor().getEmail(),"Ha finalizado un translado",
-                "El traslado del paciente:  '"+derivacion.getPaciente().getNombreCompleto()+
+        servicioMail.enviarMsj(traslado.getDerivacion().getAutor().getEmail(),"Ha finalizado un translado",
+                "El traslado del paciente:  '"+traslado.getDerivacion().getPaciente().getNombreCompleto()+
                         "', destino: '"+ traslado.getCentroMedico().getNombre()+" ("+traslado.getCentroMedico().getDireccion()+")"+
                         " ha finalizado correctamente. <br> <a href='http://localhost:8080/proyecto_derivaciones_war_exploded/listado-derivacion'>ver derivaciones</a> <br>");
     }
