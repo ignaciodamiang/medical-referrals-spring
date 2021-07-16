@@ -22,7 +22,9 @@ public class Derivacion {
     @OneToOne
     private Usuario autor;
     @OneToOne
-    RequerimientosMedicos requerimientosMedicos;
+    private RequerimientosMedicos requerimientosMedicos;
+    @ManyToOne
+    private CentroMedico centroMedicoDeOrigen;
 
     public Long getId() {
         return id;
@@ -80,4 +82,12 @@ public class Derivacion {
     public void setRequerimientosMedicos(RequerimientosMedicos requerimientosMedicos) { this.requerimientosMedicos = requerimientosMedicos; }
     public String getUbicacionPaciente() { return ubicacionPaciente; }
     public void setUbicacionPaciente(String ubicacionPaciente) { this.ubicacionPaciente = ubicacionPaciente; }
+
+    public CentroMedico getCentroMedicoDeOrigen() {
+        return centroMedicoDeOrigen;
+    }
+
+    public void setCentroMedicoDeOrigen(CentroMedico centroMedicoDeOrigen) {
+        this.centroMedicoDeOrigen = centroMedicoDeOrigen;
+    }
 }

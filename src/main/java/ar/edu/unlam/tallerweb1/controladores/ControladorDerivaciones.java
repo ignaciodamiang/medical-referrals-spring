@@ -24,21 +24,18 @@ public class ControladorDerivaciones {
 	private ServicioCobertura servicioCobertura;
 	private ServicioPlan servicioPlan;
 	private ServicioNotificacionUsuario servicioNotificacionUsuario;
-	private ServicioUsuario servicioUsuario;
-	private ServicioDerivador servicioDerivador;
+	private ServicioCentroMedico servicioCentroMedico;
 
 	@Autowired
 	public ControladorDerivaciones(
 			ServicioDerivacion servicioDerivacion, ServicioPaciente servicioPaciente,
-			ServicioCobertura servicioCobertura, ServicioPlan servicioPlan, ServicioNotificacion servicioNotificacion,
-			ServicioNotificacionUsuario servicioNotificacionUsuario, ServicioUsuario servicioUsuario, ServicioDerivador servicioDerivador) {
+			ServicioCobertura servicioCobertura, ServicioPlan servicioPlan, ServicioNotificacionUsuario servicioNotificacionUsuario, ServicioCentroMedico servicioCentroMedico) {
 		this.servicioDerivacion = servicioDerivacion;
 		this.servicioPaciente = servicioPaciente;
 		this.servicioCobertura = servicioCobertura;
 		this.servicioPlan = servicioPlan;
 		this.servicioNotificacionUsuario = servicioNotificacionUsuario;
-		this.servicioUsuario = servicioUsuario;
-		this.servicioDerivador = servicioDerivador;
+		this.servicioCentroMedico = servicioCentroMedico;
 	}
 
 	@RequestMapping(path = "/listado-derivacion")
@@ -74,6 +71,7 @@ public class ControladorDerivaciones {
 		model.put("derivacion", derivacion);
 		model.put("paciente", paciente);
 		model.put("coberturas", coberturas);
+		model.put("rol", request.getSession().getAttribute("ROL"));
 		model.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
 		return new ModelAndView("Derivaciones/agregar-derivacion", model);
 	}
@@ -129,19 +127,23 @@ public class ControladorDerivaciones {
 	@RequestMapping(path = "historialDerivaciones", method = RequestMethod.GET)
 	public ModelAndView historialDerivaciones(HttpServletRequest request) throws ParseException {
 		ModelMap map = new ModelMap();
-		Long idUsuario = (Long) request.getSession().getAttribute("ID_USUARIO");
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String fechaMax = sdf.format(new Date());
-		List<Derivacion> derivaciones = servicioDerivacion.filtrarDerivacionesPorFecha(idUsuario, "1900-01-01",
-				fechaMax);
-		map.put("derivaciones", derivaciones);
+
+		if (request.getSession().getAttribute("ID_SOLICITADOR")!=null){
+			Long idUsuario = (Long) request.getSession().getAttribute("ID_USUARIO");
+			List<Derivacion> derivaciones = servicioDerivacion.filtrarDerivacionesFinalizadasYCanceladasPorFechaYUsuario(idUsuario, "1900-01-01",
+					fechaMax);
+			map.put("derivaciones", derivaciones);
+		}
 		map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
 		return new ModelAndView("Derivaciones/historial-derivaciones", map);
 	}
 
 	@RequestMapping(path = "filtrarDerivaciones", method = RequestMethod.POST)
 	public ModelAndView filtrarDerivaciones(@RequestParam String fechaMin, @RequestParam String fechaMax,
-			HttpServletRequest request) throws ParseException {
+			HttpServletRequest request) throws Exception {
 		ModelMap map = new ModelMap();
 		if (fechaMin.equals("") && fechaMax.equals("")) {
 			return new ModelAndView("redirect:/historialDerivaciones");
@@ -153,46 +155,70 @@ public class ControladorDerivaciones {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			fechaMax = sdf.format(new Date());
 		}
-		Long idUsuario = (Long) request.getSession().getAttribute("ID_USUARIO");
-		List<Derivacion> derivaciones = servicioDerivacion.filtrarDerivacionesPorFecha(idUsuario, fechaMin, fechaMax);
-		map.put("derivaciones", derivaciones);
-		map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
+
+		if (request.getSession().getAttribute("ID_SOLICITADOR")!=null) {
+			Long idUsuario = (Long) request.getSession().getAttribute("ID_USUARIO");
+			List<Derivacion> derivaciones = servicioDerivacion.filtrarDerivacionesFinalizadasYCanceladasPorFechaYUsuario(idUsuario, fechaMin, fechaMax);
+			map.put("derivaciones", derivaciones);
+			map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
+		}
+
+		if (request.getSession().getAttribute("ID_DERIVADOR")!=null) {
+			List<Derivacion> derivaciones = servicioDerivacion.derivacionesPorCoberturaFinalizadasYCanceladas(request);
+			map.put("derivaciones", derivaciones);
+			map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
+		}
+
+		if (request.getSession().getAttribute("ID_ADMINISTRATIVO")!=null) {
+			List<Derivacion> derivaciones = servicioDerivacion.derivacionesPorCentroMedicoFinalizadasYCanceladas(request);
+			map.put("derivaciones", derivaciones);
+			map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
+		}
+
 		return new ModelAndView("Derivaciones/historial-derivaciones", map);
 	}
 
-	@RequestMapping(path = "historial-derivaciones-derivador", method = RequestMethod.GET)
-	public ModelAndView historialDerivacionesDerivador(HttpServletRequest request) throws ParseException {
-		ModelMap map = new ModelMap();
-		
-		Long idUsuario = (Long) request.getSession().getAttribute("ID_USUARIO");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String fechaMax = sdf.format(new Date());
-		List<Derivacion> derivaciones = servicioDerivacion.filtrarDerivacionesPorFecha(idUsuario, "1900-01-01",
-				fechaMax);
-		map.put("derivaciones", derivaciones);
-		map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
-		return new ModelAndView("Derivaciones/historial-derivaciones-derivador", map);
+	@RequestMapping(path = "/nueva-derivacion-centro-medico/{id}", method = RequestMethod.GET)
+	public ModelAndView nuevaDerivacionDeCentroMedico(@PathVariable("id") Long idPaciente,HttpServletRequest request) throws Exception {
+		if (!request.getSession().getAttribute("ROL").equals("Administrativo")) {
+			return new ModelAndView("redirect:/router");
+		}
+		ModelMap model = new ModelMap();
+		String direccionCentroMedico = servicioCentroMedico.obtenerCentroMedicoPorId((Long)request.getSession().getAttribute("ID_CENTROMEDICO")).getDireccion();
+		Paciente paciente = servicioPaciente.obtenerPacientePorId(idPaciente);
+		HashSet<Cobertura> coberturas = servicioPlan.obetenerCoberturasPaciente(idPaciente);
+		List<String> sectores = new ArrayList<String>();
+		sectores.add("guardia");
+		sectores.add("salaComun");
+		sectores.add("terapia");
+		Derivacion derivacion = new Derivacion();
+		model.put("sectores", sectores);
+		model.put("derivacion", derivacion);
+		model.put("paciente", paciente);
+		model.put("coberturas", coberturas);
+		model.put("direccionCentroMedico", direccionCentroMedico);
+		model.put("rol", request.getSession().getAttribute("ROL"));
+		model.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
+
+		return new ModelAndView("Derivaciones/agregar-derivacion", model);
 	}
 
-	@RequestMapping(path = "filtrar-derivaciones-derivador", method = RequestMethod.POST)
-	public ModelAndView filtrarDerivacionesDerivador(@RequestParam String fechaMin, @RequestParam String fechaMax,
-											HttpServletRequest request) throws ParseException {
-		ModelMap map = new ModelMap();
-		if (fechaMin.equals("") && fechaMax.equals("")) {
-			return new ModelAndView("redirect:/historial-derivaciones-derivador");
-		}
-		if (fechaMin.equals("")) {
-			fechaMin = "1900-01-01";
-		}
-		if (fechaMax.equals("")) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			fechaMax = sdf.format(new Date());
-		}
+	@RequestMapping(path = "agregar-derivacion-centro-medico", method = RequestMethod.POST)
+	public ModelAndView agregarDerivacionCentroMedico(@ModelAttribute("derivacion") Derivacion derivacion,
+										  RedirectAttributes attributes, @RequestParam("idPaciente") Long idPaciente,
+										  @RequestParam("urgente") Boolean urgente, @RequestParam(name = "tomografo",defaultValue = "false") Boolean tomografo,
+										  @RequestParam(name = "traumatologoGuardia",defaultValue = "false") Boolean traumatologoGuardia,
+										  @RequestParam(name = "cirujanoGuardia",defaultValue = "false") Boolean cirujanoGuardia,
+										  @RequestParam(name = "cardiologoGuardia",defaultValue = "false") Boolean cardiologoGuardia,
+										  @RequestParam(name = "ubicacionPaciente") String ubicacionPaciente, HttpServletRequest request) throws Exception {
 
-		List<Derivacion> derivaciones = servicioDerivacion.derivacionesPorCoberturaFinalizadasYCanceladas(request);
-		map.put("derivaciones", derivaciones);
-		map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
-		return new ModelAndView("Derivaciones/historial-derivaciones-derivador", map);
+		RequerimientosMedicos requerimientosMedicos = new RequerimientosMedicos();
+		requerimientosMedicos.setCirujanoDeGuardia(cirujanoGuardia);
+		requerimientosMedicos.setCardiologoSeGuardia(cardiologoGuardia);
+		requerimientosMedicos.setTomografo(tomografo);
+		requerimientosMedicos.setTraumatologoDeguardia(traumatologoGuardia);
+		servicioDerivacion.guardarDerivacionCentroMedico(derivacion, request, idPaciente, requerimientosMedicos, urgente, ubicacionPaciente);
+		attributes.addFlashAttribute("message", "Se creo la derivación correctamente");
+		return new ModelAndView("redirect:/BuscarPaciente");
 	}
-
 }

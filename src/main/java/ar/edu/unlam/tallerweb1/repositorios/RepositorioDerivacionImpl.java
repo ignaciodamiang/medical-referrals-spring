@@ -1,9 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
-import ar.edu.unlam.tallerweb1.modelo.Cobertura;
-import ar.edu.unlam.tallerweb1.modelo.Derivacion;
-import ar.edu.unlam.tallerweb1.modelo.EstadoDerivacion;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -80,13 +77,24 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
     }
 
     @Override
-    public List<Derivacion> filtrarDerivacionesPorFecha(Date fechaMin, Date fechaMax, Usuario autor) {
+    public List<Derivacion> filtrarDerivacionesFinalizadasYCanceladasPorFechaYUsuario(Date fechaMin, Date fechaMax, Usuario autor) {
         final Session session = sessionFactory.getCurrentSession();
         return session.createCriteria(Derivacion.class)
                 .add(Restrictions.eq("autor", autor))
-                .add(Restrictions.eq("estadoDerivacion", EstadoDerivacion.FINALIZADA))
+                .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.ENBUSQUEDA))
+                .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.ENTRASLADO))
                 .add(Restrictions.between("fechaDerivacion", fechaMin, fechaMax))
                 .addOrder(Order.asc("fechaDerivacion")).list();
+    }
+
+    @Override
+    public List<Derivacion> filtrarDerivacionesPorCentroMedicoFinalizadasYCanceladas(CentroMedico centroMedico) {
+        final Session session = sessionFactory.getCurrentSession();
+        return session.createCriteria(Derivacion.class)
+                .add(Restrictions.eq("centroMedicoDeOrigen", centroMedico))
+                .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.ENBUSQUEDA))
+                .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.ENTRASLADO))
+                .list();
     }
 
     @Override

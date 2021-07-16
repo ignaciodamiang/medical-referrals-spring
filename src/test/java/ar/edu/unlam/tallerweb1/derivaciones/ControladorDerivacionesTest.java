@@ -34,10 +34,8 @@ public class ControladorDerivacionesTest extends SpringTest {
     private ServicioPaciente servicioPacienteMock;
     private ServicioCobertura servicioCoberturaMock;
     private ServicioPlan servicioPlanMock;
-    private ServicioNotificacion servicioNotificacionMock;
     private ServicioNotificacionUsuario servicioNotiUsuarioMock;
-    private ServicioUsuario servicioUsuarioMock;
-    private ServicioDerivador servicioDerivadorMock;
+    private ServicioCentroMedico servicioCentroMedicoMock;
     private ControladorDerivaciones controlador;
 
 
@@ -48,13 +46,11 @@ public class ControladorDerivacionesTest extends SpringTest {
         servicioPacienteMock = mock(ServicioPaciente.class);
         servicioCoberturaMock = mock(ServicioCobertura.class);
         servicioPlanMock = mock(ServicioPlan.class);
-        servicioNotificacionMock = mock(ServicioNotificacion.class);
         servicioNotiUsuarioMock = mock(ServicioNotificacionUsuario.class);
-        servicioUsuarioMock = mock(ServicioUsuario.class);
-        servicioDerivadorMock = mock(ServicioDerivador.class);
+        servicioCentroMedicoMock = mock(ServicioCentroMedico.class);
         sessionMock = mock(HttpSession.class);
 
-        controlador = new ControladorDerivaciones(servicioDerivacionMock, servicioPacienteMock, servicioCoberturaMock, servicioPlanMock, servicioNotificacionMock, servicioNotiUsuarioMock, servicioUsuarioMock, servicioDerivadorMock);
+        controlador = new ControladorDerivaciones(servicioDerivacionMock, servicioPacienteMock, servicioCoberturaMock, servicioPlanMock, servicioNotiUsuarioMock, servicioCentroMedicoMock);
     }
 
     @Test
