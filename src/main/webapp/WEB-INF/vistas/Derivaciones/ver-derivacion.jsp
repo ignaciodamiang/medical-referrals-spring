@@ -29,8 +29,8 @@
         <div class="col">
             <div class="row">
                 <div class="col m-2">
-                    <div class="row m-1"> <strong>Id derivacion: </strong><p>${derivacion.getId()}</p></div>
-                    <div class="row m-1"> <strong>Idallasas: </strong><p>${alalla.getId()}</p></div>
+                    <div class="row m-1"> <strong>Id derivacion: </strong><p>${derivacion.id}</p></div>
+                    <div class="row m-1"> <strong>Sector: </strong><p>${alalla.getId()}</p></div>
                     <div class="row m-1"> <strong>requisitos: </strong><p>trauma <br> adadadaddas<br> sadasdas </p></div>
                 </div>
                 <div class="col m-2">
@@ -47,7 +47,7 @@
     <!--  agregar div con rows -->
     <div class="row">
         <div class="col m-2">
-            <strong>Diagnostico: </strong> <p>${derivacion.getDiagnostico()}</p>
+            <strong>Diagnostico: </strong> <p>${derivacion.diagnostico}</p>
         </div>
     </div>
     <!-- <div class="row bg-warning"> -->
