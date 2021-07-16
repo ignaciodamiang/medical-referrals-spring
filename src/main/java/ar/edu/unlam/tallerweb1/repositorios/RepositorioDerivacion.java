@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import ar.edu.unlam.tallerweb1.modelo.CentroMedico;
 import ar.edu.unlam.tallerweb1.modelo.Cobertura;
 import ar.edu.unlam.tallerweb1.modelo.Derivacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -18,5 +19,7 @@ public interface RepositorioDerivacion {
     List<Derivacion> derivacionesPorCoberturaFinalizadasYCanceladas(Cobertura cobertura);
 
     List<Derivacion> obtenerDerivacionesPorAutor(Usuario autor);
-    List<Derivacion> filtrarDerivacionesPorFecha(Date fechaMin, Date fechaMax, Usuario autor);
+    List<Derivacion> filtrarDerivacionesFinalizadasYCanceladasPorFechaYUsuario(Date fechaMin, Date fechaMax, Usuario autor);
+
+    List<Derivacion> filtrarDerivacionesPorCentroMedicoFinalizadasYCanceladas(CentroMedico centroMedico);
 }
