@@ -28,7 +28,14 @@
                     <p>Paciente ${paciente.nombreCompleto}</p>
                     <p>${paciente.documento}</p>
                     <p>${paciente.fechaNacimiento}</p>
-                    <a href="nueva-derivacion/${paciente.id}">Generar nueva derivación</a>
+                    <c:choose>
+                        <c:when test="${!rol.equals('Administrativo')}">
+                            <a href="nueva-derivacion/${paciente.id}">Generar nueva derivación</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="nueva-derivacion-centro-medico/${paciente.id}">Generar nueva derivación</a>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </c:if>
             <h2 class="text-center"> Derivaciones activas</h2>

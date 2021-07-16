@@ -51,6 +51,7 @@ public class ControladorPaciente {
         if (pacienteObtenido != null){
             map.put("paciente", pacienteObtenido);
             map.put("idPaciente", pacienteObtenido.getId());
+            map.put("rol", request.getSession().getAttribute("ROL"));
         }else{
             map.put("error","No se encontro al paciente");
         }
