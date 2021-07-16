@@ -59,7 +59,13 @@ public class ControladorDerivaciones {
 		model.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
 		return new ModelAndView("Derivaciones/derivaciones", model);
 	}
-
+	@RequestMapping(path = "/ver-derivacion/{id}",method = RequestMethod.GET)
+	public ModelAndView verDerivacion(@PathVariable("id") Long idDerivacion) throws Exception {
+		ModelMap model = new ModelMap();
+		Derivacion derivacion = servicioDerivacion.verDerivacion(idDerivacion);
+		model.put("derivacion",derivacion);
+	return new ModelAndView("Derivaciones/ver-derivacion",model);
+	}
 	@RequestMapping(path = "/nueva-derivacion/{id}", method = RequestMethod.GET)
 	public ModelAndView nuevaDerivacion(@PathVariable("id") Long idPaciente,HttpServletRequest request) {
 		ModelMap model = new ModelMap();

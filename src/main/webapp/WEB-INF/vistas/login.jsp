@@ -6,7 +6,11 @@
 <html lang="es">
 <head>
 	<%@ include file="../../parts/meta.jsp" %>
-
+<style>
+	body {
+		background: white;
+	}
+</style>
 	<title>Derivaciones</title>
 </head>
 <body class="bg-gradient-primary">
