@@ -21,12 +21,12 @@
         </div>
         <c:if test="${rol =='Derivador' || rol =='Solicitador'}">
             <div class="px-3">
-                <button class="btn btn-primary"> Cancelar derivacion</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CancelarDerivacion${derivacion.getId() }">Cancelar derivacion</button>
             </div>
         </c:if>
         <c:if test="${rol =='Derivador' && derivacion.getEstadoDerivacion().toString().equals('ENBUSQUEDA')}">
             <div class="px-3">
-                <a href="nueva-solicitud-derivacion/${derivacion.id} "class="btn btn-primary">Generar Solicitud</a>
+                <a href="../nueva-solicitud-derivacion/${derivacion.id} "class="btn btn-primary">Generar Solicitud</a>
             </div>
         </c:if>
 
@@ -59,7 +59,11 @@
                         </div>
                 </div>
                 <div class="col m-2">
-                    <div class="row m-1"> <strong>Solicitdo por: </strong><p>${derivacion.getAutor().getEmail()}</p></div>
+                    <div class="row m-1"> <strong>Datos paciente: </strong>
+                        Nombre: ${derivacion.getPaciente().getNombreCompleto()}<br>
+                        Dni: ${derivacion.getPaciente().getDocumento()}<br>
+                        Fecha de Nacimiento: ${derivacion.getPaciente().getFechaNacimiento().toString()}<br>
+                    </div>
                     <div class="row m-1"> <strong>Urgente: </strong>
                         <c:choose>
                         <c:when test="${derivacion.getUrgente()}">
@@ -69,10 +73,11 @@
                             <p class="text-center">---</p>
                         </c:otherwise>
                         </c:choose></div>
-                </div>
+                    </div>
                 <div class="col m-2">
                     <div class="row m-1"> <strong>Estado: </strong><p>${derivacion.getEstadoDerivacion()}</p></div>
                     <div class="row m-1"> <strong>Fecha generacion: </strong><p>${derivacion.getFechaDerivacion()}</p></div>
+                    <div class="row m-1"> <strong>Cobertura: </strong><p>${derivacion.getCobertura().getNombre()}</p></div>
                 </div>
             </div>
         </div>
@@ -201,6 +206,28 @@
     <div class="row">
         <div class="col m-2">
             <strong>Diagnostico: </strong> <p>${derivacion.getDiagnostico()}</p>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="CancelarDerivacion${derivacion.getId()}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5>Cancelar derivación</h5>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="../cancelar-derivacion/${derivacion.getId() }" method="post">
+                    <label>Motivo:</label>
+                    <textarea name="mensaje" rows="5" cols="50"></textarea>
+                    <button type="submit" class="btn btn-danger">Confirmar anulacion</button>
+                </form>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
         </div>
     </div>
 </div>
