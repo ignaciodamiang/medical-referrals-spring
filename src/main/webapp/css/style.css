@@ -24,3 +24,13 @@ body{
 #main{
     background: rgba(256,256,256,0.9);
 }
+
+#solicitudes{
+    display: none;
+}
+#adjuntos{
+    display: none;
+}
+#registros{
+    display: none;
+}
