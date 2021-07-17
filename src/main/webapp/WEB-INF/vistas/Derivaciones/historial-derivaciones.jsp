@@ -9,7 +9,7 @@
 </head>
 <body>
 <%@ include file="../../../parts/menu.jsp" %>
-<div class="col-10">
+<div class="col-10" id="main">
   <form action="filtrarDerivaciones" method="post">
     <label for="min">Desde</label>
     <input type="date" name="fechaMin" id="min">
