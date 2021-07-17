@@ -59,7 +59,7 @@
                             <td class="text-center">---</td>
                         </c:otherwise>
                         </c:choose>
-                        <td><a href="./ver-derivacion/${derivacion.getId()}" type="button" class="btn btn-info">Detalles</a></td>
+                        <td><a href="./ver-derivacion/?id=${derivacion.getId()}" type="button" class="btn btn-info">Detalles</a></td>
 <%--                                                                    <td>--%>
 <%--                                                                        <!-- Button to Open the Modal -->--%>
 <%--                                                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#derivacion${derivacion.getId()}">--%>
@@ -97,20 +97,20 @@
 <%--                                                                            </div>--%>
 <%--                                                                        </div>--%>
 <%--                                                                    </td>--%>
-                        <c:if test="${derivacion.getEstadoDerivacion().toString().equals('ENBUSQUEDA')}">
-                            <td>
-                                <div class="row justify-content-md-center">
-                                    <a href="nueva-solicitud-derivacion/${derivacion.id}"class="btn btn-info mb-1 text-white"  role="button">Generar Solicitud</a>
-                                </div>
-                            </td>
-                        </c:if>
-                        <c:if test="${derivacion.getEstadoDerivacion().toString().equals('ENBUSQUEDA')}">
-                        <td>
-                            <div class="row justify-content-md-center">
-                                <a href="verSolicitudes/${derivacion.id}"class="btn btn-success mb-1 text-white"  role="button">Ver Solicitud</a>
-                            </div>
-                        </td>
-                        </c:if>
+<%--                        <c:if test="${derivacion.getEstadoDerivacion().toString().equals('ENBUSQUEDA')}">--%>
+<%--                            <td>--%>
+<%--                                <div class="row justify-content-md-center">--%>
+<%--                                    <a href="nueva-solicitud-derivacion/${derivacion.id}"class="btn btn-info mb-1 text-white"  role="button">Generar Solicitud</a>--%>
+<%--                                </div>--%>
+<%--                            </td>--%>
+<%--                        </c:if>--%>
+<%--                        <c:if test="${derivacion.getEstadoDerivacion().toString().equals('ENBUSQUEDA')}">--%>
+<%--                        <td>--%>
+<%--                            <div class="row justify-content-md-center">--%>
+<%--                                <a href="verSolicitudes/${derivacion.id}"class="btn btn-success mb-1 text-white"  role="button">Ver Solicitud</a>--%>
+<%--                            </div>--%>
+<%--                        </td>--%>
+<%--                        </c:if>--%>
                     </tr>
                 </c:forEach>
                 </tbody>

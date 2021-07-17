@@ -14,9 +14,9 @@
     <!--  fin menu -->
     <div class="row p-3  d-flex">
         <div class="d-flex flex-grow-1">
-            <form class="form-group d-flex" method="get" action="./ver-derivacion">
-                <input class="form-control" name="idDerivacion" type="text" placeholder="Ingrese id de derivacion">
-                <input type="input" class="btn btn-primary w-25 ml-4" value="Buscar">
+            <form class="form-group d-flex" method="get" action="/proyecto_derivaciones_war_exploded/ver-derivacion/">
+                <input class="form-control" name="id" type="text" placeholder="Ingrese id de derivacion">
+                <input type="submit" class="btn btn-primary w-25 ml-4" value="Buscar">
             </form>
         </div>
         <c:if test="${rol =='Derivador' || rol =='Solicitador'}">
@@ -24,9 +24,9 @@
                 <button class="btn btn-primary"> Cancelar derivacion</button>
             </div>
         </c:if>
-        <c:if test="${rol =='Derivador'}">
+        <c:if test="${rol =='Derivador' && derivacion.getEstadoDerivacion().toString().equals('ENBUSQUEDA')}">
             <div class="px-3">
-                <button class="btn btn-primary"> Generar solicitud derivacion</button>
+                <a href="nueva-solicitud-derivacion/${derivacion.id} "class="btn btn-primary">Generar Solicitud</a>
             </div>
         </c:if>
 
