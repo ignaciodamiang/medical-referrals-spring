@@ -25,17 +25,21 @@ public class ControladorDerivaciones {
 	private ServicioPlan servicioPlan;
 	private ServicioNotificacionUsuario servicioNotificacionUsuario;
 	private ServicioCentroMedico servicioCentroMedico;
+	private ServicioSolicitudDerivacion servicioSolicitudDerivacion;
 
 	@Autowired
 	public ControladorDerivaciones(
 			ServicioDerivacion servicioDerivacion, ServicioPaciente servicioPaciente,
-			ServicioCobertura servicioCobertura, ServicioPlan servicioPlan, ServicioNotificacionUsuario servicioNotificacionUsuario, ServicioCentroMedico servicioCentroMedico) {
+			ServicioCobertura servicioCobertura, ServicioPlan servicioPlan,
+			ServicioNotificacionUsuario servicioNotificacionUsuario, ServicioCentroMedico servicioCentroMedico,
+			ServicioSolicitudDerivacion servicioSolicitudDerivacion) {
 		this.servicioDerivacion = servicioDerivacion;
 		this.servicioPaciente = servicioPaciente;
 		this.servicioCobertura = servicioCobertura;
 		this.servicioPlan = servicioPlan;
 		this.servicioNotificacionUsuario = servicioNotificacionUsuario;
 		this.servicioCentroMedico = servicioCentroMedico;
+		this.servicioSolicitudDerivacion = servicioSolicitudDerivacion;
 	}
 
 	@RequestMapping(path = "/listado-derivacion")
@@ -56,10 +60,13 @@ public class ControladorDerivaciones {
 		model.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
 		return new ModelAndView("Derivaciones/derivaciones", model);
 	}
-	@RequestMapping(path = "/ver-derivacion/{id}",method = RequestMethod.GET)
-	public ModelAndView verDerivacion(@PathVariable("id") Long idDerivacion) throws Exception {
+	@RequestMapping(path = "/ver-derivacion",method = RequestMethod.GET)
+	public ModelAndView verDerivacion(@RequestParam("id") Long idDerivacion, HttpServletRequest request) throws Exception {
 		ModelMap model = new ModelMap();
+		List<SolicitudDerivacion> lista= servicioSolicitudDerivacion.obtenerSolicitudesDeDerivacionPorDerivacion(idDerivacion);
 		Derivacion derivacion = servicioDerivacion.verDerivacion(idDerivacion);
+		model.put("rol",request.getSession().getAttribute("ROL"));
+		model.put("listaSolicitudesDerivaciones",lista);
 		model.put("derivacion",derivacion);
 	return new ModelAndView("Derivaciones/ver-derivacion",model);
 	}
