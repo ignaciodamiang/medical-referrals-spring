@@ -29,5 +29,8 @@ public interface ServicioDerivacion {
     List<Derivacion> obtenerDerivacionesPorAutor(Usuario autor);
     List<Derivacion> derivacionesPorCobertura(Cobertura cobertura);
     List<Derivacion> derivacionesPorCoberturaFinalizadasYCanceladas(HttpServletRequest request);
-    List<Derivacion> filtrarDerivacionesPorFecha(Long idUsuario, String fechaMin, String fechaMax) throws ParseException;
+    List<Derivacion> filtrarDerivacionesFinalizadasYCanceladasPorFechaYUsuario(Long idUsuario, String fechaMin, String fechaMax) throws ParseException;
+
+    List<Derivacion> derivacionesPorCentroMedicoFinalizadasYCanceladas(HttpServletRequest request) throws Exception;
+    void guardarDerivacionCentroMedico(Derivacion derivacion,HttpServletRequest request, Long idPaciente, RequerimientosMedicos requerimientosMedicos, Boolean urgente, String ubicacionPaciente) throws Exception;
 }

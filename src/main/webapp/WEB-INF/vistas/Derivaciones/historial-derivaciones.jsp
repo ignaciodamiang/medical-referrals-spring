@@ -5,71 +5,52 @@
 <html>
 <head>
   <%@ include file="../../../parts/meta.jsp" %>
-    <title>Historial Derivaciones</title>
+  <title>Historial Derivaciones Derivador</title>
 </head>
 <body>
 <%@ include file="../../../parts/menu.jsp" %>
-<div class="col-10">
-              <form action="filtrarDerivaciones" method="post">
-                <label for="min">Desde</label>
-                <input type="date" name="fechaMin" id="min">
-                <label for="max">Hasta</label>
-                <input type="date" name="fechaMax" id="max">
-                <input type="submit" value="Buscar" class="btn-info">
-              </form>
-                                <c:forEach items="${derivaciones}" var="derivacion">
-                                  <div>
-                                  <div class="card" style="width: 18rem;">
-                                  <div class="card-body">
-                                  <h5 class="card-title">Derivacion del paciente: ${derivacion.getPaciente().getNombreCompleto()}</h5>
-                                  <p class="card-text"> ${derivacion.getFechaDerivacion()} </p>
-                                  <p class="card-text">Diagnostico: ${derivacion.getDiagnostico()}</p>
-                                  <c:if test="${derivacion.getEstadoDerivacion().toString().equals('CANCELADA')}">
-                                     <p class="card-text font-weight-bolder text-danger">Estado: cancelada</p>
-                                  </c:if>
-                                  <c:if test="${derivacion.getEstadoDerivacion().toString().equals('FINALIZADA')}">
-                                     <p class="card-text font-weight-bolder text-danger">Estado: finalizada</p>
-                                  </c:if>
-                                  <!-- Button to Open the Modal -->
-                                  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#derivacion${derivacion.getId()}">
-                                  Detalles
-                                  </button>
-                                  <!-- The Modal -->
-                                  <div class="modal fade" id="derivacion${derivacion.getId()}">
-                                  <div class="modal-dialog">
-                                  <div class="modal-content">
-                                  <!-- Modal Header -->
-                                  <div class="modal-header">
-                                  <h4 class="modal-title">Detalles de derivacion</h4>
-                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                  </div>
-                                  <!-- Modal body -->
-                                  <div class="modal-body">
-                                  <h4>Nombre de paciente: </h4>
-                                  <span>${derivacion.getPaciente().getNombreCompleto()}</span>
-                                  <h4>DNI: </h4>
-                                  <span>${derivacion.getPaciente().getDocumento()}</span>
-                                  <h4>Fecha nacimiento paciente: </h4>
-                                  <span>${derivacion.getPaciente().getFechaNacimiento()}</span>
-                                  <h4>Diagnostico:</h4>
-                                  <span>${derivacion.getDiagnostico()}</span>
-                                  <h4>Sector solicitado:</h4>
-                                  <span>${derivacion.getParaQueSector()}</span>
-                                  <h4>Cobertura:</h4>
-                                  <span>${derivacion.getCobertura().getNombre()}</span>
-                                  </div>
-                                  <!-- Modal footer -->
-                                  <div class="modal-footer">
-                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                                  </div>
-                                  </div>
-                                  </div>
-                                  </div>
-                                  </div>
-                                  </div>
-                                  </div>
-                                </c:forEach>
-</div>
-<%@ include file="../../../parts/footer.jsp" %>
+<div class="col-10" id="main">
+  <form action="filtrarDerivaciones" method="post">
+    <label for="min">Desde</label>
+    <input type="date" name="fechaMin" id="min">
+    <label for="max">Hasta</label>
+    <input type="date" name="fechaMax" id="max">
+    <input type="submit" value="Buscar" class="btn-info">
+  </form>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Nombre completo</th>
+      <th scope="col">Documento</th>
+      <th scope="col">Diagnóstico</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Complejidad</th>
+      <th scope="col">Cobertura</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${derivaciones}" var="derivacion">
+      <tr>
+        <th scope="row">${derivacion.getId()}</th>
+        <td>${derivacion.getFechaDerivacion()}</td>
+        <td>${derivacion.getPaciente().getNombreCompleto()}</td>
+        <td>${derivacion.getPaciente().getDocumento()}</td>
+        <td>${derivacion.getDiagnostico()}</td>
+        <c:if test="${derivacion.getEstadoDerivacion().toString().equals('CANCELADA')}">
+          <td>Cancelada</td>
+        </c:if>
+        <c:if test="${derivacion.getEstadoDerivacion().toString().equals('FINALIZADA')}">
+          <td>Finalizada</td>
+        </c:if>
+        <td>${derivacion.getParaQueSector()}</td>
+        <td>${derivacion.getCobertura().getNombre()}</td>
+      </tr>
+    </c:forEach>
+    </tbody>
+  </table>
+
+  <%@ include file="../../../parts/footer.jsp" %>
 </body>
 </html>

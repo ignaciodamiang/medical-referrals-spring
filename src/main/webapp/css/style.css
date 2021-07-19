@@ -1,19 +1,36 @@
 /*.sticky-top a:hover {background: #903900;}*/
 .administrativo{
-background-color:#1338BE;
+background:rgba(19,56,190,0.85);
 }
 .administrativo a:hover{
     background-color: #0c2177;
 }
 .solicitador{
-    background-color:#008000;
+    background:rgba(0,128,0,0.85);
 }
 .solicitador a:hover{
     background-color: #015401;
 }
 .derivador{
-    background-color:#d35400;
+    background:rgba(211,84,0,0.85);
 }
 .derivador a:hover{
     background: #903900;
+}
+body{
+    background-image: url("./img/imagen.jpg");
+    background-size: cover;
+}
+#main{
+    background: rgba(256,256,256,0.9);
+}
+
+#solicitudes{
+    display: none;
+}
+#adjuntos{
+    display: none;
+}
+#registros{
+    display: none;
 }

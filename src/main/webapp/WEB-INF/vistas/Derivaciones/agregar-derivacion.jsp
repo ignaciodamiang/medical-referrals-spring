@@ -17,60 +17,122 @@
 <body>
     <div class="d-flex">
         <div class="col-lg-6 justify-content-center mx-auto">
-        <form:form action="../agregar-derivacion" method="post" modelAttribute="derivacion" class="mt-4">
-            <h3 class="form-signin-heading text-center">Crear Derivacion para el Paciente ${paciente.nombreCompleto}</h3>
-            <hr class="colorgraph"><br>
+            <c:choose>
+        <c:when test="${rol!='Administrativo'}"><form:form action="../agregar-derivacion" method="post" modelAttribute="derivacion" class="mt-4">
+
+                            <h3 class="form-signin-heading text-center">Crear Derivacion para el Paciente ${paciente.nombreCompleto}</h3>
+                            <hr class="colorgraph"><br>
 
 
-            <div class="form-group">
-                <label for="diagnostico">Diagnostico</label>
-                <form:input path="diagnostico" type="text" id="diagnostico" class="form-control"  />
-            </div>
+                            <div class="form-group">
+                                <label for="diagnostico">Diagnostico</label>
+                                <form:input path="diagnostico" type="text" id="diagnostico" class="form-control"  />
+                            </div>
 
-            <div class="form-group">
-                <label for="cobertura">Sector</label>
-                <form:select id="sector" path="paraQueSector" class="form-control">
-                    <form:options items="${sectores}"/>
-                </form:select>
+                            <div class="form-group">
+                                <label for="cobertura">Sector</label>
+                                <form:select id="sector" path="paraQueSector" class="form-control">
+                                    <form:options items="${sectores}"/>
+                                </form:select>
 
-            </div>
+                            </div>
 
-            <div class="form-group">
-                <label for="cobertura">Cobertura</label>
-                <form:select id="cobertura" path="cobertura.id" class="form-control">
-                    <form:options items="${coberturas}" itemLabel="nombre" itemValue="id"/>
-                </form:select>
+                            <div class="form-group">
+                                <label for="cobertura">Cobertura</label>
+                                <form:select id="cobertura" path="cobertura.id" class="form-control">
+                                    <form:options items="${coberturas}" itemLabel="nombre" itemValue="id"/>
+                                </form:select>
 
-            </div>
-            <div class="form-group">
-                <label for="ubicacionPaciente">Ubicación del Paciente</label>
-                <input type="text" id="ubicacionPaciente" name="ubicacionPaciente" class="form-control">
-            </div>
-            <div id="map" class="w-50 h-50"></div>
-            <div class="form-group">
-                <label>Urgente</label>
-                <label for="si">Si</label>
-                <input type="radio" name="urgente" id="si" value="true">
-                <label for="no">No</label>
-                <input type="radio" name="urgente" id="no" value="false">
-            </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="ubicacionPaciente">Ubicación del Paciente</label>
+                                <input type="text" id="ubicacionPaciente" name="ubicacionPaciente" class="form-control">
+                            </div>
+                            <div id="map" class="w-50 h-50"></div>
+                            <div class="form-group">
+                                <label>Urgente</label>
+                                <label for="si">Si</label>
+                                <input type="radio" name="urgente" id="si" value="true">
+                                <label for="no">No</label>
+                                <input type="radio" name="urgente" id="no" value="false">
+                            </div>
 
-            <input type="number" name="idPaciente" value="${paciente.getId()}"hidden>
+                            <input type="number" name="idPaciente" value="${paciente.getId()}"hidden>
 
-            <div class="form-group">
-                <label>Requerimientos medicos necesarios</label>
-                <label for="tomografo">tomógrafo</label>
-                <input type="checkbox" name="tomografo" id="tomografo">
-                <label for="traumatologoGuardia">traumatólogo de guardia</label>
-                <input type="checkbox" name="traumatologoGuardia" id="traumatologoGuardia">
-                <label for="cirujanoGuardia">cirujano de guardia</label>
-                <input type="checkbox" name="cirujanoGuardia" id="cirujanoGuardia">
-                <label for="cardiologoGuardia">cardiólogo de guardia</label>
-                <input type="checkbox" name="cardiologoGuardia" id="cardiologoGuardia">
-            </div>
+                            <div class="form-group">
+                                <label>Requerimientos medicos necesarios</label>
+                                <label for="tomografo">tomógrafo</label>
+                                <input type="checkbox" name="tomografo" id="tomografo">
+                                <label for="traumatologoGuardia">traumatólogo de guardia</label>
+                                <input type="checkbox" name="traumatologoGuardia" id="traumatologoGuardia">
+                                <label for="cirujanoGuardia">cirujano de guardia</label>
+                                <input type="checkbox" name="cirujanoGuardia" id="cirujanoGuardia">
+                                <label for="cardiologoGuardia">cardiólogo de guardia</label>
+                                <input type="checkbox" name="cardiologoGuardia" id="cardiologoGuardia">
+                            </div>
 
-            <button class="btn btn-lg btn-info btn-block" Type="Submit"/>Crear Derivacion</button>
-        </form:form>
+                            <button class="btn btn-lg btn-info btn-block" Type="Submit"/>Crear Derivacion</button>
+                        </form:form>
+        </c:when>
+            <c:otherwise>
+                                <form:form action="../agregar-derivacion-centro-medico" method="post" modelAttribute="derivacion" class="mt-4">
+                                <h3 class="form-signin-heading text-center">Crear Derivacion para el Paciente ${paciente.nombreCompleto}</h3>
+                                <hr class="colorgraph"><br>
+
+
+                                <div class="form-group">
+                                    <label for="diagnostico">Diagnostico</label>
+                                    <form:input path="diagnostico" type="text" id="diagnostico" class="form-control"  />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="cobertura">Sector</label>
+                                    <form:select id="sector" path="paraQueSector" class="form-control">
+                                        <form:options items="${sectores}"/>
+                                    </form:select>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="cobertura">Cobertura</label>
+                                    <form:select id="cobertura" path="cobertura.id" class="form-control">
+                                        <form:options items="${coberturas}" itemLabel="nombre" itemValue="id"/>
+                                    </form:select>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ubicacionPaciente">Ubicación del Paciente</label>
+                                    <input type="text" value="${direccionCentroMedico}" id="ubicacionPaciente" name="ubicacionPaciente" class="form-control" readonly>
+                                </div>
+                                <div id="map" class="w-50 h-50"></div>
+                                <div class="form-group">
+                                    <label>Urgente</label>
+                                    <label for="si">Si</label>
+                                    <input type="radio" name="urgente" id="si" value="true">
+                                    <label for="no">No</label>
+                                    <input type="radio" name="urgente" id="no" value="false">
+                                </div>
+
+                                <input type="number" name="idPaciente" value="${paciente.getId()}"hidden>
+
+                                <div class="form-group">
+                                    <label>Requerimientos medicos necesarios</label>
+                                    <label for="tomografo">tomógrafo</label>
+                                    <input type="checkbox" name="tomografo" id="tomografo">
+                                    <label for="traumatologoGuardia">traumatólogo de guardia</label>
+                                    <input type="checkbox" name="traumatologoGuardia" id="traumatologoGuardia">
+                                    <label for="cirujanoGuardia">cirujano de guardia</label>
+                                    <input type="checkbox" name="cirujanoGuardia" id="cirujanoGuardia">
+                                    <label for="cardiologoGuardia">cardiólogo de guardia</label>
+                                    <input type="checkbox" name="cardiologoGuardia" id="cardiologoGuardia">
+                                </div>
+
+                                <button class="btn btn-lg btn-info btn-block" Type="Submit"/>Crear Derivacion</button>
+                            </form:form>
+            </c:otherwise>
+            </c:choose>
+
     </div>
     </div>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtr4ecOGJjwlxG3eXQeDCksZdMe2PNxBs&callback=initAutocomplete&libraries=places&v=weekly" type="text/javascript"></script>
