@@ -5,13 +5,10 @@ import ar.edu.unlam.tallerweb1.controladores.ControladorDerivaciones;
 
 import ar.edu.unlam.tallerweb1.modelo.Cobertura;
 import ar.edu.unlam.tallerweb1.modelo.Derivacion;
-import ar.edu.unlam.tallerweb1.modelo.Notificacion;
 import ar.edu.unlam.tallerweb1.modelo.Paciente;
 import ar.edu.unlam.tallerweb1.servicios.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -38,6 +35,7 @@ public class ControladorDerivacionesTest extends SpringTest {
     private ServicioCentroMedico servicioCentroMedicoMock;
     private ServicioSolicitudDerivacion servicioSolicitudDerivacionMock;
     private ControladorDerivaciones controlador;
+    private ServicioComentario servicioComentarioMock;
 
 
     @Before
@@ -49,10 +47,11 @@ public class ControladorDerivacionesTest extends SpringTest {
         servicioPlanMock = mock(ServicioPlan.class);
         servicioNotiUsuarioMock = mock(ServicioNotificacionUsuario.class);
         servicioCentroMedicoMock = mock(ServicioCentroMedico.class);
+        servicioComentarioMock = mock(ServicioComentario.class);
         servicioSolicitudDerivacionMock = mock(ServicioSolicitudDerivacion.class);
         sessionMock = mock(HttpSession.class);
 
-        controlador = new ControladorDerivaciones(servicioDerivacionMock, servicioPacienteMock, servicioCoberturaMock, servicioPlanMock, servicioNotiUsuarioMock, servicioCentroMedicoMock,servicioSolicitudDerivacionMock);
+        controlador = new ControladorDerivaciones(servicioDerivacionMock, servicioPacienteMock, servicioCoberturaMock, servicioPlanMock, servicioNotiUsuarioMock, servicioCentroMedicoMock,servicioSolicitudDerivacionMock, servicioComentarioMock);
     }
 
     @Test

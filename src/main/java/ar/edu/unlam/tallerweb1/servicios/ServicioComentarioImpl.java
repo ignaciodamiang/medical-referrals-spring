@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.List;
 
 
 @Service("servicioComentario")
@@ -122,7 +123,10 @@ public class ServicioComentarioImpl implements ServicioComentario {
         }
     }
 
-
+    @Override
+    public List<Comentario> obtenerComentariosPorDerivacion(Derivacion derivacion) {
+        return repositorioComentario.obtenerComentariosPorDerivacion(derivacion);
+    }
 
 
 }

@@ -53,6 +53,8 @@
                         <c:if test="${derivacion.getEstadoDerivacion().toString().equals('ENBUSQUEDA')}">
                             <p class="card-text font-weight-bolder text-primary">Estado: en busqueda</p>
                         </c:if>
+                        <a class="btn-info" href="ver-derivacion/${derivacion.id}">Detalle Derivación</a>
+
                         <!-- Button to Open the Modal -->
                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#derivacion${derivacion.getId()}">
                             Detalles

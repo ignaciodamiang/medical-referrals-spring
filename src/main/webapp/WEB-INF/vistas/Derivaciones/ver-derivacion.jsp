@@ -59,11 +59,34 @@
                         </div>
                 </div>
                 <div class="col m-2">
-                    <div class="row m-1"> <strong>Datos paciente: </strong>
-                        Nombre: ${derivacion.getPaciente().getNombreCompleto()}<br>
-                        Dni: ${derivacion.getPaciente().getDocumento()}<br>
-                        Fecha de Nacimiento: ${derivacion.getPaciente().getFechaNacimiento().toString()}<br>
+                    <div class="row m-1"> <strong>Paciente: </strong>
+                        <a data-toggle="modal" data-target="#paciente${derivacion.getPaciente().getId()}">${derivacion.getPaciente().getNombreCompleto()}</a>
                     </div>
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="paciente${derivacion.getPaciente().getId()}">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <!-- Modal Header -->
+                                                                    <div class="modal-header">
+                                                                        <img src="${pageContext.servletContext.contextPath}/img/pacientes/${derivacion.getPaciente().getFoto()}" class="rounded-circle img-fluid img-thumbnail" alt="${derivacion.getPaciente().getFoto()}" width="80">
+                                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                    </div>
+                                                                    <!-- Modal body -->
+                                                                    <div class="modal-body">
+                                                                        <h4>Nombre de paciente: </h4>
+                                                                        <span>${derivacion.getPaciente().getNombreCompleto()}</span>
+                                                                        <h4>DNI: </h4>
+                                                                        <span>${derivacion.getPaciente().getDocumento()}</span>
+                                                                        <h4>Fecha nacimiento paciente: </h4>
+                                                                        <span>${derivacion.getPaciente().getFechaNacimiento()}</span>
+                                                                    </div>
+                                                                    <!-- Modal footer -->
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                     <div class="row m-1"> <strong>Urgente: </strong>
                         <c:choose>
                         <c:when test="${derivacion.getUrgente()}">
@@ -137,34 +160,26 @@
                     </table>
                 </c:otherwise>
             </c:choose>
+            <img src="proyecto-derivaciones\out\artifacts\proyecto_derivaciones_war_exploded\">
         </div>
         <div class="row" id="registros"> <table class="table table-striped">
             <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Registro</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Asunto</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Evento</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-            </tr>
+            <c:forEach items="${comentarios}" var="comentario">
+                <tr>
+                    <td>${comentario.getFechaCreacion()}</td>
+                    <td>${comentario.getAsunto()}</td>
+                    <td>${comentario.getAutor().getEmail()}</td>
+                    <td>${comentario.getMensaje()}</td>
+                </tr>
+            </c:forEach>
             </tbody>
         </table></div>
         <div class="row" id="adjuntos"> <table class="table table-striped">

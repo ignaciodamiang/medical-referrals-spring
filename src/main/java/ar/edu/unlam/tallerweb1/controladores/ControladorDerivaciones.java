@@ -26,13 +26,14 @@ public class ControladorDerivaciones {
 	private ServicioNotificacionUsuario servicioNotificacionUsuario;
 	private ServicioCentroMedico servicioCentroMedico;
 	private ServicioSolicitudDerivacion servicioSolicitudDerivacion;
+	private ServicioComentario servicioComentario;
 
 	@Autowired
 	public ControladorDerivaciones(
 			ServicioDerivacion servicioDerivacion, ServicioPaciente servicioPaciente,
 			ServicioCobertura servicioCobertura, ServicioPlan servicioPlan,
 			ServicioNotificacionUsuario servicioNotificacionUsuario, ServicioCentroMedico servicioCentroMedico,
-			ServicioSolicitudDerivacion servicioSolicitudDerivacion) {
+			ServicioSolicitudDerivacion servicioSolicitudDerivacion, ServicioComentario servicioComentario) {
 		this.servicioDerivacion = servicioDerivacion;
 		this.servicioPaciente = servicioPaciente;
 		this.servicioCobertura = servicioCobertura;
@@ -40,6 +41,7 @@ public class ControladorDerivaciones {
 		this.servicioNotificacionUsuario = servicioNotificacionUsuario;
 		this.servicioCentroMedico = servicioCentroMedico;
 		this.servicioSolicitudDerivacion = servicioSolicitudDerivacion;
+		this.servicioComentario = servicioComentario;
 	}
 
 	@RequestMapping(path = "/listado-derivacion")
@@ -60,14 +62,17 @@ public class ControladorDerivaciones {
 		model.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
 		return new ModelAndView("Derivaciones/derivaciones", model);
 	}
-	@RequestMapping(path = "/ver-derivacion",method = RequestMethod.GET)
-	public ModelAndView verDerivacion(@RequestParam("id") Long idDerivacion, HttpServletRequest request) throws Exception {
+	@RequestMapping(path = "/ver-derivacion/{idDerivacion}",method = RequestMethod.GET)
+	public ModelAndView verDerivacion(@PathVariable("idDerivacion") Long idDerivacion, HttpServletRequest request) throws Exception {
 		ModelMap model = new ModelMap();
 		List<SolicitudDerivacion> lista= servicioSolicitudDerivacion.obtenerSolicitudesDeDerivacionPorDerivacion(idDerivacion);
 		Derivacion derivacion = servicioDerivacion.verDerivacion(idDerivacion);
+		List<Comentario> comentarios = servicioComentario.obtenerComentariosPorDerivacion(derivacion);
 		model.put("rol",request.getSession().getAttribute("ROL"));
 		model.put("listaSolicitudesDerivaciones",lista);
 		model.put("derivacion",derivacion);
+		model.put("comentarios", comentarios);
+		model.put("path", request.getSession().getServletContext().getRealPath("/img/pacientes/"));
 	return new ModelAndView("Derivaciones/ver-derivacion",model);
 	}
 	@RequestMapping(path = "/nueva-derivacion/{id}", method = RequestMethod.GET)

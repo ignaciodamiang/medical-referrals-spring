@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.modelo.Comentario;
 import ar.edu.unlam.tallerweb1.modelo.Derivacion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -42,6 +43,7 @@ public class RepositorioComentarioImpl implements RepositorioComentario {
     public List<Comentario> obtenerComentariosPorDerivacion(Derivacion derivacion) {
         final Session session =sessionFactory.getCurrentSession();
         return session.createCriteria(Comentario.class)
-                .add(Restrictions.eq("derivacion", derivacion)).list();
+                .add(Restrictions.eq("derivacion", derivacion)).addOrder(Order.asc("fechaCreacion"))
+                .list();
     }
 }
