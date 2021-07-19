@@ -43,6 +43,8 @@ public class ServicioSolicitudDerivacionImpl implements ServicioSolicitudDerivac
             solicitudDerivacion.setCentroMedico(centroMedico);
             solicitudDerivacion.setDerivacion(derivacion);
             servicioSoliciturDerivacionDao.guardarSolicitudDerivacion(solicitudDerivacion);
+            solicitudDerivacion.setCodigo(this.generarCodigoSolicitudDerivacion(solicitudDerivacion.getId()));
+            this.modificarSolicitudDerivacion(solicitudDerivacion);
             servicioNotificacion.guardarNotificacion(solicitudDerivacion, "G","");
         }
     }
@@ -89,5 +91,12 @@ public class ServicioSolicitudDerivacionImpl implements ServicioSolicitudDerivac
             public List<SolicitudDerivacion> obtenerSolicitudesDeDerivacionPorDerivacion(Long id) {
         Derivacion derivacion = servicioDerivacion.verDerivacion(id);
         return servicioSoliciturDerivacionDao.obtenerSolicitudesDeDerivacionPorDerivacion(derivacion);
+    }
+
+    @Override
+    public String generarCodigoSolicitudDerivacion(Long idSolicitudDerivacion) {
+        String prefix = "SOL";
+        Long code = 100000L + idSolicitudDerivacion;
+        return prefix+code;
     }
 }

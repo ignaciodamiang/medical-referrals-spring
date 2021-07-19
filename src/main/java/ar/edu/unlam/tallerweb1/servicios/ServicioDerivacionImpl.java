@@ -58,6 +58,8 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
             derivacion.setUrgente(urgente);
             derivacion.setUbicacionPaciente(ubicacionPaciente);
             respositorioDerivacion.guardarDerivacion(derivacion);
+            derivacion.setCodigo(this.generarCodigoDerivacion(derivacion.getId()));
+            this.modificarDerivacion(derivacion);
             if(derivacion.getUrgente()) {
                 servicioNotificacion.guardarNotificacion(derivacion, "U","");
                 /*  se mande un mail a todos los derivadores de esa cobertura cuando se genera una derivacion  */
@@ -197,6 +199,8 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
             CentroMedico centroMedico = servicioCentroMedico.obtenerCentroMedicoPorId((Long)request.getSession().getAttribute("ID_CENTROMEDICO"));
             derivacion.setCentroMedicoDeOrigen(centroMedico);
             respositorioDerivacion.guardarDerivacion(derivacion);
+            derivacion.setCodigo(this.generarCodigoDerivacion(derivacion.getId()));
+            this.modificarDerivacion(derivacion);
             servicioComentario.guardarComentarioDerivacion(derivacion, "", repositorioUsuario.consultarUsuarioPorId((Long)request.getSession().getAttribute("ID_USUARIO")), "G");
             if(derivacion.getUrgente()) {
                 servicioNotificacion.guardarNotificacion(derivacion, "U","");
@@ -208,5 +212,12 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
             }
             servicioComentario.guardarComentarioDerivacion(derivacion, "",autor, "G");
         }
+    }
+
+    @Override
+    public String generarCodigoDerivacion(Long idDerivacion) {
+        String prefix = "DER";
+        Long code = 100000L + idDerivacion;
+        return prefix+code;
     }
 }

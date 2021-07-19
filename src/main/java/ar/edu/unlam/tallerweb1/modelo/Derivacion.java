@@ -8,6 +8,7 @@ public class Derivacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String codigo;
     @Enumerated(EnumType.STRING)
     private EstadoDerivacion estadoDerivacion;
     @ManyToOne
@@ -82,12 +83,10 @@ public class Derivacion {
     public void setRequerimientosMedicos(RequerimientosMedicos requerimientosMedicos) { this.requerimientosMedicos = requerimientosMedicos; }
     public String getUbicacionPaciente() { return ubicacionPaciente; }
     public void setUbicacionPaciente(String ubicacionPaciente) { this.ubicacionPaciente = ubicacionPaciente; }
-
     public CentroMedico getCentroMedicoDeOrigen() {
         return centroMedicoDeOrigen;
     }
-
-    public void setCentroMedicoDeOrigen(CentroMedico centroMedicoDeOrigen) {
-        this.centroMedicoDeOrigen = centroMedicoDeOrigen;
-    }
+    public void setCentroMedicoDeOrigen(CentroMedico centroMedicoDeOrigen) { this.centroMedicoDeOrigen = centroMedicoDeOrigen; }
+    public String getCodigo() { return codigo; }
+    public void setCodigo(String codigo) { this.codigo = codigo; }
 }
