@@ -39,6 +39,7 @@ public class ControladorPaciente {
         Usuario autor = servicioUsuario.consultarUsuarioPorId((Long)request.getSession().getAttribute("ID_USUARIO"));
         //String solicitador= request.getSession().getAttribute("ID_SOLICITADOR");
         List<Derivacion> derivaciones = servicioDerivacion.obtenerDerivacionesPorAutor(autor);
+            System.out.println(request.getSession().getServletContext().getRealPath("/img/pacientes/"));
         map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
         map.put("derivaciones", derivaciones);
         return new ModelAndView("Paciente/buscarPaciente", map);

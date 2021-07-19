@@ -156,7 +156,7 @@ INSERT INTO `proyecto-derivaciones`.`paciente` (`documento`, `fechaNacimiento`, 
 INSERT INTO `proyecto-derivaciones`.`paciente` (`documento`, `fechaNacimiento`, `nombreCompleto`) VALUES ('29449209', '1990/05/30', 'URRICHE FERNANDA MARGARIATA JUANA ');
 INSERT INTO `proyecto-derivaciones`.`paciente` (`documento`, `fechaNacimiento`, `nombreCompleto`) VALUES ('29226865', '1990/04/28', 'VERA ALEJANDRA KARINA ');
 INSERT INTO `proyecto-derivaciones`.`paciente` (`documento`, `fechaNacimiento`, `nombreCompleto`) VALUES ('28619954', '1989/11/22', 'VILCHES ANTONIA SATURNINA');
-INSERT INTO `proyecto-derivaciones`.`paciente` (`documento`, `fechaNacimiento`, `nombreCompleto`) VALUES ('29226865', '1990/10/19', 'ZALAZAR RODRÍGUEZ MARÍA JOSÉ');
+INSERT INTO `proyecto-derivaciones`.`paciente` (`documento`, `fechaNacimiento`, `nombreCompleto`) VALUES ('29226866', '1990/10/19', 'ZALAZAR RODRÍGUEZ MARÍA JOSÉ');
 
 -- PlanPaciente
 
@@ -227,6 +227,35 @@ UPDATE `proyecto-derivaciones`.`centromedico` SET `requerimientosMedicos_id` = '
 UPDATE `proyecto-derivaciones`.`centromedico` SET `requerimientosMedicos_id` = '9' WHERE (`id` = '9');
 UPDATE `proyecto-derivaciones`.`centromedico` SET `requerimientosMedicos_id` = '10' WHERE (`id` = '10');
 UPDATE `proyecto-derivaciones`.`centromedico` SET `requerimientosMedicos_id` = '11' WHERE (`id` = '11');
+
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '33694911.jpg' WHERE (`id` = '1');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '34328642.jpg' WHERE (`id` = '2');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '31643135.jpg' WHERE (`id` = '3');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '35241269.jpg' WHERE (`id` = '4');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '35542153.jpg' WHERE (`id` = '5');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '17037523.jpg' WHERE (`id` = '6');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '32238035.jpg' WHERE (`id` = '7');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '21355847.jpg' WHERE (`id` = '8');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '11496916.jpg' WHERE (`id` = '9');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '28619955.jpg' WHERE (`id` = '10');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '31374172.jpg' WHERE (`id` = '11');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '13694348.jpg' WHERE (`id` = '12');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '32163776.jpg' WHERE (`id` = '13');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '39700861.jpg' WHERE (`id` = '14');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '33820158.jpg' WHERE (`id` = '15');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '38731825.jpg' WHERE (`id` = '16');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '34633758.jpg' WHERE (`id` = '17');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '29996758.jpg' WHERE (`id` = '18');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '27451433.jpg' WHERE (`id` = '19');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '17973562.jpg' WHERE (`id` = '20');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '27041529.jpg' WHERE (`id` = '21');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '23184773.jpg' WHERE (`id` = '22');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '22703107.jpg' WHERE (`id` = '23');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '29449209.jpg' WHERE (`id` = '24');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '29226865.jpg' WHERE (`id` = '25');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '28619954.jpg' WHERE (`id` = '26');
+UPDATE `proyecto-derivaciones`.`paciente` SET `foto` = '29226866.jpg' WHERE (`id` = '27');
+
 
 
 
