@@ -15,5 +15,6 @@ public interface ServicioSolicitudDerivacion {
     List<SolicitudDerivacion> obtenerSolicitudesDeDerivacionPorCentroMedico(CentroMedico centroMedico);
     SolicitudDerivacion obtenerSolicitudDerivacionPorId(Long id);
     List<SolicitudDerivacion> obtenerSolicitudesDeDerivacionPorDerivacion(Long id);
+    String generarCodigoSolicitudDerivacion(Long idSolicitudDerivacion);
 
 }

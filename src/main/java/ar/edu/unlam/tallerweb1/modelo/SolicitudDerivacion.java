@@ -8,6 +8,8 @@ public class SolicitudDerivacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String codigo;
+    private String descripcion;
     @ManyToOne
     private Derivacion derivacion;
     @ManyToOne
@@ -48,4 +50,8 @@ public class SolicitudDerivacion {
     }
     public Date getFechaCreacion() {return fechaCreacion;}
     public void setFechaCreacion(Date fechaCreacion) {this.fechaCreacion = fechaCreacion;}
+    public String getCodigo() { return codigo; }
+    public void setCodigo(String codigo) { this.codigo = codigo; }
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 }

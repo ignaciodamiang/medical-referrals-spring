@@ -33,4 +33,5 @@ public interface ServicioDerivacion {
 
     List<Derivacion> derivacionesPorCentroMedicoFinalizadasYCanceladas(HttpServletRequest request) throws Exception;
     void guardarDerivacionCentroMedico(Derivacion derivacion,HttpServletRequest request, Long idPaciente, RequerimientosMedicos requerimientosMedicos, Boolean urgente, String ubicacionPaciente) throws Exception;
+    String generarCodigoDerivacion(Long idDerivacion);
 }
