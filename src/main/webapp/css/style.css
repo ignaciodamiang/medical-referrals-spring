@@ -32,5 +32,8 @@ body{
     display: none;
 }
 #registros{
-    display: none;
+    display: initial;
+}
+a{
+    cursor: pointer;
 }

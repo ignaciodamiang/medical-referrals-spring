@@ -44,7 +44,7 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
     }
 
     @Override
-    public void guardarDerivacion(Derivacion derivacion,HttpServletRequest request, Long idPaciente, RequerimientosMedicos requerimientosMedicos, Boolean urgente, String ubicacionPaciente) throws Exception {
+    public void guardarDerivacion(Derivacion derivacion,Long idCobertura, HttpServletRequest request, Long idPaciente, RequerimientosMedicos requerimientosMedicos, Boolean urgente, String ubicacionPaciente) throws Exception {
         Paciente paciente = servicioPaciente.obtenerPacientePorId(idPaciente);
         servicioRequerimientosMedicos.guardaRequerimientosMedicos(requerimientosMedicos);
         if(paciente != null && requerimientosMedicos.getId() != 0) {
@@ -57,6 +57,7 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
             derivacion.setRequerimientosMedicos(requerimientosMedicos);
             derivacion.setUrgente(urgente);
             derivacion.setUbicacionPaciente(ubicacionPaciente);
+            derivacion.setCobertura(servicioCobertura.obtenerCoberturaPorId(idCobertura));
             respositorioDerivacion.guardarDerivacion(derivacion);
             derivacion.setCodigo(this.generarCodigoDerivacion(derivacion.getId()));
             this.modificarDerivacion(derivacion);

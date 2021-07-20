@@ -29,26 +29,33 @@
                 <a href="../nueva-solicitud-derivacion/${derivacion.id} "class="btn btn-primary">Generar Solicitud</a>
             </div>
         </c:if>
+        <c:if test="${solicitud.aceptado == true && rol =='Derivador'}">
+            <td>
+                <div class="px-3">
+                    <a href="../crearTraslado/${solicitud.id}"class="btn btn-primary"  role="button">Generar Traslado</a>
+                </div>
+            </td>
+        </c:if>
 
     </div>
     <div class="row">
         <div class="col">
-            <h3>Derivacion: ${derivacion.getCodigo()}</h3>
             <div class="row">
                 <div class="col m-2">
-                    <div class="row m-1"> <strong>Sector: </strong><p> ${derivacion.getParaQueSector()}</p></div>
+                    <div class="row m-1"> <strong>Id Solicitud: </strong><p> ${solicitud.getCodigo()}</p></div>
+                    <div class="row m-1"> <strong>Sector: </strong><p> ${solicitud.getDerivacion().getParaQueSector()}</p></div>
                     <div class="row m-1"> <strong>requisitos: </strong>
                         <c:choose>
-                            <c:when test="${derivacion.getRequerimientosMedicos().getTomografo()}">
+                            <c:when test="${solicitud.getDerivacion().getRequerimientosMedicos().getTomografo()}">
                                 - TOMOGRAFO <br>
                             </c:when>
-                            <c:when test="${derivacion.getRequerimientosMedicos().getTraumatologoDeguardia()}">
+                            <c:when test="${solicitud.getDerivacion().getRequerimientosMedicos().getTraumatologoDeguardia()}">
                                 - TRAUMATOLOGO DE GUARDIA <br>
                             </c:when>
-                            <c:when test="${derivacion.getRequerimientosMedicos().getCirujanoDeGuardia()}">
+                            <c:when test="${solicitud.getDerivacion().getRequerimientosMedicos().getCirujanoDeGuardia()}">
                                 - CIRUJANO DE GUARDIA <br>
                             </c:when>
-                            <c:when test="${derivacion.getRequerimientosMedicos().getCardiologoSeGuardia()}">
+                            <c:when test="${solicitud.getDerivacion().getRequerimientosMedicos().getCardiologoSeGuardia()}">
                                 - CARDIOLOGO DE GUARDIA <br>
                             </c:when>
                             <c:otherwise>
@@ -56,51 +63,51 @@
                             </c:otherwise>
                         </c:choose>
 
-                        </div>
+                    </div>
                 </div>
                 <div class="col m-2">
                     <div class="row m-1"> <strong>Paciente: </strong>
-                        <a style="color: blue" data-toggle="modal" data-target="#paciente${derivacion.getPaciente().getId()}">${derivacion.getPaciente().getNombreCompleto()}</a>
+                        <a data-toggle="modal" data-target="#paciente${solicitud.getDerivacion().getPaciente().getId()}">${solicitud.getDerivacion().getPaciente().getNombreCompleto()}</a>
                     </div>
-                                                        <!-- Modal -->
-                                                        <div class="modal fade" id="paciente${derivacion.getPaciente().getId()}">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <!-- Modal Header -->
-                                                                    <div class="modal-header">
-                                                                        <img src="/proyecto_derivaciones_war_exploded/img/pacientes/${derivacion.getPaciente().getFoto()}" class="rounded-circle img-fluid img-thumbnail" alt="${derivacion.getPaciente().getFoto()}" width="80">
-                                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                    </div>
-                                                                    <!-- Modal body -->
-                                                                    <div class="modal-body">
-                                                                        <h4>Nombre de paciente: </h4>
-                                                                        <span>${derivacion.getPaciente().getNombreCompleto()}</span>
-                                                                        <h4>DNI: </h4>
-                                                                        <span>${derivacion.getPaciente().getDocumento()}</span>
-                                                                        <h4>Fecha nacimiento paciente: </h4>
-                                                                        <span>${derivacion.getPaciente().getFechaNacimiento()}</span>
-                                                                    </div>
-                                                                    <!-- Modal footer -->
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="paciente${solicitud.getDerivacion().getPaciente().getId()}">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <img src="${pageContext.servletContext.contextPath}/img/pacientes/${solicitud.getDerivacion().getPaciente().getFoto()}" class="rounded-circle img-fluid img-thumbnail" alt="${derivacion.getPaciente().getFoto()}" width="80">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    <h4>Nombre de paciente: </h4>
+                                    <span>${solicitud.getDerivacion().getPaciente().getNombreCompleto()}</span>
+                                    <h4>DNI: </h4>
+                                    <span>${solicitud.getDerivacion().getPaciente().getDocumento()}</span>
+                                    <h4>Fecha nacimiento paciente: </h4>
+                                    <span>${solicitud.getDerivacion().getPaciente().getFechaNacimiento()}</span>
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row m-1"> <strong>Urgente: </strong>
                         <c:choose>
-                        <c:when test="${derivacion.getUrgente()}">
-                        <p class="text-center px-2" style="background: darkred;color: white;">URGENTE</p>
-                        </c:when>
-                        <c:otherwise>
-                            <p class="text-center"> NO </p>
-                        </c:otherwise>
+                            <c:when test="${solicitud.getDerivacion().getUrgente()}">
+                                <p class="text-center px-2" style="background: darkred;color: white;">URGENTE</p>
+                            </c:when>
+                            <c:otherwise>
+                                <p class="text-center"> NO </p>
+                            </c:otherwise>
                         </c:choose></div>
-                    </div>
+                </div>
                 <div class="col m-2">
-                    <div class="row m-1"> <strong>Estado: </strong><p>${derivacion.getEstadoDerivacion()}</p></div>
-                    <div class="row m-1"> <strong>Fecha generacion: </strong><p>${derivacion.getFechaDerivacion()}</p></div>
-                    <div class="row m-1"> <strong>Cobertura: </strong><p>${derivacion.getCobertura().getNombre()}</p></div>
+                    <div class="row m-1"> <strong>Estado: </strong><p>${solicitud.getDerivacion().getEstadoDerivacion()}</p></div>
+                    <div class="row m-1"> <strong>Fecha generacion: </strong><p>${solicitud.getDerivacion().getFechaDerivacion()}</p></div>
+                    <div class="row m-1"> <strong>Cobertura: </strong><p>${solicitud.getDerivacion().getCobertura().getNombre()}</p></div>
                 </div>
             </div>
         </div>
@@ -108,62 +115,16 @@
     <!--  agregar div con rows -->
     <div class="row">
         <div class="col m-2">
-            <strong>Diagnostico: </strong> <p>${derivacion.diagnostico}</p>
+            <strong>Descripcion: </strong> <p>${solicitud.getDescripcion()}</p>
         </div>
     </div>
     <!-- <div class="row bg-warning"> -->
     <p class="d-flex justify-content-around">
-        <button class="btn btn-primary" onclick="mostrarOcultar('solicitudes')">Solicitudes de derivacion</button>
         <button class="btn btn-primary" onclick="mostrarOcultar('registros')">Registro</button>
         <button class="btn btn-primary" onclick="mostrarOcultar('adjuntos')">Adjuntos</button>
 
     </p>
     <div class="">
-        <div class="row" id="solicitudes">
-            <c:choose>
-                <c:when test="${listaSolicitudesDerivaciones.isEmpty()}">
-                    <p class="mt-4 text-center">No hay Solicitudes disponibles</p>
-                </c:when>
-                <c:otherwise>
-                    <table class="table table-striped mt-4">
-                        <thead>
-                        <tr>
-                            <th scope="col">Id solicitud</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col">Centro Medico</th>
-                            <th scope="col">Aceptado</th>
-                            <th scope="col">Confirmado</th>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Urgencia</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${listaSolicitudesDerivaciones}" var="solicitud">
-                            <tr>
-                                <td><a href="ver-solicitud-derivacion/${solicitud.getId()}">${solicitud.getCodigo()}</a></td>
-                                <td>${solicitud.getDerivacion().getEstadoDerivacion().toString()}</td>
-                                <td>${solicitud.getCentroMedico().getNombre()}</td>
-                                <td>${solicitud.getAceptado()}</td>
-                                <td>${solicitud.getConfirmado()}</td>
-                                <td>${solicitud.getFechaCreacion().toLocaleString()}</td>
-                                <c:choose>
-                                    <c:when test="${solicitud.getDerivacion().getUrgente()}">
-                                        <td class="text-center" style="background: darkred;color: white;">URGENTE</td>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <td class="text-center">---</td>
-                                    </c:otherwise>
-                                </c:choose>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </c:otherwise>
-            </c:choose>
-<%--            ${path}--%>
-<%--            <img src="/proyecto_derivaciones_war_exploded/img/pacientes/${derivacion.getPaciente().getFoto()}">--%>
-<%--            <img src="proyecto-derivaciones\out\artifacts\proyecto_derivaciones_war_exploded\">--%>
-        </div>
         <div class="row" id="registros"> <table class="table table-striped">
             <thead>
             <tr>
@@ -249,7 +210,7 @@
     </div>
 </div>
 <!--  fin de divs con rows -->
-    <!--  footer -->
+<!--  footer -->
 </div>
 
 <%@ include file="../../../parts/footer.jsp" %>

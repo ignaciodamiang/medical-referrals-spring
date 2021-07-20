@@ -7,7 +7,10 @@
     <%@ include file="../../../parts/meta.jsp" %>
     <title>Traslado de derivacion</title>
 </head>
-<body class="bg-gradient-primary">
+<!-- se agrega la columna menu -->
+<%@ include file="../../../parts/menu.jsp" %>
+<div class="col-10" id="main">
+    <!--  fin menu -->
 
 <div class="container" style="margin-top: 6rem">
 
@@ -88,7 +91,10 @@
                             .catch((e) => window.alert("Directions request failed due to " + e));
         }
     </script>
+    <!--  footer -->
+</div>
 
-<%@ include file="../../../parts/footer.jsp" %>
-</body>
+    <%@ include file="../../../parts/footer.jsp" %>
+
+    </div>
 </html>

@@ -24,6 +24,10 @@
                 <a href="finalizarTraslado/${traslado.id}" class="btn btn-success">
                     Finalizar
                 </a>
+                <a href="ver-traslado/${traslado.id}" class="btn btn-info">
+                    Ver traslado
+                </a>
+
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#traslado${traslado.getId()}">
                         Cancelar
                 </button>

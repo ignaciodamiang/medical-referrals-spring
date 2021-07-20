@@ -48,14 +48,14 @@ public class ServicioComentarioImpl implements ServicioComentario {
                 }
 
                 case "G": {
-                    comentario.setMensaje("Se ha generado la derivacion "+derivacion.getId()+" para la cobertura "+derivacion.getCobertura().getNombre());;
+                    comentario.setMensaje("Se ha generado la derivacion "+derivacion.getCodigo()+" para la cobertura "+derivacion.getCobertura().getNombre()+".");
                     comentario.setAsunto("Inicia");
                     this.guardarComentario(comentario);
                     break;
                 }
 
                 case "F": {
-                    comentario.setMensaje("Ha finalizado la derivación "+derivacion.getId());
+                    comentario.setMensaje("Ha finalizado la derivación "+derivacion.getCodigo());
                     comentario.setAsunto("Finalizado");
                     this.guardarComentario(comentario);
                     break;
