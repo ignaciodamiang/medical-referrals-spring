@@ -17,11 +17,11 @@ INSERT INTO `proyecto-derivaciones`.`centromedico` (`direccion`, `guardia`, `nom
 INSERT INTO `proyecto-derivaciones`.`centromedico` (`direccion`, `guardia`, `nombre`, `salaComun`, `terapia`) VALUES ('Av. Velez Sarsfield 1271',false,'Barracas 1 (CeSAC Nº 1)',true,false);
 INSERT INTO `proyecto-derivaciones`.`centromedico` (`direccion`, `guardia`, `nombre`, `salaComun`, `terapia`) VALUES ('	Osvaldo Cruz 3485',true,'Barracas 2 (CeSAC Nº 8',true,true);
 INSERT INTO `proyecto-derivaciones`.`centromedico` (`direccion`, `guardia`, `nombre`, `salaComun`, `terapia`) VALUES ('Osvaldo Cruz 2055',false,'Barracas 3 (CeSAC Nº 16)',true,true);
-INSERT INTO `proyecto-derivaciones`.`centromedico` (`direccion`, `guardia`, `nombre`, `salaComun`, `terapia`) VALUES ('Amancio Alcorta e Iguazú', false,'Barracas 4 (CeSAC Nº 30)',true,true);
-INSERT INTO `proyecto-derivaciones`.`centromedico` (`direccion`, `guardia`, `nombre`, `salaComun`, `terapia`) VALUES ('Osvaldo Cruz y Zavaleta',true,'Barracas 6 (CeSAC Nº 35)',false,true);
+INSERT INTO `proyecto-derivaciones`.`centromedico` (`direccion`, `guardia`, `nombre`, `salaComun`, `terapia`) VALUES ('Amancio Alcorta 3100, Interseccion Iguazú, C1437HUN CABA', false,'Barracas 4 (CeSAC Nº 30)',true,true);
+INSERT INTO `proyecto-derivaciones`.`centromedico` (`direccion`, `guardia`, `nombre`, `salaComun`, `terapia`) VALUES ('Zavaleta, Osvaldo Cruz y, C1437 Barracas, Buenos Aires',true,'Barracas 6 (CeSAC Nº 35)',false,true);
 INSERT INTO `proyecto-derivaciones`.`centromedico` (`direccion`, `guardia`, `nombre`, `salaComun`, `terapia`) VALUES ('Curapaligüe 1905', true,'Flores 1 (CeSAC Nº 19)',true,true);
-INSERT INTO `proyecto-derivaciones`.`centromedico` (`direccion`, `guardia`, `nombre`, `salaComun`, `terapia`) VALUES ('Ana María Janer y Charrúa 2330 (Barrio 1 11 14)', true,'Flores 2 (CeSAC Nº 20)',true,false);
-INSERT INTO `proyecto-derivaciones`.`centromedico` (`direccion`, `guardia`, `nombre`, `salaComun`, `terapia`) VALUES ('Ana Maria Janer y Agustin De Vedia',true,'Flores 3 (CeSAC Nº 31)',true,false);
+INSERT INTO `proyecto-derivaciones`.`centromedico` (`direccion`, `guardia`, `nombre`, `salaComun`, `terapia`) VALUES ('Ana María Janer 2300', true,'Flores 2 (CeSAC Nº 20)',true,false);
+INSERT INTO `proyecto-derivaciones`.`centromedico` (`direccion`, `guardia`, `nombre`, `salaComun`, `terapia`) VALUES ('Ana Maria Janer 1800',true,'Flores 3 (CeSAC Nº 31)',true,false);
 INSERT INTO `proyecto-derivaciones`.`centromedico` (`direccion`, `guardia`, `nombre`, `salaComun`, `terapia`) VALUES ('Esteban Bonorino 1729',false,'Flores 4 (CeSAC Nº 40)',true,true);
 
 -- Planes

@@ -13,9 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -27,16 +24,18 @@ public class ControladorSolicitudDerivaciones {
     private ServicioNotificacion servicioNotificacion;
     private ServicioNotificacionUsuario servicioNotificacionUsuario;
     private ServicioCentroMedicoDistancia servicioCentroMedicoDistancia;
+    private ServicioComentario servicioComentario;
 
     @Autowired
     public ControladorSolicitudDerivaciones
             (ServicioSolicitudDerivacion servicio, ServicioDerivacion servicioDerivacion, ServicioCentroMedico servicioCentroMedico,
-             ServicioNotificacion servicioNotificacion, ServicioNotificacionUsuario servicioNotificacionUsuario) {
+             ServicioNotificacion servicioNotificacion, ServicioNotificacionUsuario servicioNotificacionUsuario, ServicioComentario servicioComentario) {
         this.servicioSolicitudDerivacion = servicio;
         this.servicioDerivacion = servicioDerivacion;
         this.servicioCentroMedico = servicioCentroMedico;
         this.servicioNotificacion = servicioNotificacion;
         this.servicioNotificacionUsuario = servicioNotificacionUsuario;
+        this.servicioComentario = servicioComentario;
         this.servicioCentroMedicoDistancia = new ServicioCentroMedicoDistanciaImpl();
     }
 
@@ -64,6 +63,17 @@ public class ControladorSolicitudDerivaciones {
         model.put("solicitudDerivacion", solicitudDerivacion);
         model.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
         return new ModelAndView("/solicitud-derivaciones/agregar-solicitud-derivacion", model);
+    }
+    @RequestMapping(path = "/ver-solicitud-derivacion/{idSolicitud}",method = RequestMethod.GET)
+    public ModelAndView verDerivacion(@PathVariable Long idSolicitud, HttpServletRequest request) throws Exception {
+        ModelMap model = new ModelMap();
+        SolicitudDerivacion solicitudDerivacion = servicioSolicitudDerivacion.obtenerSolicitudDerivacionPorId(idSolicitud);
+        List<Comentario> comentarios = servicioComentario.obtenerComentariosPorDerivacion(solicitudDerivacion.getDerivacion());
+        model.put("rol",request.getSession().getAttribute("ROL"));
+        model.put("solicitud",solicitudDerivacion);
+        model.put("comentarios", comentarios);
+        // model.put("path", request.getSession().getServletContext().getRealPath("/img/pacientes/"));
+        return new ModelAndView("solicitud-derivaciones/ver-solicitud-derivacion",model);
     }
 
     @RequestMapping(path="/agregar-solicitud-derivacion", method = RequestMethod.POST)

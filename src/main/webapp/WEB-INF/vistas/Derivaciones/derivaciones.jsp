@@ -59,7 +59,7 @@
                             <td class="text-center">---</td>
                         </c:otherwise>
                         </c:choose>
-                        <td><a href="./ver-derivacion/?id=${derivacion.getId()}" type="button" class="btn btn-info">Detalles</a></td>
+                        <td><a href="./ver-derivacion?id=${derivacion.getId()}" type="button" class="btn btn-info">Detalles</a></td>
 <%--                                                                    <td>--%>
 <%--                                                                        <!-- Button to Open the Modal -->--%>
 <%--                                                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#derivacion${derivacion.getId()}">--%>

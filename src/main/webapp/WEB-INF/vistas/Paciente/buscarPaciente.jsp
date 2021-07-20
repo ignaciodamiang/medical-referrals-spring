@@ -53,43 +53,12 @@
                         <c:if test="${derivacion.getEstadoDerivacion().toString().equals('ENBUSQUEDA')}">
                             <p class="card-text font-weight-bolder text-primary">Estado: en busqueda</p>
                         </c:if>
-                        <a class="btn-info" href="ver-derivacion/${derivacion.id}">Detalle Derivación</a>
 
-                        <!-- Button to Open the Modal -->
-                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#derivacion${derivacion.getId()}">
+                        <a href="ver-derivacion?id=${derivacion.getId()}" class="btn btn-info">
                             Detalles
-                        </button>
+                        </a>
                                                 <!-- The Modal -->
-                                                <div class="modal fade" id="derivacion${derivacion.getId()}">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <!-- Modal Header -->
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title">Detalles de derivacion</h4>
-                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                            </div>
-                                                            <!-- Modal body -->
-                                                            <div class="modal-body">
-                                                                <h4>Nombre de paciente: </h4>
-                                                                <span>${derivacion.getPaciente().getNombreCompleto()}</span>
-                                                                <h4>DNI: </h4>
-                                                                <span>${derivacion.getPaciente().getDocumento()}</span>
-                                                                <h4>Fecha nacimiento paciente: </h4>
-                                                                <span>${derivacion.getPaciente().getFechaNacimiento()}</span>
-                                                                <h4>Diagnostico:</h4>
-                                                                <span>${derivacion.getDiagnostico()}</span>
-                                                                <h4>Sector solicitado:</h4>
-                                                                <span>${derivacion.getParaQueSector()}</span>
-                                                                <h4>Cobertura:</h4>
-                                                                <span>${derivacion.getCobertura().getNombre()}</span>
-                                                            </div>
-                                                            <!-- Modal footer -->
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+
                                                 <div class="modal fade" id="CancelarDerivacion${derivacion.getId()}">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">

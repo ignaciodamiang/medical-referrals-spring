@@ -36,6 +36,8 @@
                 <tr>
                     <th scope="col">Derivacion</th>
                     <th scope="col">Centro Medico</th>
+                    <th scope="col">Diagnostico</th>
+                    <th scope="col">Descripcion</th>
                     <th scope="col">Aceptado</th>
                     <th scope="col">Confirmado</th>
                     <th scope="col">Fecha</th>
@@ -50,6 +52,8 @@
                     <tr>
                         <td>${solicitud.getDerivacion().getEstadoDerivacion().toString()}</td>
                         <td>${solicitud.getCentroMedico().getNombre()}</td>
+                        <td>${solicitud.getDerivacion().getDiagnostico()}</td>
+                        <td>${solicitud.getDescripcion()}</td>
                         <td>${solicitud.getAceptado()}</td>
                         <td>${solicitud.getConfirmado()}</td>
                         <td>${solicitud.getFechaCreacion().toLocaleString()}</td>
@@ -68,52 +72,52 @@
 <%--                                                <div class="m-auto btn btn-danger" data-dismiss="modal">URGENTE</div>                                                  <button type="button" class="close" data-dismiss="modal">×</button>--%>
 <%--                                            </div>--%>
                                             <!-- Button to Open the Modal -->
-                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#solicitud${solicitud.getId()}">
+                                            <a href="ver-solicitud-derivacion/${solicitud.getId()}" class="btn btn-info">
                                                 Detalles
-                                            </button>
+                                            </a>
                                             <!-- The Modal -->
-                                            <div class="modal fade" id="solicitud${solicitud.getId()}">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <!-- Modal Header -->
-                                                        <c:choose>
-                                                        <c:when test="${solicitud.getDerivacion().getUrgente()}">
-                                                            <div class="modal-header">
-                                                            <h4 class="modal-title">Detalles de Solicitud</h4>
-                                                            <div class="m-auto btn btn-danger">URGENTE</div>
-                                                            <button type="button" class="close" data-dismiss="modal">×</button>
-                                                            </div>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title">Detalles de Solicitud</h4>
-                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                            </div>
-                                                        </c:otherwise>
-                                                        </c:choose>
+<%--                                            <div class="modal fade" id="solicitud${solicitud.getId()}">--%>
+<%--                                                <div class="modal-dialog">--%>
+<%--                                                    <div class="modal-content">--%>
+<%--                                                        <!-- Modal Header -->--%>
+<%--                                                        <c:choose>--%>
+<%--                                                        <c:when test="${solicitud.getDerivacion().getUrgente()}">--%>
+<%--                                                            <div class="modal-header">--%>
+<%--                                                            <h4 class="modal-title">Detalles de Solicitud</h4>--%>
+<%--                                                            <div class="m-auto btn btn-danger">URGENTE</div>--%>
+<%--                                                            <button type="button" class="close" data-dismiss="modal">×</button>--%>
+<%--                                                            </div>--%>
+<%--                                                        </c:when>--%>
+<%--                                                        <c:otherwise>--%>
+<%--                                                            <div class="modal-header">--%>
+<%--                                                                <h4 class="modal-title">Detalles de Solicitud</h4>--%>
+<%--                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>--%>
+<%--                                                            </div>--%>
+<%--                                                        </c:otherwise>--%>
+<%--                                                        </c:choose>--%>
 
-                                                        <!-- Modal body -->
-                                                        <div class="modal-body">
-                                                            <h4>Nombre de paciente: </h4>
-                                                            <span>${solicitud.getDerivacion().getPaciente().getNombreCompleto()}</span>
-                                                            <h4>DNI: </h4>
-                                                            <span>${solicitud.getDerivacion().getPaciente().getDocumento()}</span>
-                                                            <h4>Fecha nacimiento paciente: </h4>
-                                                            <span>${solicitud.getDerivacion().getPaciente().getFechaNacimiento()}</span>
-                                                            <h4>Diagnostico:</h4>
-                                                            <span>${solicitud.getDerivacion().getDiagnostico()}</span>
-                                                            <h4>Sector solicitado:</h4>
-                                                            <span>${solicitud.getDerivacion().getParaQueSector()}</span>
-                                                            <h4>Cobertura:</h4>
-                                                            <span>${solicitud.getDerivacion().getCobertura().getNombre()}</span>
-                                                        </div>
-                                                        <!-- Modal footer -->
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+<%--                                                        <!-- Modal body -->--%>
+<%--                                                        <div class="modal-body">--%>
+<%--                                                            <h4>Nombre de paciente: </h4>--%>
+<%--                                                            <span>${solicitud.getDerivacion().getPaciente().getNombreCompleto()}</span>--%>
+<%--                                                            <h4>DNI: </h4>--%>
+<%--                                                            <span>${solicitud.getDerivacion().getPaciente().getDocumento()}</span>--%>
+<%--                                                            <h4>Fecha nacimiento paciente: </h4>--%>
+<%--                                                            <span>${solicitud.getDerivacion().getPaciente().getFechaNacimiento()}</span>--%>
+<%--                                                            <h4>Diagnostico:</h4>--%>
+<%--                                                            <span>${solicitud.getDerivacion().getDiagnostico()}</span>--%>
+<%--                                                            <h4>Sector solicitado:</h4>--%>
+<%--                                                            <span>${solicitud.getDerivacion().getParaQueSector()}</span>--%>
+<%--                                                            <h4>Cobertura:</h4>--%>
+<%--                                                            <span>${solicitud.getDerivacion().getCobertura().getNombre()}</span>--%>
+<%--                                                        </div>--%>
+<%--                                                        <!-- Modal footer -->--%>
+<%--                                                        <div class="modal-footer">--%>
+<%--                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>--%>
+<%--                                                        </div>--%>
+<%--                                                    </div>--%>
+<%--                                                </div>--%>
+<%--                                            </div>--%>
                                         </td>
                         <c:if test="${(solicitud.aceptado == false) && rol =='Administrativo'}">
                         <td>

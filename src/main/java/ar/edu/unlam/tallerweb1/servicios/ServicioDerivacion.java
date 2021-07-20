@@ -11,7 +11,7 @@ import java.text.ParseException;
 import java.util.List;
 
 public interface ServicioDerivacion {
-    void guardarDerivacion(Derivacion derivacion ,HttpServletRequest request, Long idPaciente, RequerimientosMedicos requerimientosMedicos, Boolean urgente, String ubicacionPaciente) throws Exception;
+    void guardarDerivacion(Derivacion derivacion , Long idCobertura, HttpServletRequest request, Long idPaciente, RequerimientosMedicos requerimientosMedicos, Boolean urgente, String ubicacionPaciente) throws Exception;
 
     void modificarDerivacion(Derivacion derivacion);
 

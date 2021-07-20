@@ -48,6 +48,9 @@ public class ServicioTrasladoImpl implements ServicioTraslado{
         solicitudDerivacion.setConfirmado(true);
         servicioSolicitudDerivacion.modificarSolicitudDerivacion(solicitudDerivacion);
         repositorioTraslado.guardarTraslado(traslado);
+        Derivacion derivacion = traslado.getDerivacion();
+        derivacion.setEstadoDerivacion(EstadoDerivacion.ENTRASLADO);
+        servicioDerivacion.modificarDerivacion(derivacion);
         servicioNotificacion.guardarNotificacion(traslado, "G", "");
     }
 

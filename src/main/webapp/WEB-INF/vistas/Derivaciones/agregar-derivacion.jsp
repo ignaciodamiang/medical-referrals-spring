@@ -54,7 +54,7 @@
                                 <label for="si">Si</label>
                                 <input type="radio" name="urgente" id="si" value="true">
                                 <label for="no">No</label>
-                                <input type="radio" name="urgente" id="no" value="false">
+                                <input type="radio" name="urgente" id="no" value="false" checked>
                             </div>
 
                             <input type="number" name="idPaciente" value="${paciente.getId()}"hidden>
@@ -117,15 +117,15 @@
                                 <input type="number" name="idPaciente" value="${paciente.getId()}"hidden>
 
                                 <div class="form-group">
-                                    <label>Requerimientos medicos necesarios</label>
+                                    <label>Requerimientos medicos necesarios</label> <br>
                                     <label for="tomografo">tomógrafo</label>
-                                    <input type="checkbox" name="tomografo" id="tomografo">
+                                    <input type="checkbox" name="tomografo" id="tomografo"><br>
                                     <label for="traumatologoGuardia">traumatólogo de guardia</label>
-                                    <input type="checkbox" name="traumatologoGuardia" id="traumatologoGuardia">
+                                    <input type="checkbox" name="traumatologoGuardia" id="traumatologoGuardia"><br>
                                     <label for="cirujanoGuardia">cirujano de guardia</label>
-                                    <input type="checkbox" name="cirujanoGuardia" id="cirujanoGuardia">
+                                    <input type="checkbox" name="cirujanoGuardia" id="cirujanoGuardia"><br>
                                     <label for="cardiologoGuardia">cardiólogo de guardia</label>
-                                    <input type="checkbox" name="cardiologoGuardia" id="cardiologoGuardia">
+                                    <input type="checkbox" name="cardiologoGuardia" id="cardiologoGuardia"><br>
                                 </div>
 
                                 <button class="btn btn-lg btn-info btn-block" Type="Submit"/>Crear Derivacion</button>

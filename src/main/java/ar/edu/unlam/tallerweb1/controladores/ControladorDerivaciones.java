@@ -62,8 +62,8 @@ public class ControladorDerivaciones {
 		model.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
 		return new ModelAndView("Derivaciones/derivaciones", model);
 	}
-	@RequestMapping(path = "/ver-derivacion/{idDerivacion}",method = RequestMethod.GET)
-	public ModelAndView verDerivacion(@PathVariable("idDerivacion") Long idDerivacion, HttpServletRequest request) throws Exception {
+	@RequestMapping(path = "/ver-derivacion",method = RequestMethod.GET)
+	public ModelAndView verDerivacion(@RequestParam("id") Long idDerivacion, HttpServletRequest request) throws Exception {
 		ModelMap model = new ModelMap();
 		List<SolicitudDerivacion> lista= servicioSolicitudDerivacion.obtenerSolicitudesDeDerivacionPorDerivacion(idDerivacion);
 		Derivacion derivacion = servicioDerivacion.verDerivacion(idDerivacion);
@@ -102,15 +102,14 @@ public class ControladorDerivaciones {
 		    @RequestParam(name = "cirujanoGuardia",defaultValue = "false") Boolean cirujanoGuardia,
 		    @RequestParam(name = "cardiologoGuardia",defaultValue = "false") Boolean cardiologoGuardia,
 			@RequestParam(name = "ubicacionPaciente") String ubicacionPaciente, HttpServletRequest request) throws Exception {
-
 		RequerimientosMedicos requerimientosMedicos = new RequerimientosMedicos();
 		requerimientosMedicos.setCirujanoDeGuardia(cirujanoGuardia);
 		requerimientosMedicos.setCardiologoSeGuardia(cardiologoGuardia);
 		requerimientosMedicos.setTomografo(tomografo);
 		requerimientosMedicos.setTraumatologoDeguardia(traumatologoGuardia);
-		servicioDerivacion.guardarDerivacion(derivacion, request, idPaciente, requerimientosMedicos, urgente, ubicacionPaciente);
+		servicioDerivacion.guardarDerivacion(derivacion, derivacion.getCobertura().getId(), request, idPaciente, requerimientosMedicos, urgente, ubicacionPaciente);
 		attributes.addFlashAttribute("message", "Se creo la derivación correctamente");
-		return new ModelAndView("redirect:/BuscarPaciente");
+		return new ModelAndView("redirect:/ver-derivacion?id="+derivacion.getId());
 	}
 
 	@RequestMapping(path = "/modificar-derivacion/editar", method = RequestMethod.GET)
