@@ -68,7 +68,7 @@ public class ControladorSolicitudDerivaciones {
     public ModelAndView verDerivacion(@PathVariable Long idSolicitud, HttpServletRequest request) throws Exception {
         ModelMap model = new ModelMap();
         SolicitudDerivacion solicitudDerivacion = servicioSolicitudDerivacion.obtenerSolicitudDerivacionPorId(idSolicitud);
-        List<Comentario> comentarios = servicioComentario.obtenerComentariosPorDerivacion(solicitudDerivacion.getDerivacion());
+        List<Comentario> comentarios = servicioComentario.obtenerComentariosPorSolicitudDerivacion(solicitudDerivacion);
         model.put("rol",request.getSession().getAttribute("ROL"));
         model.put("solicitud",solicitudDerivacion);
         model.put("comentarios", comentarios);
@@ -79,23 +79,25 @@ public class ControladorSolicitudDerivaciones {
     @RequestMapping(path="/agregar-solicitud-derivacion", method = RequestMethod.POST)
     public ModelAndView agregarSolicitudDerivacion(RedirectAttributes attributes,
                                                    @RequestParam("idDerivacion") Long idDerivacion,
-                                                    @RequestParam("centroMedico") Long idCentroMedico
+                                                    @RequestParam("centroMedico") Long idCentroMedico,
+                                                   @RequestParam("descripcion") String descripcion,
+                                                   HttpServletRequest request
     ) throws Exception {
 
-        servicioSolicitudDerivacion.guardarSolicitudDerivacion(idDerivacion, idCentroMedico);
+        servicioSolicitudDerivacion.guardarSolicitudDerivacion(idDerivacion, idCentroMedico, descripcion, request);
         attributes.addFlashAttribute("message","Se creo la solicitud derivación correctamente");
         return new ModelAndView("redirect:/listado-derivacion");
     }
 
     @RequestMapping(path = "aceptarSolicitud/{idSolicitud}", method = RequestMethod.GET)
-    public ModelAndView aceptarSolicitud(@PathVariable Long idSolicitud){
-        servicioSolicitudDerivacion.aceptarSolicitudDerivacion(idSolicitud);
+    public ModelAndView aceptarSolicitud(@PathVariable Long idSolicitud, HttpServletRequest request){
+        servicioSolicitudDerivacion.aceptarSolicitudDerivacion(idSolicitud, request);
     return new ModelAndView("redirect:/solicitudes-derivaciones");
     }
 
     @RequestMapping(path = "rechazarSolicitud/{idSolicitud}", method = RequestMethod.GET)
-    public ModelAndView rechazarSolicitud(@PathVariable Long idSolicitud){
-        servicioSolicitudDerivacion.rechazarSolicitudDerivacion(idSolicitud);
+    public ModelAndView rechazarSolicitud(@PathVariable Long idSolicitud, HttpServletRequest request){
+        servicioSolicitudDerivacion.rechazarSolicitudDerivacion(idSolicitud, request);
         return new ModelAndView("redirect:/solicitudes-derivaciones");
     }
     @RequestMapping(path = "verSolicitudes/{idDerivacion}",method = RequestMethod.GET)

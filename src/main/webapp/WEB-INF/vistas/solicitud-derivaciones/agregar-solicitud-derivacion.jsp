@@ -31,6 +31,11 @@
                 </select>
             </div>
 
+            <div class="form-group">
+                <label for="descripcion">Mensaje de la solicitud</label>
+                <textarea name="descripcion" id="descripcion" placeholder="Escriba la descripcion de la solicitud" rows="4" cols="50"></textarea>
+            </div>
+
             <button class="btn btn-lg btn-info btn-block" Type="Submit"/>Generar Solicitud de derivación</button>
         </form>
     </div>

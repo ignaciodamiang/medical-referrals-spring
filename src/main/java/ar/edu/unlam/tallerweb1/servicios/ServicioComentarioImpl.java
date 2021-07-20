@@ -41,26 +41,27 @@ public class ServicioComentarioImpl implements ServicioComentario {
 
             switch (funcion.toUpperCase()){
 
+                // registrar comentario
                 case "R": {
                     comentario.setMensaje(mensaje);
                     comentario.setAsunto("Registrar comentario");
                     this.guardarComentario(comentario);
                 }
-
+                // guardar derivación
                 case "G": {
                     comentario.setMensaje("Se ha generado la derivacion "+derivacion.getCodigo()+" para la cobertura "+derivacion.getCobertura().getNombre()+".");
                     comentario.setAsunto("Inicia");
                     this.guardarComentario(comentario);
                     break;
                 }
-
+                // finalizar derivación
                 case "F": {
                     comentario.setMensaje("Ha finalizado la derivación "+derivacion.getCodigo());
                     comentario.setAsunto("Finalizado");
                     this.guardarComentario(comentario);
                     break;
                 }
-
+                // cancelar Derivación
                 case "C": {
                     comentario.setMensaje(mensaje);
                     comentario.setAsunto("Cancelado");
@@ -87,28 +88,38 @@ public class ServicioComentarioImpl implements ServicioComentario {
 
 
             switch (funcion.toUpperCase()){
-
+                // guardar solicitud derivacion
                 case "G": {
-                    comentario.setMensaje("Se ha generado la solicitud "+solicitudDerivacion.getId()+" al centro médico "+solicitudDerivacion.getCentroMedico().getNombre());;
+
+                    comentario.setMensaje("Se ha generado la solicitud "+solicitudDerivacion.getCodigo()+" al centro médico "+solicitudDerivacion.getCentroMedico().getNombre());;
                     comentario.setAsunto("Inicia");
                     this.guardarComentario(comentario);
+
+                    // generamos el comentario también en la derivacion de la que se creó el registro
+                    Comentario comentario1 = new Comentario();
+                    comentario1.setAutor(usuario);
+                    comentario1.setFechaCreacion(new Date());
+                    comentario1.setDerivacion(solicitudDerivacion.getDerivacion());
+                    comentario.setMensaje("Se ha generado la solicitud "+solicitudDerivacion.getCodigo());
+                    comentario1.setAsunto("Evento sucedido");
+                    this.guardarComentario(comentario1);
                     break;
                 }
-
+                // Rechazar solicitud derivación
                 case "R": {
                     comentario.setMensaje(mensaje);;
                     comentario.setAsunto("Rechazar");
                     this.guardarComentario(comentario);
                     break;
                 }
-
+                // Aceptar solicitud derivación
                 case "A": {
                     comentario.setMensaje(mensaje);
                     comentario.setAsunto("Aceptado");
                     this.guardarComentario(comentario);
                     break;
                 }
-
+                // Finalizar solicitud derivación
                 case "F": {
                     comentario.setMensaje("Ha finalizado la solicitud " +solicitudDerivacion.getId());
                     comentario.setAsunto("Finalizado");
@@ -126,6 +137,11 @@ public class ServicioComentarioImpl implements ServicioComentario {
     @Override
     public List<Comentario> obtenerComentariosPorDerivacion(Derivacion derivacion) {
         return repositorioComentario.obtenerComentariosPorDerivacion(derivacion);
+    }
+
+    @Override
+    public List<Comentario> obtenerComentariosPorSolicitudDerivacion(SolicitudDerivacion solicitudDerivacion) {
+        return repositorioComentario.obtenrComentariosPorSolicitudDerivacion(solicitudDerivacion);
     }
 
 
