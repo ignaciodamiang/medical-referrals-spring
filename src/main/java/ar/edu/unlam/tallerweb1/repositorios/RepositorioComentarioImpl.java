@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Comentario;
 import ar.edu.unlam.tallerweb1.modelo.Derivacion;
+import ar.edu.unlam.tallerweb1.modelo.SolicitudDerivacion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -44,6 +45,14 @@ public class RepositorioComentarioImpl implements RepositorioComentario {
         final Session session =sessionFactory.getCurrentSession();
         return session.createCriteria(Comentario.class)
                 .add(Restrictions.eq("derivacion", derivacion)).addOrder(Order.asc("fechaCreacion"))
+                .list();
+    }
+
+    @Override
+    public List<Comentario> obtenrComentariosPorSolicitudDerivacion(SolicitudDerivacion solicitudDerivacion) {
+        final Session session =sessionFactory.getCurrentSession();
+        return session.createCriteria(Comentario.class)
+                .add(Restrictions.eq("solicitudDerivacion", solicitudDerivacion)).addOrder(Order.asc("fechaCreacion"))
                 .list();
     }
 }

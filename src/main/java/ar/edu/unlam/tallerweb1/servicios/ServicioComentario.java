@@ -12,4 +12,5 @@ public interface ServicioComentario {
     void guardarComentarioDerivacion(Derivacion derivacion, String mensaje , Usuario usuario, String funcion);
     void guardarComentarioSolicitudDerivacion(SolicitudDerivacion solicitudDerivacion, String mensaje, Usuario usuario, String funcion);
     List<Comentario> obtenerComentariosPorDerivacion(Derivacion derivacion);
+    List<Comentario> obtenerComentariosPorSolicitudDerivacion(SolicitudDerivacion solicitudDerivacion);
 }
