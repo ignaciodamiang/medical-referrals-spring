@@ -97,6 +97,7 @@ public class ServicioNotificacionImpl implements ServicioNotificacion{
 				notificacion.setTitulo("Se ha cancelado la derivación" + derivacion.getId());
 				this.guardarNotificacion(notificacion);
 				servicioNotificacionUsuario.guardarNotificacionDerivadores(derivacion.getCobertura(), notificacion);
+				servicioNotificacionUsuario.guardarNotificacionUsuario(notificacion, derivacion.getAutor().getId());
 			}
 
 			default:{
