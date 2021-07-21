@@ -124,7 +124,12 @@ public class ServicioComentarioImpl implements ServicioComentario {
                     this.guardarComentario(comentario);
                     break;
                 }
-
+                // registrar comentario
+                case "C": {
+                    comentario.setMensaje(mensaje);
+                    comentario.setAsunto("Registrar comentario");
+                    this.guardarComentario(comentario);
+                }
                 default:{
                     break;
                 }

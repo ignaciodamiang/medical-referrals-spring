@@ -187,7 +187,35 @@
 
     </p>
     <div class="">
-        <div class="row" id="registros"> <table class="table table-striped">
+        <div class="row" id="registros">
+            <button class="btn btn-info" data-toggle="modal" data-target="#comentarioSolicitudDerivación${solicitud.getId()}">Agregar Comentario</button>
+
+                                                <div class="modal fade" id="comentarioSolicitudDerivación${solicitud.getId()}">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <!-- Modal Header -->
+                                                            <div class="modal-header">
+                                                                <h3>Comentar Solicitud ${solicitud.getCodigo()}</h3>
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            </div>
+                                                            <!-- Modal body -->
+                                                            <div class="modal-body">
+                                                                <form action="../agregarComentarioSolicitudDerivacion/${solicitud.id}" method="post">
+                                                                    <div class="form-group">
+                                                                        <label for="comentario">Comentario: </label></br>
+                                                                        <textarea id="comentario" name="mensaje" rows="4" cols="50"></textarea>
+                                                                    </div>
+                                                            </div>
+                                                            <!-- Modal footer -->
+                                                            <div class="modal-footer">
+                                                                <input type="submit"  class="btn btn-success" value="Aceptar">
+                                                                </form>
+                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+            <table class="table table-striped">
             <thead>
             <tr>
                 <th scope="col">Fecha</th>
@@ -206,7 +234,8 @@
                 </tr>
             </c:forEach>
             </tbody>
-        </table></div>
+        </table>
+        </div>
         <div class="row" id="adjuntos">
             <button class="btn-info" data-toggle="modal" data-target="#solicitudDerivacion${solicitud.getId()}">Agregar Adjunto</button>
 
