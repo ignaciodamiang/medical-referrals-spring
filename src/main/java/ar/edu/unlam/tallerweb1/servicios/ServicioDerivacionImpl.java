@@ -156,11 +156,14 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
     }
 
     @Override
-    public List<Derivacion> derivacionesPorCoberturaFinalizadasYCanceladas(HttpServletRequest request){
+    public List<Derivacion> derivacionesPorCoberturaYFechaFinalizadasYCanceladas(HttpServletRequest request, String fechaMin, String fechaMax) throws ParseException {
         Long idCobertura = (Long) request.getSession().getAttribute("ID_COBERTURA");
         Cobertura cobertura = servicioCobertura.obtenerCoberturaPorId(idCobertura);
+        Date desde = new SimpleDateFormat("yyyy-MM-dd").parse(fechaMin);
+        Date hasta = new SimpleDateFormat("yyyy-MM-dd").parse(fechaMax);
+        Date fix = new Date(hasta.getTime()+(1000 * 60 * 60 * 24));
         if (cobertura != null){
-            return respositorioDerivacion.derivacionesPorCoberturaFinalizadasYCanceladas(cobertura);
+            return respositorioDerivacion.derivacionesPorCoberturaYFechaFinalizadasYCanceladas(desde, fix, cobertura);
         }
         return null;
     }
@@ -176,11 +179,14 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
     }
 
     @Override
-    public List<Derivacion> derivacionesPorCentroMedicoFinalizadasYCanceladas(HttpServletRequest request) throws Exception {
+    public List<Derivacion> derivacionesPorCentroMedicoYFechaFinalizadasYCanceladas(HttpServletRequest request, String fechaMin, String fechaMax) throws Exception {
 
         Long idCentroMedico = (Long) request.getSession().getAttribute("ID_CENTROMEDICO");
         CentroMedico centroMedico = servicioCentroMedico.obtenerCentroMedicoPorId(idCentroMedico);
-        return respositorioDerivacion.filtrarDerivacionesPorCentroMedicoFinalizadasYCanceladas(centroMedico);
+        Date desde = new SimpleDateFormat("yyyy-MM-dd").parse(fechaMin);
+        Date hasta = new SimpleDateFormat("yyyy-MM-dd").parse(fechaMax);
+        Date fix = new Date(hasta.getTime()+(1000 * 60 * 60 * 24));
+        return respositorioDerivacion.filtrarDerivacionesPorCentroMedicoYFechaFinalizadasYCanceladas(desde, fix, centroMedico);
 
     }
     @Override

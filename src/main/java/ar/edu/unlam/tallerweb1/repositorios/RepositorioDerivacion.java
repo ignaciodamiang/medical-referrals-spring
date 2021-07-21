@@ -16,10 +16,10 @@ public interface RepositorioDerivacion {
     void eliminarDerivacion(Derivacion derivacion);
     Derivacion verDerivacion(Long id);
 	List<Derivacion> derivacionesPorCobertura(Cobertura cobertura);
-    List<Derivacion> derivacionesPorCoberturaFinalizadasYCanceladas(Cobertura cobertura);
+    List<Derivacion> derivacionesPorCoberturaYFechaFinalizadasYCanceladas(Date desde, Date fix, Cobertura cobertura);
 
     List<Derivacion> obtenerDerivacionesPorAutor(Usuario autor);
     List<Derivacion> filtrarDerivacionesFinalizadasYCanceladasPorFechaYUsuario(Date fechaMin, Date fechaMax, Usuario autor);
 
-    List<Derivacion> filtrarDerivacionesPorCentroMedicoFinalizadasYCanceladas(CentroMedico centroMedico);
+    List<Derivacion> filtrarDerivacionesPorCentroMedicoYFechaFinalizadasYCanceladas(Date fechaMin, Date fechaMax, CentroMedico centroMedico);
 }

@@ -32,6 +32,7 @@
                 <a href="/proyecto_derivaciones_war_exploded/BuscarPaciente" class="text-decoration-none text-white nav-link">Buscar paciente</a>
                 <a href="/proyecto_derivaciones_war_exploded/solicitudes-derivaciones" class="text-decoration-none text-white nav-link">Solicitud de derivaciones</a>
                 <a href="/proyecto_derivaciones_war_exploded/RequerimientosMedicos" class="text-decoration-none text-white nav-link">Requerimientos Médicos</a>
+                <a href="/proyecto_derivaciones_war_exploded/historialDerivaciones" class="text-decoration-none text-white nav-link">Historial derivaciones</a>
             <%} ;break;
                 default:
                 {%>
