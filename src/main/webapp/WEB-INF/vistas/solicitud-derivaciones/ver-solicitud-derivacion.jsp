@@ -145,33 +145,62 @@
             </c:forEach>
             </tbody>
         </table></div>
-        <div class="row" id="adjuntos"> <table class="table table-striped">
+        <div class="row" id="adjuntos">
+            <button class="btn-info" data-toggle="modal" data-target="#solicitudDerivacion${solicitud.getId()}">Agregar Adjunto</button>
+
+
+                                    <div class="modal fade" id="solicitudDerivacion${solicitud.getId()}">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                    <h3>Adjuntar Archivo</h3>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <div class="modal-body">
+                                                    <form action="adjuntar-archivo-solicitud/${solicitud.getId()}" method="post" enctype="multipart/form-data">
+                                                        <div class="form-group">
+                                                            <input type="text" id="titulo" name="titulo" placeholder="Titulo del adjunto...">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="file" id="adjunto" name="adjunto" accept="image/png, image/jpeg" class="btn-info">
+                                                        </div>
+                                                </div>
+                                                <!-- Modal footer -->
+                                                <div class="modal-footer">
+                                                    <input type="submit"  class="btn-success" value="Subir Archivo">
+                                                    </form>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+            <table class="table table-striped">
             <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">Fecha</th>
                 <th scope="col">Adjunto</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-            </tr>
+            <c:choose>
+                <c:when test="${ empty adjuntos}">
+                    <tr>
+                        <td> </td>
+                        <td>Esta derivacion no posee adjuntos</td>
+                    </tr>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach items="${adjuntos}" var="adjunto">
+                        <tr>
+                            <td>${adjunto.getFechaCreacion()}</td>
+                            <td><a href="${path}${adjunto.getImgPath()}" download="${adjunto.getImgPath()}">${adjunto.getTitulo()}</a></td>
+                        </tr>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
             </tbody>
         </table></div>
         <!-- </div> -->

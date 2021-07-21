@@ -19,6 +19,13 @@
         <!--De esta manera al devolver home como nombre de vista, resuelve /WEB-INF/vistas/home.jsp-->
     </bean>
 
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- tamanio maximo de los archivos que se pueden subir en bytes -->
+        <property name="maxUploadSize" value="2000000"/>
+    </bean>
+
     <!--Excluye de las URL validas para Spring MVC los recursos estaticos de la aplicacion Web: estilos, java script y fuentes-->
     <!--Si se agregaran, por ejemplo, imagenes, es; es necesario agregar ese path aca-->
     <mvc:resources mapping="/css/**" location="/css/" />
