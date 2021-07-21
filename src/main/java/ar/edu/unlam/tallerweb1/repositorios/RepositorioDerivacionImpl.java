@@ -58,12 +58,14 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
     }
 
     @Override
-    public List<Derivacion> derivacionesPorCoberturaFinalizadasYCanceladas(Cobertura cobertura) {
+    public List<Derivacion> derivacionesPorCoberturaYFechaFinalizadasYCanceladas(Date fechaMin, Date fechaMax, Cobertura cobertura) {
         final Session session = sessionFactory.getCurrentSession();
         return session.createCriteria(Derivacion.class)
                 .add(Restrictions.eq("cobertura", cobertura))
                 .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.ENBUSQUEDA))
                 .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.ENTRASLADO))
+                .add(Restrictions.between("fechaDerivacion", fechaMin, fechaMax))
+                .addOrder(Order.asc("fechaDerivacion"))
                 .list();
     }
 
@@ -84,16 +86,19 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
                 .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.ENBUSQUEDA))
                 .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.ENTRASLADO))
                 .add(Restrictions.between("fechaDerivacion", fechaMin, fechaMax))
-                .addOrder(Order.asc("fechaDerivacion")).list();
+                .addOrder(Order.asc("fechaDerivacion"))
+                .list();
     }
 
     @Override
-    public List<Derivacion> filtrarDerivacionesPorCentroMedicoFinalizadasYCanceladas(CentroMedico centroMedico) {
+    public List<Derivacion> filtrarDerivacionesPorCentroMedicoYFechaFinalizadasYCanceladas(Date fechaMin, Date fechaMax, CentroMedico centroMedico) {
         final Session session = sessionFactory.getCurrentSession();
         return session.createCriteria(Derivacion.class)
                 .add(Restrictions.eq("centroMedicoDeOrigen", centroMedico))
                 .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.ENBUSQUEDA))
                 .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.ENTRASLADO))
+                .add(Restrictions.between("fechaDerivacion", fechaMin, fechaMax))
+                .addOrder(Order.asc("fechaDerivacion"))
                 .list();
     }
 

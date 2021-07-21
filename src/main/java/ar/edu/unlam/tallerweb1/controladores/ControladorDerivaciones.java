@@ -142,7 +142,7 @@ public class ControladorDerivaciones {
 	}
 
 	@RequestMapping(path = "historialDerivaciones", method = RequestMethod.GET)
-	public ModelAndView historialDerivaciones(HttpServletRequest request) throws ParseException {
+	public ModelAndView historialDerivaciones(HttpServletRequest request) throws Exception {
 		ModelMap map = new ModelMap();
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -154,6 +154,20 @@ public class ControladorDerivaciones {
 					fechaMax);
 			map.put("derivaciones", derivaciones);
 		}
+
+		if (request.getSession().getAttribute("ID_DERIVADOR")!=null){
+			List<Derivacion> derivaciones = servicioDerivacion.derivacionesPorCoberturaYFechaFinalizadasYCanceladas(request, "1900-01-01",
+					fechaMax);
+			map.put("derivaciones", derivaciones);
+			map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
+		}
+
+		if (request.getSession().getAttribute("ID_ADMINISTRATIVO")!=null){
+			List<Derivacion> derivaciones = servicioDerivacion.derivacionesPorCentroMedicoYFechaFinalizadasYCanceladas(request, "1900-01-01", fechaMax);
+			map.put("derivaciones", derivaciones);
+			map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
+		}
+
 		map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
 		return new ModelAndView("Derivaciones/historial-derivaciones", map);
 	}
@@ -181,13 +195,13 @@ public class ControladorDerivaciones {
 		}
 
 		if (request.getSession().getAttribute("ID_DERIVADOR")!=null) {
-			List<Derivacion> derivaciones = servicioDerivacion.derivacionesPorCoberturaFinalizadasYCanceladas(request);
+			List<Derivacion> derivaciones = servicioDerivacion.derivacionesPorCoberturaYFechaFinalizadasYCanceladas(request, fechaMin, fechaMax);
 			map.put("derivaciones", derivaciones);
 			map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
 		}
 
 		if (request.getSession().getAttribute("ID_ADMINISTRATIVO")!=null) {
-			List<Derivacion> derivaciones = servicioDerivacion.derivacionesPorCentroMedicoFinalizadasYCanceladas(request);
+			List<Derivacion> derivaciones = servicioDerivacion.derivacionesPorCentroMedicoYFechaFinalizadasYCanceladas(request, fechaMin, fechaMax);
 			map.put("derivaciones", derivaciones);
 			map.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
 		}

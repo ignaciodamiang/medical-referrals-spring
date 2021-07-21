@@ -28,10 +28,10 @@ public interface ServicioDerivacion {
 
     List<Derivacion> obtenerDerivacionesPorAutor(Usuario autor);
     List<Derivacion> derivacionesPorCobertura(Cobertura cobertura);
-    List<Derivacion> derivacionesPorCoberturaFinalizadasYCanceladas(HttpServletRequest request);
+    List<Derivacion> derivacionesPorCoberturaYFechaFinalizadasYCanceladas(HttpServletRequest request, String fechaMin, String fechaMax) throws ParseException;
     List<Derivacion> filtrarDerivacionesFinalizadasYCanceladasPorFechaYUsuario(Long idUsuario, String fechaMin, String fechaMax) throws ParseException;
 
-    List<Derivacion> derivacionesPorCentroMedicoFinalizadasYCanceladas(HttpServletRequest request) throws Exception;
+    List<Derivacion> derivacionesPorCentroMedicoYFechaFinalizadasYCanceladas(HttpServletRequest request, String fechaMin, String fechaMax) throws Exception;
     void guardarDerivacionCentroMedico(Derivacion derivacion,HttpServletRequest request, Long idPaciente, RequerimientosMedicos requerimientosMedicos, Boolean urgente, String ubicacionPaciente) throws Exception;
     String generarCodigoDerivacion(Long idDerivacion);
 }
