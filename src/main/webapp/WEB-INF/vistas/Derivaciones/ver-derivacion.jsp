@@ -235,7 +235,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form action="../cancelar-derivacion/${derivacion.getId() }" method="post">
+                <form action="cancelar-derivacion/${derivacion.getId() }" method="post">
                     <label>Motivo:</label>
                     <textarea name="mensaje" rows="5" cols="50"></textarea>
                     <button type="submit" class="btn btn-danger">Confirmar anulacion</button>
