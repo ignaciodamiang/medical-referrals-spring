@@ -61,25 +61,25 @@ public class ServicioSolicitudDerivacionImpl implements ServicioSolicitudDerivac
     }
 
     @Override
-    public void aceptarSolicitudDerivacion(Long idSolicitudDerivacion,HttpServletRequest request) {
+    public void aceptarSolicitudDerivacion(Long idSolicitudDerivacion,HttpServletRequest request, String mensaje) {
         Usuario usuario = servicioUsuario.consultarUsuarioPorId((Long) request.getSession().getAttribute("ID_USUARIO"));
         SolicitudDerivacion solicitudDerivacion = this.obtenerSolicitudDerivacionPorId(idSolicitudDerivacion);
         solicitudDerivacion.setAceptado(true);
         solicitudDerivacion.setId(idSolicitudDerivacion);
         this.modificarSolicitudDerivacion(solicitudDerivacion);
         servicioNotificacion.guardarNotificacion(solicitudDerivacion, "A","");
-        servicioComentario.guardarComentarioSolicitudDerivacion(solicitudDerivacion, "",usuario,"A" );
+        servicioComentario.guardarComentarioSolicitudDerivacion(solicitudDerivacion, mensaje ,usuario,"A" );
     }
 
     @Override
-    public void rechazarSolicitudDerivacion(Long idSolicitudDerivacion,HttpServletRequest request) {
+    public void rechazarSolicitudDerivacion(Long idSolicitudDerivacion,HttpServletRequest request, String mensaje) {
         Usuario usuario = servicioUsuario.consultarUsuarioPorId((Long) request.getSession().getAttribute("ID_USUARIO"));
         SolicitudDerivacion solicitudDerivacion = this.obtenerSolicitudDerivacionPorId(idSolicitudDerivacion);
         solicitudDerivacion.setAceptado(false);
         solicitudDerivacion.setId(idSolicitudDerivacion);
         this.modificarSolicitudDerivacion(solicitudDerivacion);
         servicioNotificacion.guardarNotificacion(solicitudDerivacion, "R","");
-        servicioComentario.guardarComentarioSolicitudDerivacion(solicitudDerivacion, "",usuario,"R" );
+        servicioComentario.guardarComentarioSolicitudDerivacion(solicitudDerivacion, mensaje ,usuario,"R" );
     }
 
     @Override
