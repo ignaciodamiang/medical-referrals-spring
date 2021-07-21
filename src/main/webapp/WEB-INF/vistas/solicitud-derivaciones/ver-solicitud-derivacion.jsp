@@ -19,15 +19,77 @@
                 <input type="submit" class="btn btn-primary w-25 ml-4" value="Buscar">
             </form>
         </div>
-        <c:if test="${rol =='Derivador' || rol =='Solicitador'}">
-            <div class="px-3">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CancelarDerivacion${derivacion.getId() }">Cancelar derivacion</button>
-            </div>
+        <c:if test="${(solicitud.aceptado == false) && rol =='Administrativo'}">
+                <td>
+                    <div class="row justify-content-md-center">
+                        <button class="btn btn-success  text-white"  role="button" data-toggle="modal" data-target="#Aceptarsolicitud${solicitud.getId()}">Aceptar</button>
+                    </div>
+                </td>
+                                                    <div class="modal fade" id="Aceptarsolicitud${solicitud.getId()}">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <!-- Modal Header -->
+                                                                <div class="modal-header">
+                                                                    <h3>Aceptar Solicitud ${solicitud.getCodigo()}</h3>
+                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                </div>
+                                                                <!-- Modal body -->
+                                                                <div class="modal-body">
+                                                                    <form action="../aceptarSolicitud/${solicitud.id}" method="post">
+                                                                        <div class="form-group">
+                                                                            <label for="mensajeAcepto">Motivo: </label>
+                                                                            <textarea id="mensajeAcepto" name="mensaje" rows="4" cols="50"></textarea>
+                                                                        </div>
+                                                                </div>
+                                                                <!-- Modal footer -->
+                                                                <div class="modal-footer">
+                                                                    <input type="submit"  class="btn-success" value="Aceptar">
+                                                                    </form>
+                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
         </c:if>
-        <c:if test="${rol =='Derivador' && derivacion.getEstadoDerivacion().toString().equals('ENBUSQUEDA')}">
-            <div class="px-3">
-                <a href="../nueva-solicitud-derivacion/${derivacion.id} "class="btn btn-primary">Generar Solicitud</a>
-            </div>
+        <c:if test="${solicitud.aceptado == true && rol =='Administrativo'}">
+            <td>
+                <div class="row justify-content-md-center">
+                    <button class="btn btn-danger  text-white"  role="button" data-toggle="modal" data-target="#Rechazarsolicitud${solicitud.getId()}">Rechazar</button>
+                </div>
+            </td>
+
+                                    <div class="modal fade" id="Rechazarsolicitud${solicitud.getId()}">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                    <h3>Aceptar Solicitud ${solicitud.getCodigo()}</h3>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <div class="modal-body">
+                                                    <form action="../rechazarSolicitud/${solicitud.id}" method="post">
+                                                        <div class="form-group">
+                                                            <label for="mensajeRechazo">Motivo: </label>
+                                                            <textarea id="mensajeRechazo" name="mensaje" rows="4" cols="50"></textarea>
+                                                        </div>
+                                                </div>
+                                                <!-- Modal footer -->
+                                                <div class="modal-footer">
+                                                    <input type="submit"  class="btn-success" value="Aceptar">
+                                                    </form>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+        </c:if>
+        <c:if test="${solicitud.aceptado == true && rol =='Derivador'}">
+            <td>
+                <div class="row justify-content-md-center">
+                    <a href="../crearTraslado/${solicitud.id}"class="btn btn-info  text-white"  role="button">Generar Traslado</a>
+                </div>
+            </td>
         </c:if>
         <c:if test="${solicitud.aceptado == true && rol =='Derivador'}">
             <td>
