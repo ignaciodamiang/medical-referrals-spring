@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -27,13 +28,15 @@ public class ControladorDerivaciones {
 	private ServicioCentroMedico servicioCentroMedico;
 	private ServicioSolicitudDerivacion servicioSolicitudDerivacion;
 	private ServicioComentario servicioComentario;
+	private ServicioAdjunto servicioAdjunto;
 
 	@Autowired
 	public ControladorDerivaciones(
 			ServicioDerivacion servicioDerivacion, ServicioPaciente servicioPaciente,
 			ServicioCobertura servicioCobertura, ServicioPlan servicioPlan,
 			ServicioNotificacionUsuario servicioNotificacionUsuario, ServicioCentroMedico servicioCentroMedico,
-			ServicioSolicitudDerivacion servicioSolicitudDerivacion, ServicioComentario servicioComentario) {
+			ServicioSolicitudDerivacion servicioSolicitudDerivacion, ServicioComentario servicioComentario,
+			ServicioAdjunto servicioAdjunto) {
 		this.servicioDerivacion = servicioDerivacion;
 		this.servicioPaciente = servicioPaciente;
 		this.servicioCobertura = servicioCobertura;
@@ -42,6 +45,7 @@ public class ControladorDerivaciones {
 		this.servicioCentroMedico = servicioCentroMedico;
 		this.servicioSolicitudDerivacion = servicioSolicitudDerivacion;
 		this.servicioComentario = servicioComentario;
+		this.servicioAdjunto = servicioAdjunto;
 	}
 
 	@RequestMapping(path = "/listado-derivacion")
@@ -68,11 +72,13 @@ public class ControladorDerivaciones {
 		List<SolicitudDerivacion> lista= servicioSolicitudDerivacion.obtenerSolicitudesDeDerivacionPorDerivacion(idDerivacion);
 		Derivacion derivacion = servicioDerivacion.verDerivacion(idDerivacion);
 		List<Comentario> comentarios = servicioComentario.obtenerComentariosPorDerivacion(derivacion);
+		List<Adjunto> adjuntos = servicioAdjunto.listarAdjuntosPorDerivacion(derivacion);
 		model.put("rol",request.getSession().getAttribute("ROL"));
 		model.put("listaSolicitudesDerivaciones",lista);
 		model.put("derivacion",derivacion);
 		model.put("comentarios", comentarios);
-		model.put("path", request.getSession().getServletContext().getRealPath("/img/pacientes/"));
+		model.put("adjuntos", adjuntos);
+		model.put("path", request.getSession().getServletContext().getRealPath("/img/adjuntos/"));
 	return new ModelAndView("Derivaciones/ver-derivacion",model);
 	}
 	@RequestMapping(path = "/nueva-derivacion/{id}", method = RequestMethod.GET)
@@ -251,5 +257,16 @@ public class ControladorDerivaciones {
 		servicioDerivacion.guardarDerivacionCentroMedico(derivacion, request, idPaciente, requerimientosMedicos, urgente, ubicacionPaciente);
 		attributes.addFlashAttribute("message", "Se creo la derivación correctamente");
 		return new ModelAndView("redirect:/BuscarPaciente");
+	}
+
+	@RequestMapping(path = "adjuntar-archivo-derivacion/{idDerivacion}", method = RequestMethod.POST)
+	public ModelAndView adjuntarArchivo(@RequestParam("adjunto") MultipartFile adjunto, @PathVariable Long idDerivacion,
+										HttpServletRequest request, @RequestParam("titulo") String titulo) throws Exception {
+		Derivacion derivacion = servicioDerivacion.verDerivacion(idDerivacion);
+		if(derivacion != null){
+			String path = request.getSession().getServletContext().getRealPath("/img/adjuntos/");
+			servicioAdjunto.guardarImagen(adjunto,path,derivacion,titulo);
+		}
+		return new ModelAndView("redirect:/ver-derivacion?id="+derivacion.getId());
 	}
 }

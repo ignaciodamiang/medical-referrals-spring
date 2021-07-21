@@ -36,6 +36,7 @@ public class ControladorDerivacionesTest extends SpringTest {
     private ServicioSolicitudDerivacion servicioSolicitudDerivacionMock;
     private ControladorDerivaciones controlador;
     private ServicioComentario servicioComentarioMock;
+    private ServicioAdjunto servicioAdjuntoMock;
 
 
     @Before
@@ -50,8 +51,10 @@ public class ControladorDerivacionesTest extends SpringTest {
         servicioComentarioMock = mock(ServicioComentario.class);
         servicioSolicitudDerivacionMock = mock(ServicioSolicitudDerivacion.class);
         sessionMock = mock(HttpSession.class);
+        servicioAdjuntoMock = mock(ServicioAdjunto.class);
 
-        controlador = new ControladorDerivaciones(servicioDerivacionMock, servicioPacienteMock, servicioCoberturaMock, servicioPlanMock, servicioNotiUsuarioMock, servicioCentroMedicoMock,servicioSolicitudDerivacionMock, servicioComentarioMock);
+
+        controlador = new ControladorDerivaciones(servicioDerivacionMock, servicioPacienteMock, servicioCoberturaMock, servicioPlanMock, servicioNotiUsuarioMock, servicioCentroMedicoMock,servicioSolicitudDerivacionMock, servicioComentarioMock, servicioAdjuntoMock);
     }
 
     @Test

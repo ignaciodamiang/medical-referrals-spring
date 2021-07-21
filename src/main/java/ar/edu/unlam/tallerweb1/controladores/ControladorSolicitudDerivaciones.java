@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -25,11 +26,13 @@ public class ControladorSolicitudDerivaciones {
     private ServicioNotificacionUsuario servicioNotificacionUsuario;
     private ServicioCentroMedicoDistancia servicioCentroMedicoDistancia;
     private ServicioComentario servicioComentario;
+    private ServicioAdjunto servicioAdjunto;
 
     @Autowired
     public ControladorSolicitudDerivaciones
             (ServicioSolicitudDerivacion servicio, ServicioDerivacion servicioDerivacion, ServicioCentroMedico servicioCentroMedico,
-             ServicioNotificacion servicioNotificacion, ServicioNotificacionUsuario servicioNotificacionUsuario, ServicioComentario servicioComentario) {
+             ServicioNotificacion servicioNotificacion, ServicioNotificacionUsuario servicioNotificacionUsuario, ServicioComentario servicioComentario,
+             ServicioAdjunto servicioAdjunto) {
         this.servicioSolicitudDerivacion = servicio;
         this.servicioDerivacion = servicioDerivacion;
         this.servicioCentroMedico = servicioCentroMedico;
@@ -37,6 +40,7 @@ public class ControladorSolicitudDerivaciones {
         this.servicioNotificacionUsuario = servicioNotificacionUsuario;
         this.servicioComentario = servicioComentario;
         this.servicioCentroMedicoDistancia = new ServicioCentroMedicoDistanciaImpl();
+        this.servicioAdjunto = servicioAdjunto;
     }
 
     @RequestMapping("/solicitudes-derivaciones")
@@ -109,6 +113,17 @@ public class ControladorSolicitudDerivaciones {
         model.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
         return new ModelAndView("/solicitud-derivaciones/solicitud-derivaciones", model);
 
+    }
+
+    @RequestMapping(path = "adjuntar-archivo-solicitud/{idSolicitud}", method = RequestMethod.POST)
+    public ModelAndView adjuntarArchivo(@RequestParam("adjunto") MultipartFile adjunto, @PathVariable Long idSolicitud,
+                                        HttpServletRequest request, @RequestParam("titulo") String titulo) throws Exception {
+        SolicitudDerivacion solicitudDerivacion = servicioSolicitudDerivacion.obtenerSolicitudDerivacionPorId(idSolicitud);
+        if(solicitudDerivacion != null){
+            String path = request.getSession().getServletContext().getRealPath("/img/adjuntos/");
+            servicioAdjunto.guardarImagen(adjunto,path,solicitudDerivacion, titulo);
+        }
+        return new ModelAndView("redirect:/ver-derivacion?id="+solicitudDerivacion.getId());
     }
 
 }
