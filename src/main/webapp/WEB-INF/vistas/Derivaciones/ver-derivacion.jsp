@@ -10,7 +10,7 @@
 <body>
 <!-- se agrega la columna menu -->
 <%@ include file="../../../parts/menu.jsp" %>
-<div class="col-10" id="main">
+<div class="col-12" id="main">
     <!--  fin menu -->
     <div class="row p-3  d-flex">
         <div class="d-flex flex-grow-1">

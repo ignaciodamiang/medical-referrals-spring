@@ -9,7 +9,7 @@
 <body>
             <!-- se agrega la columna menu -->
         <%@ include file="../../../parts/menu.jsp" %>
-        <div class="col-10" id="main">
+        <div class="col-12" id="main">
             <!--  fin menu -->
             <form action="ObtenerPaciente" method="post">
                 <label for="documento">Numero de Documento del Paciente</label>

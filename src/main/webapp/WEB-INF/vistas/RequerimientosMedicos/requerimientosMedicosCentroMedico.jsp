@@ -8,7 +8,7 @@
 </head>
 <body>
 <%@ include file="../../../parts/menu.jsp" %>
-    <div class="col-10" id="main">
+    <div class="col-12" id="main">
         <form action="./ModificarRequerimientosMedicos/${CentroMedico.getId()}" method="post">
             <h3 class="form-signin-heading text-center">Administración de Recursos Médicos para el Centro Médico ${CentroMedico.nombre} </h3>
             <hr class="colorgraph"><br>
