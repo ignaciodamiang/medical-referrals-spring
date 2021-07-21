@@ -11,14 +11,37 @@
 <div class="col-10" id="main">
 <h2 class="text-center"> Notificaciones</h2>
     <div class="d-flex flex-wrap mb-3">
-<c:forEach items="${notificaciones}" var="notificacion">
-    <div class="card m-2" style="width: 18rem;">
-        <div class="card-body">
-            <a href="detalleNotificacion/${notificacion.id}"><h5 class="card-title">Derivacion del paciente: ${notificacion.notificacion.titulo}</h5></a>
-            <p class="card-text"> ${notificacion.notificacion.fecha} </p>
-        </div>
-    </div>
-</c:forEach>
+        <table class="table table-hover table-bordered border-primary">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Título</th>
+                <th scope="col">Mensaje</th>
+                <th scope="col">Fecha</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${notificaciones}" var="notificacion">
+                <c:if test="${notificacion.getLeido().equals(false)}">
+                <tr class="table-danger">
+                    <th scope="row">${notificacion.notificacion.id}</th>
+                    <td><a href="detalleNotificacion/${notificacion.id}">${notificacion.notificacion.titulo}</a></td>
+                    <td scope="row">${notificacion.notificacion.mensaje}</td>
+                    <td scope="row">${notificacion.notificacion.fecha}</td>
+                </tr>
+                </c:if>
+            <c:if test="${notificacion.getLeido().equals(true)}">
+                    <tr class="table-success">
+                        <th scope="row">${notificacion.notificacion.id}</th>
+                        <td><a href="detalleNotificacion/${notificacion.id}">${notificacion.notificacion.titulo}</a></td>
+                        <td scope="row">${notificacion.notificacion.mensaje}</td>
+                        <td scope="row">${notificacion.notificacion.fecha}</td>
+                    </tr>
+            </c:if>
+            </c:forEach>
+            </tbody>
+        </table>
+
     </div>
 </div>
 <%@ include file="../../../parts/footer.jsp" %>

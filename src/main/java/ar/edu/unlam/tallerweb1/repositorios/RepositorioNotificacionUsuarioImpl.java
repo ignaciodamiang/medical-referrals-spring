@@ -28,7 +28,7 @@ public class RepositorioNotificacionUsuarioImpl implements RepositorioNotificaci
 		
 		return session.createCriteria(NotificacionUsuario.class)
 				.add(Restrictions.eq("usuario", usuario))
-				.addOrder(Order.asc("notificacion"))
+				.addOrder(Order.desc("notificacion"))
 				.list();
 	}
 
