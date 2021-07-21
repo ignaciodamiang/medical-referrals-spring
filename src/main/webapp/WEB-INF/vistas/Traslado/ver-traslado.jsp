@@ -9,7 +9,7 @@
 </head>
 <!-- se agrega la columna menu -->
 <%@ include file="../../../parts/menu.jsp" %>
-<div class="col-10" id="main">
+<div class="col-12" id="main">
     <!--  fin menu -->
 
 <div class="container" style="margin-top: 6rem">

@@ -8,7 +8,7 @@
 </head>
 <body>
 <%@ include file="../../../parts/menu.jsp" %>
-<div class="col-10" id="main">
+<div class="col-12" id="main">
 <h2 class="text-center"> Notificaciones</h2>
     <div class="d-flex flex-wrap mb-3">
 <c:forEach items="${notificaciones}" var="notificacion">
