@@ -9,7 +9,7 @@
 </head>
 <body>
 <%@ include file="../../../parts/menu.jsp" %>
-<div class="col-10" id="main">
+<div class="col-12" id="main">
   <form action="filtrarDerivaciones" method="post">
     <label for="min">Desde</label>
     <input type="date" name="fechaMin" id="min">
@@ -17,10 +17,10 @@
     <input type="date" name="fechaMax" id="max">
     <input type="submit" value="Buscar" class="btn-info">
   </form>
-  <table class="table">
+  <table class="table table-hover table-striped table-bordered border-primary">
     <thead>
     <tr>
-      <th scope="col">Id</th>
+      <th scope="col">Código</th>
       <th scope="col">Fecha</th>
       <th scope="col">Nombre completo</th>
       <th scope="col">Documento</th>
@@ -33,7 +33,7 @@
     <tbody>
     <c:forEach items="${derivaciones}" var="derivacion">
       <tr>
-        <th scope="row">${derivacion.getId()}</th>
+        <th scope="row">${derivacion.getCodigo()}</th>
         <td>${derivacion.getFechaDerivacion()}</td>
         <td>${derivacion.getPaciente().getNombreCompleto()}</td>
         <td>${derivacion.getPaciente().getDocumento()}</td>

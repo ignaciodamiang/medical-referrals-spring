@@ -8,7 +8,7 @@
 </head>
 <body>
 <%@ include file="../../../parts/menu.jsp" %>
-<div class="col-10" id="main">
+<div class="col-12" id="main">
     <h5 class="title-info">${detalleNotificacion.notificacion.titulo}</h5>
     <p class="lead">${detalleNotificacion.notificacion.mensaje}</p>
 </div>
