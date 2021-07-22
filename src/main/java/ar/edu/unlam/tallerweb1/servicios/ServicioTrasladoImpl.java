@@ -23,12 +23,13 @@ public class ServicioTrasladoImpl implements ServicioTraslado{
     private ServicioMail servicioMail;
     private ServicioSolicitudDerivacion servicioSolicitudDerivacion;
     private ServicioComentario servicioComentario;
+    private ServicioCentroMedico servicioCentroMedico;
 
     @Autowired
     public ServicioTrasladoImpl(RepositorioTraslado repositorioTraslado, RepositorioDerivacion repositorioDerivacion,
                                 ServicioDerivacion servicioDerivacion,ServicioNotificacion servicioNotificacion,
                                 ServicioMail servicioMail, ServicioSolicitudDerivacion servicioSolicitudDerivacion,
-                                ServicioComentario servicioComentario)
+                                ServicioComentario servicioComentario, ServicioCentroMedico servicioCentroMedico)
     {this.repositorioTraslado = repositorioTraslado;
      this.repositorioDerivacion=repositorioDerivacion;
      this.servicioDerivacion=servicioDerivacion;
@@ -36,6 +37,7 @@ public class ServicioTrasladoImpl implements ServicioTraslado{
      this.servicioMail=servicioMail;
      this.servicioSolicitudDerivacion = servicioSolicitudDerivacion;
      this.servicioComentario = servicioComentario;
+     this.servicioCentroMedico = servicioCentroMedico;
     }
 
 
@@ -112,6 +114,16 @@ public class ServicioTrasladoImpl implements ServicioTraslado{
     @Override
     public Traslado obtenerTrasladoPorId(Long idTraslado) {
         return repositorioTraslado.obtenerTrasladoPorId(idTraslado);
+    }
+
+    @Override
+    public List<Traslado> obtenerTrasladosPorCentroMedicoCanceladosPorFecha(Long idCentroMedico, Date desde, Date hasta) {
+        return null;
+    }
+
+    @Override
+    public List<Traslado> obtenerTrasladosPorCentroMedicoFinalizadosPorFecha(Long idCentroMedico, Date desde, Date hasta) {
+        return null;
     }
 
     public String generarCodigoTraslado(Traslado traslado){
