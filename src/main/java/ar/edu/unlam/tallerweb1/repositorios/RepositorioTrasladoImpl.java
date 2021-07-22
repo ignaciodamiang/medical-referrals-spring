@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository("repositorioTraslado")
@@ -37,6 +38,24 @@ public class RepositorioTrasladoImpl implements RepositorioTraslado{
         .add(Restrictions.eq("centroMedico",centroMedico))
          .add(Restrictions.eq("estadoTraslado", EstadoTraslado.ENCURSO))
          .list();
+    }
+
+    @Override
+    public List<Traslado> obtenerTrasladosPorCentroMedicoCanceladosPorFecha(CentroMedico centroMedico, Date desde, Date hasta) {
+        final Session session = sessionFactory.getCurrentSession();
+        return session.createCriteria(Traslado.class)
+                .add(Restrictions.between("fechaCreacion", desde, hasta))
+                .add(Restrictions.eq("centroMedico", centroMedico))
+                .add(Restrictions.eq("estadoTraslado", EstadoTraslado.CANCELADO)).list();
+    }
+
+    @Override
+    public List<Traslado> obtenerTrasladosPorCentroMedicoFinalizadosPorFecha(CentroMedico centroMedico, Date desde, Date hasta) {
+        final Session session = sessionFactory.getCurrentSession();
+        return session.createCriteria(Traslado.class)
+                .add(Restrictions.between("fechaCreacion", desde, hasta))
+                .add(Restrictions.eq("centroMedico", centroMedico))
+                .add(Restrictions.eq("estadoTraslado", EstadoTraslado.FINALIZADO)).list();
     }
 
     @Override
