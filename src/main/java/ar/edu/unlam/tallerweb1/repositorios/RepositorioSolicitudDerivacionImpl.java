@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 
+import java.util.Date;
 import java.util.List;
 
 @Repository("repositorioSolicitudDerivacion")
@@ -72,5 +73,23 @@ public class RepositorioSolicitudDerivacionImpl implements RepositorioSolicitudD
                 .addOrder(Order.asc("fechaCreacion"))
                 .list();
         return solicitudesDeDerivacion;
+    }
+
+    @Override
+    public List<SolicitudDerivacion> obtenerSolicitudesDerivacionAceptadasPorCentroMedicoYFecha(CentroMedico centroMedico, Date desde, Date hasta) {
+        final Session session= sessionFactory.getCurrentSession();
+        return session.createCriteria(SolicitudDerivacion.class)
+                .add(Restrictions.between("fechaCreacion", desde, hasta))
+                .add(Restrictions.eq("centroMedico", centroMedico))
+                .add(Restrictions.eq("aceptado", true)).list();
+    }
+
+    @Override
+    public List<SolicitudDerivacion> obtenerSolicitudesDerivacionRechazadasPorCentroMedicoYFecha(CentroMedico centroMedico, Date desde, Date hasta) {
+        final Session session= sessionFactory.getCurrentSession();
+        return session.createCriteria(SolicitudDerivacion.class)
+                .add(Restrictions.between("fechaCreacion", desde, hasta))
+                .add(Restrictions.eq("centroMedico", centroMedico))
+                .add(Restrictions.eq("aceptado", false)).list();
     }
 }

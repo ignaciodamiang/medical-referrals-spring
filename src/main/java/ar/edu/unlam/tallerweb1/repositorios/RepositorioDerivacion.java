@@ -17,7 +17,7 @@ public interface RepositorioDerivacion {
     Derivacion verDerivacion(Long id);
 	List<Derivacion> derivacionesPorCobertura(Cobertura cobertura);
     List<Derivacion> derivacionesPorCoberturaYFechaFinalizadasYCanceladas(Date desde, Date fix, Cobertura cobertura);
-
+    List<Derivacion> obtenerDerivacionesFinalizadasPorCentroMedicoYFecha(CentroMedico centroMedico, Date desde, Date hasta);
     List<Derivacion> obtenerDerivacionesPorAutor(Usuario autor);
     List<Derivacion> filtrarDerivacionesFinalizadasYCanceladasPorFechaYUsuario(Date fechaMin, Date fechaMax, Usuario autor);
 

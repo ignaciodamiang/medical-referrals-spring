@@ -67,7 +67,7 @@
                             <td>${derivacion.getPaciente().getDocumento()}</td>
                             <td>${derivacion.getDiagnostico()}</td>
                             <c:if test="${derivacion.getEstadoDerivacion().toString().equals('ENTRASLADO')}">
-                                <td>En traslado</td>
+                                <td class="bg-success text-white">En traslado</td>
                             </c:if>
                             <c:if test="${derivacion.getEstadoDerivacion().toString().equals('ENBUSQUEDA')}">
                                 <td>En búsqueda</td>

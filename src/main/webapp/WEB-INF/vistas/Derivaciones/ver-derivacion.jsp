@@ -14,11 +14,13 @@
     <!--  fin menu -->
     <div class="row p-3  d-flex">
         <div class="d-flex flex-grow-1">
-            <form class="form-group d-flex" method="get" action="/proyecto_derivaciones_war_exploded/ver-derivacion/">
-                <input class="form-control" name="id" type="text" placeholder="Ingrese id de derivacion">
-                <input type="submit" class="btn btn-primary w-25 ml-4" value="Buscar">
-            </form>
+
         </div>
+        <c:if test="${derivacion.getEstadoDerivacion()== 'ENTRASLADO'}">
+        <div class="px-3">
+            <a class="btn btn-primary" href="ver-traslado/${derivacion.getId()}">Ver traslado</a>
+        </div>
+        </c:if>
         <c:if test="${rol =='Derivador' || rol =='Solicitador'}">
             <div class="px-3">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CancelarDerivacion${derivacion.getId() }">Cancelar derivacion</button>
@@ -116,6 +118,11 @@
     </p>
     <div class="">
         <div class="row" id="solicitudes">
+            <c:if test="${solicitud.aceptado == true && rol =='Derivador'}">
+                    <div class="d-flex justify-content-end">
+                        <a href="../crearTraslado/${solicitud.getDerivacion().getId()}"class="btn btn-info  text-white"  role="button">Generar Traslado</a>
+                    </div>
+            </c:if>
             <c:if test="${rol =='Derivador' && derivacion.getEstadoDerivacion().toString().equals('ENBUSQUEDA')}">
                 <div class="d-flex justify-content-end">
                     <a href="nueva-solicitud-derivacion/${derivacion.getId()} " class="btn btn-primary"><i class="fas fa-plus"></i><span> Generar Solicitud</span></a>
@@ -144,8 +151,22 @@
                                 <td><a href="ver-solicitud-derivacion/${solicitud.getId()}">${solicitud.getCodigo()}</a></td>
                                 <td>${solicitud.getDerivacion().getEstadoDerivacion().toString()}</td>
                                 <td>${solicitud.getCentroMedico().getNombre()}</td>
-                                <td>${solicitud.getAceptado()}</td>
-                                <td>${solicitud.getConfirmado()}</td>
+                                <c:choose>
+                                    <c:when test="${solicitud.getAceptado()}">
+                                        <td class="bg-success text-white">Aceptado</td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td>Aun no</td>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:choose>
+                                    <c:when test="${solicitud.getConfirmado()}">
+                                        <td class="bg-success text-white">Confirmado</td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td>No</td>
+                                    </c:otherwise>
+                                </c:choose>
                                 <td>${solicitud.getFechaCreacion().toLocaleString()}</td>
                                 <c:choose>
                                     <c:when test="${solicitud.getDerivacion().getUrgente()}">
