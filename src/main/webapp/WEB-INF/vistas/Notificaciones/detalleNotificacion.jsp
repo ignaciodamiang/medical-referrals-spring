@@ -23,14 +23,8 @@
         <tr>
             <th scope="row">${detalleNotificacion.notificacion.titulo}</th>
             <td>${detalleNotificacion.notificacion.mensaje}</td>
-            <c:if test="${!detalleNotificacion.getNotificacion().getTraslado().equals(null)}">
             <td><a href="../ver-traslado/${detalleNotificacion.getNotificacion().getTraslado().getDerivacion().getId()}">${detalleNotificacion.notificacion.traslado.codigo}</a></td>
-                <td><a href="../ver-derivacion?id=${detalleNotificacion.notificacion.traslado.derivacion.id}">${detalleNotificacion.notificacion.traslado.derivacion.codigo}</a></td>
-            </c:if>
-            <c:if test="${detalleNotificacion.getNotificacion().getTraslado().equals(null)}">
-            <td><a href="../ver-traslado/${detalleNotificacion.getNotificacion().getDerivacion().getId()}">${detalleNotificacion.notificacion.traslado.codigo}</a></td>
-                <td><a href="../ver-derivacion?id=${detalleNotificacion.notificacion.traslado.derivacion.id}">${detalleNotificacion.notificacion.traslado.derivacion.codigo}</a></td>
-            </c:if>
+            <td><a href="../ver-derivacion?id=${detalleNotificacion.notificacion.derivacion.id}">${detalleNotificacion.notificacion.derivacion.codigo}</a></td>
             <td>${detalleNotificacion.getNotificacion().getFecha()}</td>
         </tr>
         </tbody>
