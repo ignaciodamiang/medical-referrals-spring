@@ -20,17 +20,19 @@ public class ServicioSolicitudDerivacionImpl implements ServicioSolicitudDerivac
     private ServicioNotificacion servicioNotificacion;
     private ServicioComentario servicioComentario;
     private ServicioUsuario servicioUsuario;
+    private ServicioCentroMedico servicioCentroMedico;
 
     @Autowired
     public ServicioSolicitudDerivacionImpl(RepositorioSolicitudDerivacion servicioSoliciturDerivacionDao,RepositorioDerivacion servicioDerivacion,
                                            RepositorioCentroMedico repositorioCentroMedico, ServicioNotificacion servicioNotificacion,
-                                           ServicioComentario servicioComentario, ServicioUsuario servicioUsuario)
+                                           ServicioComentario servicioComentario, ServicioUsuario servicioUsuario, ServicioCentroMedico servicioCentroMedico)
     {this.servicioSoliciturDerivacionDao= servicioSoliciturDerivacionDao;
      this.servicioDerivacion=servicioDerivacion;
      this.repositorioCentroMedico= repositorioCentroMedico;
      this.servicioNotificacion = servicioNotificacion;
      this.servicioComentario = servicioComentario;
      this.servicioUsuario = servicioUsuario;
+     this.servicioCentroMedico = servicioCentroMedico;
     }
 
 
@@ -108,5 +110,17 @@ public class ServicioSolicitudDerivacionImpl implements ServicioSolicitudDerivac
         String prefix = "SOL";
         Long code = 100000L + idSolicitudDerivacion;
         return prefix+code;
+    }
+
+    @Override
+    public List<SolicitudDerivacion> obtenerSolicitudesDerivacionAceptadasPorCentroMedicoYFecha(Long centroMedico, Date desde, Date hasta) throws Exception {
+        CentroMedico centroMedico1 = servicioCentroMedico.obtenerCentroMedicoPorId(centroMedico);
+        return servicioSoliciturDerivacionDao.obtenerSolicitudesDerivacionAceptadasPorCentroMedicoYFecha(centroMedico1, desde, hasta);
+    }
+
+    @Override
+    public List<SolicitudDerivacion> obtenerSolicitudesDerivacionRechazadasPorCentroMedicoYFecha(Long centroMedico, Date desde, Date hasta) throws Exception {
+        CentroMedico centroMedico1 = servicioCentroMedico.obtenerCentroMedicoPorId(centroMedico);
+        return servicioSoliciturDerivacionDao.obtenerSolicitudesDerivacionRechazadasPorCentroMedicoYFecha(centroMedico1, desde, hasta);
     }
 }

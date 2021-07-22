@@ -78,6 +78,7 @@ public class ControladorSolicitudDerivaciones {
         model.put("solicitud",solicitudDerivacion);
         model.put("adjuntos", adjuntos);
         model.put("comentarios", comentarios);
+        model.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
         // model.put("path", request.getSession().getServletContext().getRealPath("/img/pacientes/"));
         return new ModelAndView("solicitud-derivaciones/ver-solicitud-derivacion",model);
     }
