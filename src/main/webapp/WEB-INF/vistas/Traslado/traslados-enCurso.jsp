@@ -24,7 +24,7 @@
                 <a href="finalizarTraslado/${traslado.id}" class="btn btn-success">
                     Finalizar
                 </a>
-                <a href="ver-traslado/${traslado.id}" class="btn btn-info">
+                <a href="ver-traslado/${traslado.getDerivacion().getId()}" class="btn btn-info">
                     Ver traslado
                 </a>
 
