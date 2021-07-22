@@ -7,6 +7,7 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 public interface ServicioTraslado {
@@ -18,4 +19,6 @@ public interface ServicioTraslado {
     Traslado obtenerTrasladoPorDerivacion(Long idDerivacion);
     List<Traslado> obtenerTraslados();
     Traslado obtenerTrasladoPorId(Long idTraslado);
+    List<Traslado> obtenerTrasladosPorCentroMedicoCanceladosPorFecha(Long idCentroMedico, Date desde, Date hasta);
+    List<Traslado> obtenerTrasladosPorCentroMedicoFinalizadosPorFecha(Long idCentroMedico, Date desde, Date hasta);
 }
