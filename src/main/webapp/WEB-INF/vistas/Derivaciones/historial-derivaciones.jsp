@@ -12,10 +12,10 @@
 <div class="col-12" id="main">
   <form action="filtrarDerivaciones" method="post">
     <label for="min">Desde</label>
-    <input type="date" name="fechaMin" id="min">
+    <input class="form-control mb-1 w-25" type="date" name="fechaMin" id="min">
     <label for="max">Hasta</label>
-    <input type="date" name="fechaMax" id="max">
-    <input type="submit" value="Buscar" class="btn-info">
+    <input class="form-control mb-1 w-25" type="date" name="fechaMax" id="max">
+    <button type="submit" class="btn btn-primary w-25">Buscar</button>
   </form>
   <table class="table table-hover table-striped table-bordered border-primary">
     <thead>
@@ -33,7 +33,7 @@
     <tbody>
     <c:forEach items="${derivaciones}" var="derivacion">
       <tr>
-        <th scope="row">${derivacion.getCodigo()}</th>
+        <th scope="row"><a href="ver-derivacion?id=${derivacion.getId()}">${derivacion.getCodigo()}</a></th>
         <td>${derivacion.getFechaDerivacion()}</td>
         <td>${derivacion.getPaciente().getNombreCompleto()}</td>
         <td>${derivacion.getPaciente().getDocumento()}</td>

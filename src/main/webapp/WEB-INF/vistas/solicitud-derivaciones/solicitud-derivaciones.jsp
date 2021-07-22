@@ -28,12 +28,13 @@
 
     <c:choose>
         <c:when test="${listaSolicitudesDerivaciones.isEmpty()}">
-            <h4 class="mt-4 text-center">No hay Solicitudes disponibles</h4>
+            <h3 class="mt-4 text-center">No hay Solicitudes disponibles</h3>
         </c:when>
         <c:otherwise>
-            <table class="table mt-4">
+            <table class="table table-hover table-striped table-bordered border-primary">
                 <thead>
                 <tr>
+                    <th scope="col">Código</th>
                     <th scope="col">Derivacion</th>
                     <th scope="col">Centro Medico</th>
                     <th scope="col">Diagnostico</th>
@@ -42,14 +43,12 @@
                     <th scope="col">Confirmado</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Urgencia</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach items="${listaSolicitudesDerivaciones}" var="solicitud">
                     <tr>
+                        <td><a href="ver-solicitud-derivacion/${solicitud.getId()}">${solicitud.codigo}</a></td>
                         <td>${solicitud.getDerivacion().getEstadoDerivacion().toString()}</td>
                         <td>${solicitud.getCentroMedico().getNombre()}</td>
                         <td>${solicitud.getDerivacion().getDiagnostico()}</td>
@@ -62,77 +61,23 @@
                                 <td class="text-center" style="background: darkred;color: white;">URGENTE</td>
                             </c:when>
                             <c:otherwise>
-                                <td class="text-center">---</td>
+                                <td class="text-center">No</td>
                             </c:otherwise>
                         </c:choose>
-                                        <td>
-
-<%--                                            <div class="modal-header">--%>
-<%--                                                <h4 class="modal-title">Detalles de Solicitud</h4>--%>
-<%--                                                <div class="m-auto btn btn-danger" data-dismiss="modal">URGENTE</div>                                                  <button type="button" class="close" data-dismiss="modal">×</button>--%>
-<%--                                            </div>--%>
-                                            <!-- Button to Open the Modal -->
-                                            <a href="ver-solicitud-derivacion/${solicitud.getId()}" class="btn btn-info">
-                                                Detalles
-                                            </a>
-                                            <!-- The Modal -->
-<%--                                            <div class="modal fade" id="solicitud${solicitud.getId()}">--%>
-<%--                                                <div class="modal-dialog">--%>
-<%--                                                    <div class="modal-content">--%>
-<%--                                                        <!-- Modal Header -->--%>
-<%--                                                        <c:choose>--%>
-<%--                                                        <c:when test="${solicitud.getDerivacion().getUrgente()}">--%>
-<%--                                                            <div class="modal-header">--%>
-<%--                                                            <h4 class="modal-title">Detalles de Solicitud</h4>--%>
-<%--                                                            <div class="m-auto btn btn-danger">URGENTE</div>--%>
-<%--                                                            <button type="button" class="close" data-dismiss="modal">×</button>--%>
-<%--                                                            </div>--%>
-<%--                                                        </c:when>--%>
-<%--                                                        <c:otherwise>--%>
-<%--                                                            <div class="modal-header">--%>
-<%--                                                                <h4 class="modal-title">Detalles de Solicitud</h4>--%>
-<%--                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>--%>
-<%--                                                            </div>--%>
-<%--                                                        </c:otherwise>--%>
-<%--                                                        </c:choose>--%>
-
-<%--                                                        <!-- Modal body -->--%>
-<%--                                                        <div class="modal-body">--%>
-<%--                                                            <h4>Nombre de paciente: </h4>--%>
-<%--                                                            <span>${solicitud.getDerivacion().getPaciente().getNombreCompleto()}</span>--%>
-<%--                                                            <h4>DNI: </h4>--%>
-<%--                                                            <span>${solicitud.getDerivacion().getPaciente().getDocumento()}</span>--%>
-<%--                                                            <h4>Fecha nacimiento paciente: </h4>--%>
-<%--                                                            <span>${solicitud.getDerivacion().getPaciente().getFechaNacimiento()}</span>--%>
-<%--                                                            <h4>Diagnostico:</h4>--%>
-<%--                                                            <span>${solicitud.getDerivacion().getDiagnostico()}</span>--%>
-<%--                                                            <h4>Sector solicitado:</h4>--%>
-<%--                                                            <span>${solicitud.getDerivacion().getParaQueSector()}</span>--%>
-<%--                                                            <h4>Cobertura:</h4>--%>
-<%--                                                            <span>${solicitud.getDerivacion().getCobertura().getNombre()}</span>--%>
-<%--                                                        </div>--%>
-<%--                                                        <!-- Modal footer -->--%>
-<%--                                                        <div class="modal-footer">--%>
-<%--                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>--%>
-<%--                                                        </div>--%>
-<%--                                                    </div>--%>
-<%--                                                </div>--%>
-<%--                                            </div>--%>
-                                        </td>
-<%--                        <c:if test="${(solicitud.aceptado == false) && rol =='Administrativo'}">--%>
-<%--                        <td>--%>
-<%--                            <div class="row justify-content-md-center">--%>
-<%--                                <a href="aceptarSolicitud/${solicitud.id}"class="btn btn-success  text-white"  role="button">Aceptar</a>--%>
-<%--                            </div>--%>
-<%--                        </td>--%>
-<%--                        </c:if>--%>
-<%--                        <c:if test="${solicitud.aceptado == true && rol =='Administrativo'}">--%>
-<%--                        <td>--%>
-<%--                            <div class="row justify-content-md-center">--%>
-<%--                                <a href="rechazarSolicitud/${solicitud.id}"class="btn btn-danger  text-white"  role="button">Rechazar</a>--%>
-<%--                            </div>--%>
-<%--                        </td>--%>
-<%--                        </c:if>--%>
+                        <c:if test="${(solicitud.aceptado == false) && rol =='Administrativo'}">
+                        <td>
+                            <div class="row justify-content-md-center">
+                                <a href="aceptarSolicitud/${solicitud.id}"class="btn btn-success  text-white"  role="button">Aceptar</a>
+                            </div>
+                        </td>
+                        </c:if>
+                        <c:if test="${solicitud.aceptado == true && rol =='Administrativo'}">
+                        <td>
+                            <div class="row justify-content-md-center">
+                                <a href="rechazarSolicitud/${solicitud.id}"class="btn btn-danger  text-white"  role="button">Rechazar</a>
+                            </div>
+                        </td>
+                        </c:if>
                         <c:if test="${solicitud.aceptado == true && rol =='Derivador'}">
                         <td>
                             <div class="row justify-content-md-center">
