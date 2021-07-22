@@ -27,9 +27,11 @@
         </div>
         </c:if>
         <c:if test="${rol =='Derivador' || rol =='Solicitador'}">
-            <div class="px-3">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CancelarDerivacion${derivacion.getId() }">Cancelar derivacion</button>
-            </div>
+            <c:if test="${derivacion.estadoDerivacion == EstadoDerivacion.ENTRASLADO || derivacion.estadoDerivacion == EstadoDerivacion.ENBUSQUEDA}">
+                <div class="px-3">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CancelarDerivacion${derivacion.getId() }">Cancelar derivacion</button>
+                </div>
+            </c:if>
         </c:if>
 
 
