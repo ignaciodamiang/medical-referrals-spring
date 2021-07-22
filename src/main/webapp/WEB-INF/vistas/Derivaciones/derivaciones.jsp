@@ -26,7 +26,7 @@
             <h4 class="mt-4 text-center">No hay Derivaciones disponibles</h4>
         </c:when>
         <c:otherwise>
-            <table class="table mt-4">
+            <table class="table mt-4 table-hover table-striped table-bordered border-primary">
                 <thead>
                 <tr>
                     <th scope="col" class="text-center">Paciente</th>
@@ -37,8 +37,6 @@
                     <th scope="col" class="text-center">Sector</th>
                     <th scope="col" class="text-center">Urgencia</th>
                     <th scope="col" class="text-center">Acciones</th>
-                    <th scope="col" class="text-center"></th>
-                    <th scope="col" class="text-center"></th>
                 </tr>
                 </thead>
                 <tbody>

@@ -14,10 +14,7 @@
     <!--  fin menu -->
     <div class="row p-3  d-flex">
         <div class="d-flex flex-grow-1">
-            <form class="form-group d-flex" method="get" action="/proyecto_derivaciones_war_exploded/ver-derivacion/">
-                <input class="form-control" name="id" type="text" placeholder="Ingrese id de derivacion">
-                <input type="submit" class="btn btn-primary w-25 ml-4" value="Buscar">
-            </form>
+
         </div>
         <c:if test="${(solicitud.aceptado == false) && rol =='Administrativo'}">
                 <td>
@@ -37,13 +34,13 @@
                                                                 <div class="modal-body">
                                                                     <form action="../aceptarSolicitud/${solicitud.id}" method="post">
                                                                         <div class="form-group">
-                                                                            <label for="mensajeAcepto">Motivo: </label>
-                                                                            <textarea id="mensajeAcepto" name="mensaje" rows="4" cols="50"></textarea>
+                                                                            <label for="mensajeAcepto">Motivo: </label><br>
+                                                                            <textarea class="form-control" id="mensajeAcepto" name="mensaje" rows="4" cols="50"></textarea>
                                                                         </div>
                                                                 </div>
                                                                 <!-- Modal footer -->
                                                                 <div class="modal-footer">
-                                                                    <input type="submit"  class="btn-success" value="Aceptar">
+                                                                    <input type="submit"  class="btn btn-success" value="Aceptar">
                                                                     </form>
                                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                                                                 </div>
@@ -72,13 +69,13 @@
                                                 <div class="modal-body">
                                                     <form action="../rechazarSolicitud/${solicitud.id}" method="post">
                                                         <div class="form-group">
-                                                            <label for="mensajeRechazo">Motivo: </label>
-                                                            <textarea id="mensajeRechazo" name="mensaje" rows="4" cols="50"></textarea>
+                                                            <label for="mensajeRechazo">Motivo: </label><br>
+                                                            <textarea class="form-control" id="mensajeRechazo" name="mensaje" rows="4" cols="50"></textarea>
                                                         </div>
                                                 </div>
                                                 <!-- Modal footer -->
                                                 <div class="modal-footer">
-                                                    <input type="submit"  class="btn-success" value="Aceptar">
+                                                    <input type="submit"  class="btn btn-success" value="Aceptar">
                                                     </form>
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                                                 </div>
@@ -86,14 +83,8 @@
                                         </div>
                                     </div>
         </c:if>
-        <c:if test="${solicitud.aceptado == true && rol =='Derivador'}">
-            <td>
-                <div class="row justify-content-md-center">
-                    <a href="../crearTraslado/${solicitud.id}"class="btn btn-info  text-white"  role="button">Generar Traslado</a>
-                </div>
-            </td>
-        </c:if>
-        <c:if test="${solicitud.aceptado == true && rol =='Derivador'}">
+
+        <c:if test="${solicitud.aceptado == true && rol =='Derivador' && solicitud.confirmado == false}">
             <td>
                 <div class="px-3">
                     <a href="../crearTraslado/${solicitud.id}"class="btn btn-primary"  role="button">Generar Traslado</a>
