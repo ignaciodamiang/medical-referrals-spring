@@ -34,7 +34,7 @@
                     <td>${traslado.getCentroMedico().getDireccion()}</td>
                     <td>${traslado.getDerivacion().getUbicacionPaciente()}</td>
                     <td>${traslado.getEstadoTraslado().toString()}</td>
-                    <td><a href="../BuscarPaciente">
+                    <td><a href="../ver-derivacion?id=${traslado.getDerivacion().getId()}">
                         <button type="button" class="btn btn-success"> Volver </button></a></td>
                 </tr>
             </tbody>
