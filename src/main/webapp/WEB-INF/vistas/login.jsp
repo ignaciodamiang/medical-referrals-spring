@@ -36,7 +36,7 @@
 									<img class="mb-2" style="height: 90px;"
 										 src="img/logo.jpg" alt="logo"
 										 class="logo-img">
-									<p class="logo-letra">CENTRO MEDICO</p>
+									<p class="logo-letra">SISTEMA DERIVACIONES</p>
 								</div>
 								<div class="text-center">
 									<h1 class="h4 text-gray-900 mb-4">Bienvenido/a!</h1>

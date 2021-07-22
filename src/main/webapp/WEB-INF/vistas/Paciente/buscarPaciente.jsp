@@ -29,10 +29,10 @@
             </c:if>
 
             <c:if test="${not empty paciente}">
-                <div>
-                    <p>Paciente ${paciente.nombreCompleto}</p>
-                    <p>${paciente.documento}</p>
-                    <p>${paciente.fechaNacimiento}</p>
+                <div class="text-center w-50 mx-auto">
+                    <h3>Paciente: ${paciente.nombreCompleto}</h3>
+                    <h4>DNI: ${paciente.documento}</h4>
+                    <img src="/proyecto_derivaciones_war_exploded/img/pacientes/${paciente.getFoto()}" class="w-25"><br><br>
                     <c:choose>
                         <c:when test="${!rol.equals('Administrativo')}">
                             <a class="btn btn-primary" href="nueva-derivacion/${paciente.id}" role="button">Generar nueva derivación</a>
