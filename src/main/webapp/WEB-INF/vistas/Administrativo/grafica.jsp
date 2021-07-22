@@ -13,8 +13,19 @@
 
 
 <div class="col-12" id="main">
+    <form action="" method="post">
+        <label for="min">Desde</label>
+        <input class="form-control mb-1 w-25" type="date" name="fechaMin" id="min">
+        <label for="max">Hasta</label>
+        <input class="form-control mb-1 w-25" type="date" name="fechaMax" id="max">
+        <button type="submit" class="btn btn-primary w-25">Buscar</button>
+    </form>
+    <div class="col-6">
     <div id="traslados" style="width: 900px; height: 500px;"></div>
+    </div>
+    <div class="col-6">
     <div id="solicitudes" style="width: 900px; height: 500px;"></div>
+    </div>
 
     <p class="d-flex justify-content-around">
         <button class="btn btn-primary" onclick="mostrarOcultar('ingresados')">Pacientes Ingresados</button>
@@ -71,14 +82,14 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawChart);;
 
     function drawChart() {
 
         var data = google.visualization.arrayToDataTable([
             ['Traslado', 'Cantidad'],
-            ['Cancelados',     ${cantidadTrasladosCancelados}],
-            ['Finalizados',      ${cantidadTrasladosFinalizados}],
+            ['Cancelados', ${cantidadTrasladosCancelados}],
+            ['Finalizados', ${cantidadTrasladosFinalizados}],
         ]);
 
         var options = {
@@ -88,36 +99,33 @@
         var chart = new google.visualization.PieChart(document.getElementById('traslados'));
 
         chart.draw(data, options);
-    }
 
-    function drawChart1() {
-
-        var data = google.visualization.arrayToDataTable([
+        var data1 = google.visualization.arrayToDataTable([
             ['Solicitudes', 'Cantidad'],
             ['Aceptadas',  ${cantidadSolicitudesAceptadas}],
             ['Rechazadas', ${cantidadSolicitudesRechazadas}],
         ]);
 
-        var options = {
+        var options1 = {
             title: 'Solicitudes Derivacion'
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('solicitudes'));
+        var chart1 = new google.visualization.PieChart(document.getElementById('solicitudes'));
 
-        chart.draw(data, options);
+        chart1.draw(data1, options1);
     }
 
     function mostrarOcultar(id){
         switch(id){
             case 'ingresados':
-                if(document.getElementById('ingresados').style.display == 'initial'){
+                if(document.getElementById('salidos').style.display == 'initial'){
                     return document.getElementById('ingresados').style.display ='none';
                 }
                 document.getElementById('ingresados').style.display='initial';
                 document.getElementById('salidos').style.display='none';
                 break;
             case 'salidos':
-                if(document.getElementById('salidos').style.display == 'initial'){
+                if(document.getElementById('ingresados').style.display == 'initial'){
                     return document.getElementById('salidos').style.display ='none';
                 }
                 document.getElementById('salidos').style.display='initial';
