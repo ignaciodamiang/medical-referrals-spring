@@ -44,6 +44,7 @@ public class ServicioComentarioImpl implements ServicioComentario {
                     comentario.setMensaje(mensaje);
                     comentario.setAsunto("Registrar comentario");
                     this.guardarComentario(comentario);
+                    break;
                 }
                 // guardar derivación
                 case "G": {
@@ -129,6 +130,7 @@ public class ServicioComentarioImpl implements ServicioComentario {
                     comentario.setMensaje(mensaje);
                     comentario.setAsunto("Registrar comentario");
                     this.guardarComentario(comentario);
+                    break;
                 }
                 default:{
                     break;

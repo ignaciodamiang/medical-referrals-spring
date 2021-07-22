@@ -44,7 +44,7 @@ public class RepositorioComentarioImpl implements RepositorioComentario {
     public List<Comentario> obtenerComentariosPorDerivacion(Derivacion derivacion) {
         final Session session =sessionFactory.getCurrentSession();
         return session.createCriteria(Comentario.class)
-                .add(Restrictions.eq("derivacion", derivacion)).addOrder(Order.asc("fechaCreacion"))
+                .add(Restrictions.eq("derivacion", derivacion)).addOrder(Order.desc("fechaCreacion"))
                 .list();
     }
 
@@ -52,7 +52,7 @@ public class RepositorioComentarioImpl implements RepositorioComentario {
     public List<Comentario> obtenrComentariosPorSolicitudDerivacion(SolicitudDerivacion solicitudDerivacion) {
         final Session session =sessionFactory.getCurrentSession();
         return session.createCriteria(Comentario.class)
-                .add(Restrictions.eq("solicitudDerivacion", solicitudDerivacion)).addOrder(Order.asc("fechaCreacion"))
+                .add(Restrictions.eq("solicitudDerivacion", solicitudDerivacion)).addOrder(Order.desc("fechaCreacion"))
                 .list();
     }
 }

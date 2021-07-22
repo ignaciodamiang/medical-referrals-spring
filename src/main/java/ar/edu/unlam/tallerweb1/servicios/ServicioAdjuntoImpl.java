@@ -65,6 +65,8 @@ public class ServicioAdjuntoImpl implements ServicioAdjunto{
 
     }
 
+
+
     @Override
     public void guardarImagen(MultipartFile file, String path, SolicitudDerivacion solicitudDerivacion,String titulo){
         try {

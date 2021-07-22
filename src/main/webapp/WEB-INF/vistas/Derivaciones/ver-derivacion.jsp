@@ -177,7 +177,7 @@
                                                     </div>
                                                     <!-- Modal body -->
                                                     <div class="modal-body">
-                                                        <form action="agregarComentarioDerivacion/${derivacion.id}" method="post">
+                                                        <form action="agregarComentarioDerivacion/${derivacion.getId()}" method="post">
                                                             <div class="form-group">
                                                                 <label for="comentario">Comentario: </label></br>
                                                                 <textarea id="comentario" name="mensaje" rows="4" cols="50"></textarea>
