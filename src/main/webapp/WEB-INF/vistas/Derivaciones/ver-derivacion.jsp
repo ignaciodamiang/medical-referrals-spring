@@ -118,7 +118,7 @@
         <div class="row" id="solicitudes">
             <c:if test="${rol =='Derivador' && derivacion.getEstadoDerivacion().toString().equals('ENBUSQUEDA')}">
                 <div class="d-flex justify-content-end">
-                    <a href="nueva-solicitud-derivacion/16 " class="btn btn-primary"><i class="fas fa-plus"></i><span> Generar Solicitud</span></a>
+                    <a href="nueva-solicitud-derivacion/${derivacion.getId()} " class="btn btn-primary"><i class="fas fa-plus"></i><span> Generar Solicitud</span></a>
                 </div>
             </c:if>
             <c:choose>
