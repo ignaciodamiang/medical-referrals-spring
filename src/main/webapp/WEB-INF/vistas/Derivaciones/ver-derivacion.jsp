@@ -164,7 +164,36 @@
 <%--            <img src="/proyecto_derivaciones_war_exploded/img/pacientes/${derivacion.getPaciente().getFoto()}">--%>
 <%--            <img src="proyecto-derivaciones\out\artifacts\proyecto_derivaciones_war_exploded\">--%>
         </div>
-        <div class="row" id="registros"> <table class="table table-striped">
+        <div class="row" id="registros">
+            <button class="btn btn-info" data-toggle="modal" data-target="#comentarioDerivación${derivacion.getId()}">Agregar Comentario</button>
+
+                                        <div class="modal fade" id="comentarioDerivación${derivacion.getId()}">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <h3>Comentar Derivación ${derivacion.getCodigo()}</h3>
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    <!-- Modal body -->
+                                                    <div class="modal-body">
+                                                        <form action="agregarComentarioDerivacion/${derivacion.id}" method="post">
+                                                            <div class="form-group">
+                                                                <label for="comentario">Comentario: </label></br>
+                                                                <textarea id="comentario" name="mensaje" rows="4" cols="50"></textarea>
+                                                            </div>
+                                                    </div>
+                                                    <!-- Modal footer -->
+                                                    <div class="modal-footer">
+                                                        <input type="submit"  class="btn btn-success" value="Aceptar">
+                                                        </form>
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+            <table class="table table-striped">
             <thead>
             <tr>
                 <th scope="col">Fecha</th>
