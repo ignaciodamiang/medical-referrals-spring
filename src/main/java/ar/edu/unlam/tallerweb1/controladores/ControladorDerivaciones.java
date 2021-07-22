@@ -91,6 +91,7 @@ public class ControladorDerivaciones {
 		model.put("comentarios", comentarios);
 		model.put("adjuntos", adjuntos);
 		model.put("path", request.getSession().getServletContext().getRealPath("/img/adjuntos/"));
+		model.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
 	return new ModelAndView("Derivaciones/ver-derivacion",model);
 	}
 	@RequestMapping(path = "/nueva-derivacion/{id}", method = RequestMethod.GET)

@@ -32,7 +32,7 @@ public class ServicioAdjuntoImpl implements ServicioAdjunto{
     private boolean esAdjuntoValido(MultipartFile file) {
 
         List<String> tiposDeImagenesValidas = Arrays.asList("image/png", "image/jpeg");
-        List<String> extensionesValidasDeImagen = Arrays.asList("jpg", "png");
+        List<String> extensionesValidasDeImagen = Arrays.asList("jpg", "png","jpeg");
         String extensionDeArchivo = FilenameUtils.getExtension( file.getOriginalFilename() ).toString();
         String tipoDeArchivo = file.getContentType().toString();
 
