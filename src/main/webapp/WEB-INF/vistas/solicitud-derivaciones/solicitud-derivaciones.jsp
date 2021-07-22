@@ -31,7 +31,7 @@
             <h3 class="mt-4 text-center">No hay Solicitudes disponibles</h3>
         </c:when>
         <c:otherwise>
-            <table class="table table-hover table-striped table-bordered border-primary">
+            <table class="table table-hover table-striped table-bordered">
                 <thead>
                 <tr>
                     <th scope="col">Código</th>
@@ -64,20 +64,6 @@
                                 <td class="text-center">No</td>
                             </c:otherwise>
                         </c:choose>
-                        <c:if test="${(solicitud.aceptado == false) && rol =='Administrativo'}">
-                        <td>
-                            <div class="row justify-content-md-center">
-                                <a href="aceptarSolicitud/${solicitud.id}"class="btn btn-success  text-white"  role="button">Aceptar</a>
-                            </div>
-                        </td>
-                        </c:if>
-                        <c:if test="${solicitud.aceptado == true && rol =='Administrativo'}">
-                        <td>
-                            <div class="row justify-content-md-center">
-                                <a href="rechazarSolicitud/${solicitud.id}"class="btn btn-danger  text-white"  role="button">Rechazar</a>
-                            </div>
-                        </td>
-                        </c:if>
                         <c:if test="${solicitud.aceptado == true && rol =='Derivador'}">
                         <td>
                             <div class="row justify-content-md-center">

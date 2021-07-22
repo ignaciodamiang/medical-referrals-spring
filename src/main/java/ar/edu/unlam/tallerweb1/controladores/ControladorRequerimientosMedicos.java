@@ -16,7 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class ControladorRequerimientosMedicos {
+public class
+
+ControladorRequerimientosMedicos {
 
     private ServicioRequerimientosMedicos servicioRequerimientosMedicos;
     private ServicioCentroMedico servicioCentroMedico;
