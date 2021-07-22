@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 @Service("servicioTraslado")
@@ -42,12 +43,15 @@ public class ServicioTrasladoImpl implements ServicioTraslado{
     public void guardarTraslado(Long idSolicitud) {
         SolicitudDerivacion solicitudDerivacion = servicioSolicitudDerivacion.obtenerSolicitudDerivacionPorId(idSolicitud);
         Traslado traslado = new Traslado();
+        traslado.setFechaCreacion(new Date());
         traslado.setCentroMedico(solicitudDerivacion.getCentroMedico());
         traslado.setDerivacion(solicitudDerivacion.getDerivacion());
         traslado.setEstadoTraslado(EstadoTraslado.ENCURSO);
         solicitudDerivacion.setConfirmado(true);
         servicioSolicitudDerivacion.modificarSolicitudDerivacion(solicitudDerivacion);
         repositorioTraslado.guardarTraslado(traslado);
+        traslado.setCodigo(this.generarCodigoTraslado(traslado));
+        this.modificarTraslado(traslado);
         Derivacion derivacion = traslado.getDerivacion();
         derivacion.setEstadoDerivacion(EstadoDerivacion.ENTRASLADO);
         servicioDerivacion.modificarDerivacion(derivacion);
@@ -108,5 +112,11 @@ public class ServicioTrasladoImpl implements ServicioTraslado{
     @Override
     public Traslado obtenerTrasladoPorId(Long idTraslado) {
         return repositorioTraslado.obtenerTrasladoPorId(idTraslado);
+    }
+
+    public String generarCodigoTraslado(Traslado traslado){
+        String prefix = "TRA";
+        Long numero = 100000 + traslado.getId();
+        return prefix+numero;
     }
 }

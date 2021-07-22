@@ -65,6 +65,17 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
                 .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.ENBUSQUEDA))
                 .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.ENTRASLADO))
                 .add(Restrictions.between("fechaDerivacion", fechaMin, fechaMax))
+                .addOrder(Order.desc("fechaDerivacion"))
+                .list();
+    }
+
+    @Override
+    public List<Derivacion> obtenerDerivacionesFinalizadasPorCentroMedicoYFecha(CentroMedico centroMedico, Date desde, Date hasta) {
+        final Session session = sessionFactory.getCurrentSession();
+        return session.createCriteria(Derivacion.class)
+                .add(Restrictions.eq("estadoDerivacion", EstadoDerivacion.FINALIZADA))
+                .add(Restrictions.between("fechaDerivacion", desde, hasta))
+                .add(Restrictions.eq("centroMedicoDeOrigen", centroMedico))
                 .addOrder(Order.asc("fechaDerivacion"))
                 .list();
     }
