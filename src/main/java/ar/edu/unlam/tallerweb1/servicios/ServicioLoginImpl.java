@@ -50,6 +50,7 @@ public class ServicioLoginImpl implements ServicioLogin {
 	@Override
 	public Usuario loguearse(Usuario usuario, HttpServletRequest request) {
 		Usuario usuarioObtenido = consultarUsuario(usuario);
+		if (usuarioObtenido!=null){
 		switch (usuarioObtenido.getRol()) {
 		case "Administrativo": {
 			Administrativo usuarioAdministrativo = servicioAdministrativoDao.obtenerAdministrativoPorUsuario(usuarioObtenido);
@@ -79,9 +80,13 @@ public class ServicioLoginImpl implements ServicioLogin {
 		}
 		
 		default:
-			throw new IllegalArgumentException("Unexpected value: " + usuarioObtenido.getRol());
+			usuarioObtenido.setRol("NoExiste");
+			break;
 		}
 		return usuarioObtenido;
+		}
+
+		return null;
 	}
 
 }
