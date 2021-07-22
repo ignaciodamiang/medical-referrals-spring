@@ -16,20 +16,29 @@
 
     <!-- Outer Row -->
     <div class="row justify-content-center">
-
-        <div class="col-xl-10 col-lg-12 col-md-9">
-            <div class="card o-hidden border-0 shadow-lg">
-                <div class="card-body p-0">
-                    <h1>${traslado.getDerivacion().getPaciente().getNombreCompleto()}</h1>
-                    <h1>${traslado.getCentroMedico().getNombre()}</h1>
-                    <h1>${traslado.getDerivacion().getUbicacionPaciente()}</h1>
-                    <h1>${traslado.getCentroMedico().getDireccion()}</h1>
-                    <a href="../BuscarPaciente">
-                        <button type="button" class="btn btn-success"> Volver </button></a>
-                </div>
-            </div>
-        </div>
-
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Nombre paciente</th>
+                <th scope="col">Centro medico</th>
+                <th scope="col">Direccion destino</th>
+                <th scope="col">Ubicacion de paciente</th>
+                <th scope="col">Estado</th>
+                <th> </th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>${traslado.getDerivacion().getPaciente().getNombreCompleto()}</td>
+                    <td>${traslado.getCentroMedico().getNombre()}</td>
+                    <td>${traslado.getCentroMedico().getDireccion()}</td>
+                    <td>${traslado.getDerivacion().getUbicacionPaciente()}</td>
+                    <td>${traslado.getEstadoTraslado().toString()}</td>
+                    <td><a href="../BuscarPaciente">
+                        <button type="button" class="btn btn-success"> Volver </button></a></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <div id="map" class="w-100 h-100">
     </div>
