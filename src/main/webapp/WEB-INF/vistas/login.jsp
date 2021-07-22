@@ -27,7 +27,7 @@
 					<div class="row">
 						<div class="col-lg-6 d-none d-lg-block bg-login-image">
 							<img width="500" height="500"
-								 src="img/imagen.jpg" alt="logo"
+								 src="img/imagen.png" alt="logo"
 								 class="logo-img">
 						</div>
 						<div class="col-lg-6">
@@ -67,9 +67,6 @@
 									</button>
 									<hr>
 								</form:form>
-								<div class="text-center">
-									<a class="small" href="#">Olvido su contrasenia?</a>
-								</div>
 							</div>
 						</div>
 					</div>
