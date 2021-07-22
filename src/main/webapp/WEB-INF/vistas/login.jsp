@@ -34,9 +34,9 @@
 							<div class="p-5">
 								<div class="text-center">
 									<img class="mb-2" style="height: 90px;"
-										 src="img/logo.jpg" alt="logo"
+										 src="img/logo.png" alt="logo"
 										 class="logo-img">
-									<p class="logo-letra">SISTEMA DERIVACIONES</p>
+									<p class="logo-letra">SISTEMA DE DERIVACIONES</p>
 								</div>
 								<div class="text-center">
 									<h1 class="h4 text-gray-900 mb-4">Bienvenido/a!</h1>
@@ -67,9 +67,6 @@
 									</button>
 									<hr>
 								</form:form>
-								<div class="text-center">
-									<a class="small" href="#">Olvido su contrasenia?</a>
-								</div>
 							</div>
 						</div>
 					</div>

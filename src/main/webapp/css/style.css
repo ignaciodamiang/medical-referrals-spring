@@ -1,4 +1,8 @@
 /*.sticky-top a:hover {background: #903900;}*/
+*{
+    font-family: 'Roboto', sans-serif;
+}
+
 .administrativo{
 background:rgba(19,56,190,1);
 }
