@@ -1,4 +1,12 @@
-USE `proyecto-derivaciones`;
+CREATE SCHEMA IF NOT EXISTS `proyecto-derivaciones`;
+
+INSERT INTO `proyecto-derivaciones`.`usuario` (`apellido`, `celular`, `email`, `nombre`, `password`, `rol`) VALUES ('Perez', '1122225555', 'solicitador@gmail.com', 'Juan', '123456', 'Solicitador');
+INSERT INTO `proyecto-derivaciones`.`usuario` (`apellido`, `celular`, `email`, `nombre`, `password`, `rol`) VALUES ('Garcia', '1122223333', 'derivador@gmail.com', 'Pedro', '123456', 'Derivador');
+INSERT INTO `proyecto-derivaciones`.`usuario` (`apellido`, `celular`, `email`, `nombre`, `password`, `rol`) VALUES ('Gonzalez', '1122223333', 'administrativo@gmail.com', 'Carlos', '123456', 'Administrativo');
+
+INSERT INTO `proyecto-derivaciones`.`derivador` (`id`, `cobertura_id`, `usuario_id`) VALUES ('1', '1', '2');
+INSERT INTO `proyecto-derivaciones`.`solicitador` (`id`, `usuario_id`) VALUES ('1', '1');
+INSERT INTO `proyecto-derivaciones`.`administrativo` (`id`, `centroMedico_id`, `usuario_id`) VALUES ('1', '1', '3');
 
 -- Cobeturas
 
