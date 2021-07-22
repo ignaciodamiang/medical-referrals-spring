@@ -79,7 +79,7 @@ public class RepositorioSolicitudDerivacionImpl implements RepositorioSolicitudD
     public List<SolicitudDerivacion> obtenerSolicitudesDerivacionAceptadasPorCentroMedicoYFecha(CentroMedico centroMedico, Date desde, Date hasta) {
         final Session session= sessionFactory.getCurrentSession();
         return session.createCriteria(SolicitudDerivacion.class)
-                .add(Restrictions.between("fechaCreacion", desde, hasta))
+                //.add(Restrictions.between("fechaCreacion", desde, hasta))
                 .add(Restrictions.eq("centroMedico", centroMedico))
                 .add(Restrictions.eq("aceptado", true)).list();
     }
@@ -88,7 +88,7 @@ public class RepositorioSolicitudDerivacionImpl implements RepositorioSolicitudD
     public List<SolicitudDerivacion> obtenerSolicitudesDerivacionRechazadasPorCentroMedicoYFecha(CentroMedico centroMedico, Date desde, Date hasta) {
         final Session session= sessionFactory.getCurrentSession();
         return session.createCriteria(SolicitudDerivacion.class)
-                .add(Restrictions.between("fechaCreacion", desde, hasta))
+                //.add(Restrictions.between("fechaCreacion", desde, hasta))
                 .add(Restrictions.eq("centroMedico", centroMedico))
                 .add(Restrictions.eq("aceptado", false)).list();
     }

@@ -44,7 +44,7 @@ public class RepositorioTrasladoImpl implements RepositorioTraslado{
     public List<Traslado> obtenerTrasladosPorCentroMedicoCanceladosPorFecha(CentroMedico centroMedico, Date desde, Date hasta) {
         final Session session = sessionFactory.getCurrentSession();
         return session.createCriteria(Traslado.class)
-                .add(Restrictions.between("fechaCreacion", desde, hasta))
+                //.add(Restrictions.between("fechaCreacion", desde, hasta))
                 .add(Restrictions.eq("centroMedico", centroMedico))
                 .add(Restrictions.eq("estadoTraslado", EstadoTraslado.CANCELADO)).list();
     }
@@ -53,7 +53,7 @@ public class RepositorioTrasladoImpl implements RepositorioTraslado{
     public List<Traslado> obtenerTrasladosPorCentroMedicoFinalizadosPorFecha(CentroMedico centroMedico, Date desde, Date hasta) {
         final Session session = sessionFactory.getCurrentSession();
         return session.createCriteria(Traslado.class)
-                .add(Restrictions.between("fechaCreacion", desde, hasta))
+                //.add(Restrictions.between("fechaCreacion", desde, hasta))
                 .add(Restrictions.eq("centroMedico", centroMedico))
                 .add(Restrictions.eq("estadoTraslado", EstadoTraslado.FINALIZADO)).list();
     }

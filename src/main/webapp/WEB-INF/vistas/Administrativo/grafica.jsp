@@ -13,7 +13,7 @@
 
 
 <div class="col-12" id="main">
-    <form action="" method="post">
+    <form action="filtrarGraficas" method="post">
         <label for="min">Desde</label>
         <input class="form-control mb-1 w-25" type="date" name="fechaMin" id="min">
         <label for="max">Hasta</label>
@@ -42,14 +42,14 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${pacientesIngresados}" var="paciente">
-        <tr>
-            <td>${paciente.getFechaCreacion()}</td>
-            <td>${paciente.getDerivacion().getPaciente().getNombre()}</td>
-            <td>${paciente.getDerivacion().getPaciente().getDocumento()}</td>
-            <td>${paciente.getDerivacion().getParaQueSector()}</td>
-        </tr>
-        </c:forEach>
+<%--        <c:forEach items="${pacientesIngresados}" var="paciente">--%>
+<%--        <tr>--%>
+<%--            <td>${paciente.getFechaCreacion()}</td>--%>
+<%--            <td>${paciente.getDerivacion().getPaciente().getNombre()}</td>--%>
+<%--            <td>${paciente.getDerivacion().getPaciente().getDocumento()}</td>--%>
+<%--            <td>${paciente.getDerivacion().getParaQueSector()}</td>--%>
+<%--        </tr>--%>
+<%--        </c:forEach>--%>
         </tbody>
     </table>
     </div>
@@ -64,14 +64,14 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${pacientesIngresados}" var="paciente">
-                <tr>
-                    <td>${paciente.getFechaCreacion()}</td>
-                    <td>${paciente.getDerivacion().getPaciente().getNombre()}</td>
-                    <td>${paciente.getDerivacion().getPaciente().getDocumento()}</td>
-                    <td><a href="ver-derivacion?id=${paciente.getDerivacion().getId()}">${paciente.getDerivacion().getCodigo()}</a></td>
-                </tr>
-            </c:forEach>
+<%--            <c:forEach items="${pacientesIngresados}" var="paciente">--%>
+<%--                <tr>--%>
+<%--                    <td>${paciente.getFechaCreacion()}</td>--%>
+<%--                    <td>${paciente.getDerivacion().getPaciente().getNombre()}</td>--%>
+<%--                    <td>${paciente.getDerivacion().getPaciente().getDocumento()}</td>--%>
+<%--                    <td><a href="ver-derivacion?id=${paciente.getDerivacion().getId()}">${paciente.getDerivacion().getCodigo()}</a></td>--%>
+<%--                </tr>--%>
+<%--            </c:forEach>--%>
             </tbody>
         </table>
     </div>
