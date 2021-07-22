@@ -73,8 +73,10 @@ public class ControladorSolicitudDerivaciones {
         ModelMap model = new ModelMap();
         SolicitudDerivacion solicitudDerivacion = servicioSolicitudDerivacion.obtenerSolicitudDerivacionPorId(idSolicitud);
         List<Comentario> comentarios = servicioComentario.obtenerComentariosPorSolicitudDerivacion(solicitudDerivacion);
+        List<Adjunto> adjuntos = servicioAdjunto.listarAdjuntosPorSolicitudDerivacion(solicitudDerivacion);
         model.put("rol",request.getSession().getAttribute("ROL"));
         model.put("solicitud",solicitudDerivacion);
+        model.put("adjuntos", adjuntos);
         model.put("comentarios", comentarios);
         // model.put("path", request.getSession().getServletContext().getRealPath("/img/pacientes/"));
         return new ModelAndView("solicitud-derivaciones/ver-solicitud-derivacion",model);
@@ -123,7 +125,7 @@ public class ControladorSolicitudDerivaciones {
             String path = request.getSession().getServletContext().getRealPath("/img/adjuntos/");
             servicioAdjunto.guardarImagen(adjunto,path,solicitudDerivacion, titulo);
         }
-        return new ModelAndView("redirect:/ver-derivacion?id="+solicitudDerivacion.getId());
+        return new ModelAndView("redirect:/ver-solicitud-derivacion/"+solicitudDerivacion.getId());
     }
 
 }
