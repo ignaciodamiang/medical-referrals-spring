@@ -23,10 +23,15 @@
         <tr>
             <th scope="row">${detalleNotificacion.notificacion.titulo}</th>
             <td>${detalleNotificacion.notificacion.mensaje}</td>
-            <td>${detalleNotificacion.notificacion.traslado.codigo}</td>
-            <td>${detalleNotificacion.notificacion.derivacion.codigo}</td>
+            <c:if test="${!detalleNotificacion.getNotificacion().getTraslado().equals(null)}">
+            <td><a href="../ver-traslado/${detalleNotificacion.getNotificacion().getTraslado().getDerivacion().getId()}">${detalleNotificacion.notificacion.traslado.codigo}</a></td>
+                <td><a href="../ver-derivacion?id=${detalleNotificacion.notificacion.traslado.derivacion.id}">${detalleNotificacion.notificacion.traslado.derivacion.codigo}</a></td>
+            </c:if>
+            <c:if test="${detalleNotificacion.getNotificacion().getTraslado().equals(null)}">
+            <td><a href="../ver-traslado/${detalleNotificacion.getNotificacion().getDerivacion().getId()}">${detalleNotificacion.notificacion.traslado.codigo}</a></td>
+                <td><a href="../ver-derivacion?id=${detalleNotificacion.notificacion.traslado.derivacion.id}">${detalleNotificacion.notificacion.traslado.derivacion.codigo}</a></td>
+            </c:if>
             <td>${detalleNotificacion.getNotificacion().getFecha()}</td>
-
         </tr>
         </tbody>
     </table>
