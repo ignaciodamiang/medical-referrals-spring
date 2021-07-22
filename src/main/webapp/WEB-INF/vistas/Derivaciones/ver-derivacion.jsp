@@ -296,16 +296,7 @@
         </table></div>
         <!-- </div> -->
     </div>
-    <div class="row">
-        <div class="col m-2">
-            <strong>Diagnostico: </strong> <p>${derivacion.getDiagnostico()}</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col m-2">
-            <strong>Diagnostico: </strong> <p>${derivacion.getDiagnostico()}</p>
-        </div>
-    </div>
+
 </div>
 <div class="modal fade" id="CancelarDerivacion${derivacion.getId()}">
     <div class="modal-dialog">
