@@ -11,12 +11,12 @@
         <%@ include file="../../../parts/menu.jsp" %>
         <div class="col-12" id="main">
             <!--  fin menu -->
-            <form action="ObtenerPaciente" method="post">
-                <label for="documento">Numero de Documento del Paciente</label>
-                <input name="documento" type="number" id="documento"/>
-                <button type="submit">Buscar</button>
-            </form>
-
+            <div class="col-3">
+                <form action="ObtenerPaciente" method="post">
+                    <input class="form-control mb-1" placeholder="Documento del paciente" name="documento" type="search" id="documento"/>
+                    <button type="submit" class="btn btn-primary px-4">Buscar</button>
+                </form>
+            </div>
             <c:if test="${not empty error}">
                 <div class="alert alert-warning" role="alert">
                     <p>${error}</p>
@@ -30,66 +30,54 @@
                     <p>${paciente.fechaNacimiento}</p>
                     <c:choose>
                         <c:when test="${!rol.equals('Administrativo')}">
-                            <a href="nueva-derivacion/${paciente.id}">Generar nueva derivación</a>
+                            <a class="btn btn-primary" href="nueva-derivacion/${paciente.id}" role="button">Generar nueva derivación</a>
                         </c:when>
                         <c:otherwise>
-                            <a href="nueva-derivacion-centro-medico/${paciente.id}">Generar nueva derivación</a>
+                            <a class="btn btn-primary" href="nueva-derivacion-centro-medico/${paciente.id}" role="button">Generar nueva derivación</a>
                         </c:otherwise>
                     </c:choose>
                 </div>
             </c:if>
-            <h2 class="text-center"> Derivaciones activas</h2>
-            <div class="d-flex flex-wrap mb-3">
-            <c:forEach items="${derivaciones}" var="derivacion">
-                <div class="card m-2" style="width: 18rem;">
-                    <div class="card-body">
-                    	<button type="button" class="close" data-toggle="modal" data-target="#CancelarDerivacion${derivacion.getId() }">&times;</button>
-                        <h5 class="card-title">Derivacion del paciente: ${derivacion.getPaciente().getNombreCompleto()}</h5>
-                        <p class="card-text"> ${derivacion.getFechaDerivacion()} </p>
-                        <p class="card-text">Diagnostico: ${derivacion.getDiagnostico()}</p>
-                        <c:if test="${derivacion.getEstadoDerivacion().toString().equals('ENTRASLADO')}">
-                            <p class="card-text font-weight-bolder text-warning">Estado: en traslado</p>
-                        </c:if>
-                        <c:if test="${derivacion.getEstadoDerivacion().toString().equals('ENBUSQUEDA')}">
-                            <p class="card-text font-weight-bolder text-primary">Estado: en busqueda</p>
-                        </c:if>
 
-                        <a href="ver-derivacion?id=${derivacion.getId()}" class="btn btn-info">
-                            Detalles
-                        </a>
-                                                <!-- The Modal -->
+                <div class="d-flex flex-wrap mb-3">
 
-                                                <div class="modal fade" id="CancelarDerivacion${derivacion.getId()}">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <!-- Modal Header -->
-                                                            <div class="modal-header">
-                                                            <h5>Cancelar derivación</h5>
-                                                            </div>
-                                                            <!-- Modal body -->
-                                                            <div class="modal-body">
-                                                                <form action="cancelar-derivacion/${derivacion.getId() }" method="post">
-                                                                <label>Motivo:</label>
-                                                                <textarea name="mensaje" rows="5" cols="50"></textarea>
-                                                                <button type="submit" class="btn btn-danger">Confirmar anulacion</button>
-                                                                </form>
-                                                            </div>
-                                                            <!-- Modal footer -->
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                <c:if test="${not empty derivaciones}">
+                <h3 class="text-center">Derivaciones activas</h3>
+                <table class="table table-hover table-striped table-bordered border-primary">
+                <thead>
+                <tr>
+                    <th scope="col">Código</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Nombre completo</th>
+                    <th scope="col">Documento</th>
+                    <th scope="col">Diagnóstico</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Complejidad</th>
+                    <th scope="col">Cobertura</th>
+                </tr>
+                </thead>
+                <tbody>
 
-                        <c:if test="${derivacion.getEstadoDerivacion().toString().equals('ENTRASLADO')}">
-                            <a href="ver-traslado/${derivacion.getId()}">
-                                <button type="button" class="btn btn-success"> Ver Traslado </button></a>
-                        </c:if>
-                        
-                    </div>
-                </div>
-            </c:forEach>
+                </c:if>
+                    <c:forEach items="${derivaciones}" var="derivacion">
+                        <tr>
+                            <th scope="row"><a href="ver-derivacion?id=${derivacion.getId()}">${derivacion.getCodigo()}</a></th>
+                            <td>${derivacion.getFechaDerivacion()}</td>
+                            <td>${derivacion.getPaciente().getNombreCompleto()}</td>
+                            <td>${derivacion.getPaciente().getDocumento()}</td>
+                            <td>${derivacion.getDiagnostico()}</td>
+                            <c:if test="${derivacion.getEstadoDerivacion().toString().equals('ENTRASLADO')}">
+                                <td>En traslado</td>
+                            </c:if>
+                            <c:if test="${derivacion.getEstadoDerivacion().toString().equals('ENBUSQUEDA')}">
+                                <td>En búsqueda</td>
+                            </c:if>
+                            <td>${derivacion.getParaQueSector()}</td>
+                            <td>${derivacion.getCobertura().getNombre()}</td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
             </div>
 
             <!--  footer -->
