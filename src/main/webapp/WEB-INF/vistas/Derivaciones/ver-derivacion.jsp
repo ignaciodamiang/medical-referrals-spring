@@ -293,13 +293,14 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <form action="cancelar-derivacion/${derivacion.getId() }" method="post">
-                    <label>Motivo:</label>
-                    <textarea name="mensaje" rows="5" cols="50"></textarea>
-                    <button type="submit" class="btn btn-danger">Confirmar anulacion</button>
-                </form>
+                    <label>Motivo:</label><br>
+                    <textarea class="form-control my-2" name="mensaje" rows="5" cols="50"></textarea>
+
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
+                <button type="submit" class="btn btn-danger">Confirmar anulacion</button>
+                </form>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
             </div>
         </div>

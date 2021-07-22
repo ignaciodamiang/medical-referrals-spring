@@ -54,7 +54,9 @@
         <c:if test="${solicitud.aceptado == true && rol =='Administrativo'}">
             <td>
                 <div class="row justify-content-md-center">
+                    <div>
                     <button class="btn btn-danger  text-white"  role="button" data-toggle="modal" data-target="#Rechazarsolicitud${solicitud.getId()}">Rechazar</button>
+                    </div>
                 </div>
             </td>
 

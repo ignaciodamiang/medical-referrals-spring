@@ -99,7 +99,7 @@ public class ServicioComentarioImpl implements ServicioComentario {
                     comentario1.setAutor(usuario);
                     comentario1.setFechaCreacion(new Date());
                     comentario1.setDerivacion(solicitudDerivacion.getDerivacion());
-                    comentario.setMensaje("Se ha generado la solicitud "+solicitudDerivacion.getCodigo());
+                    comentario1.setMensaje("Se ha generado la solicitud "+solicitudDerivacion.getCodigo());
                     comentario1.setAsunto("Evento sucedido");
                     this.guardarComentario(comentario1);
                     break;
