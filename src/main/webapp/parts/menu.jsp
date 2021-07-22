@@ -88,7 +88,7 @@
             </ul>
             <a href="/proyecto_derivaciones_war_exploded/notificaciones" class="btn btn-default text-white"> <i class="fas fa-bell"></i>(${cantNotificacion})</a>
             <form class="form-inline my-auto" action="ver-derivacion">
-                <input name="id" class="form-control mr-sm-2" type="number" placeholder="Buscar derivacion por codigo" aria-label="Search">
+                <input name="id" class="form-control mr-sm-2" type="search" placeholder="Buscar derivacion por codigo" aria-label="Search">
                 <button type="submit" class="btn btn-default text-white">
                     <i class="fas fa-search"></i> Buscar
                 </button>
