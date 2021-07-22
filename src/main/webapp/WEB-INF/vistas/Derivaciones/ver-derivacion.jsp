@@ -258,7 +258,7 @@
                                                             <div class="modal-body">
                                                                 <form action="adjuntar-archivo-derivacion/${derivacion.getId()}" method="post" enctype="multipart/form-data">
                                                                     <div class="form-group">
-                                                                        <input type="text" id="titulo" name="titulo" placeholder="Titulo del adjunto...">
+                                                                        <input class="form-control" type="text" id="titulo" name="titulo" placeholder="Titulo del adjunto..." required>
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <input type="file" id="adjunto" name="adjunto" accept="image/png, image/jpeg">
@@ -266,7 +266,7 @@
                                                             </div>
                                                             <!-- Modal footer -->
                                                             <div class="modal-footer">
-                                                                <input type="submit"  class="btn-success" value="Subir Archivo">
+                                                                <input type="submit"  class="btn btn-success" value="Subir Archivo">
                                                                 </form>
                                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                                                             </div>
@@ -292,8 +292,28 @@
                     <c:forEach items="${adjuntos}" var="adjunto">
                         <tr>
                             <td>${adjunto.getFechaCreacion()}</td>
-                            <td><a href="${path}${adjunto.getImgPath()}" download="${adjunto.getImgPath()}">${adjunto.getTitulo()}</a></td>
+                            <td> <button class="btn btn-info" data-toggle="modal" data-target="#adjunto${adjunto.getId()}"><i class="fas fa-camera"></i><span> ver imagen ${adjunto.getTitulo()}</span></button>
+                            </td>
                         </tr>
+                        <div class="modal fade" id="adjunto${adjunto.getId()}">
+                            <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h3>Imagen</h3>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <img src="/proyecto_derivaciones_war_exploded/img/adjuntos/${adjunto.getImgPath()}" class="w-100">
+                                    </div>
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </c:forEach>
                 </c:otherwise>
             </c:choose>
