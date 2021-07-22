@@ -48,6 +48,15 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
     }
 
     @Override
+    public Derivacion verDerivacionPorCodigo(String codigo) {
+        final Session session = sessionFactory.getCurrentSession();
+//        Derivacion derivacion = session.get(Derivacion.class,codigo);
+//        return derivacion;
+        return (Derivacion) session.createCriteria(Derivacion.class)
+                .add(Restrictions.eq("codigo", codigo)).uniqueResult();
+    }
+
+    @Override
     public List<Derivacion> derivacionesPorCobertura(Cobertura cobertura) {
         final Session session = sessionFactory.getCurrentSession();
         return session.createCriteria(Derivacion.class)

@@ -15,6 +15,7 @@ public interface RepositorioDerivacion {
 
     void eliminarDerivacion(Derivacion derivacion);
     Derivacion verDerivacion(Long id);
+    Derivacion verDerivacionPorCodigo(String codigo);
 	List<Derivacion> derivacionesPorCobertura(Cobertura cobertura);
     List<Derivacion> derivacionesPorCoberturaYFechaFinalizadasYCanceladas(Date desde, Date fix, Cobertura cobertura);
     List<Derivacion> obtenerDerivacionesFinalizadasPorCentroMedicoYFecha(CentroMedico centroMedico, Date desde, Date hasta);
