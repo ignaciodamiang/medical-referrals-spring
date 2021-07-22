@@ -5,15 +5,15 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    <link href="${css}/css/style.css" rel="stylesheet"/>
+    <%@ include file="../../../parts/meta.jsp" %>
     <title>Solicitud derivaciones</title>
 </head>
 <body>
+
+<!-- se agrega la columna menu -->
+<%@ include file="../../../parts/menu.jsp" %>
+<div class="col-12" id="main">
+    <%--   fin menu  --%>
 <div class="d-flex">
     <div class="col-lg-6 justify-content-center mx-auto">
         <form action="../agregar-solicitud-derivacion" method="post" class="mt-4">
@@ -23,8 +23,8 @@
             <input type="number" value="${derivaciones.id}" name="idDerivacion" hidden>
 
             <div class="form-group">
-                <label for="centroMedico">Centro Medico</label>
-                <select name="centroMedico" id="centroMedico" >
+                <label for="centroMedico">Centro Medico</label><br>
+                <select name="centroMedico" id="centroMedico" class="form-control">
                     <c:forEach items="${centrosMedicos}" var="centroMedico">
                         <option value="${centroMedico.centroMedico.id}">${centroMedico.centroMedico.nombre}  ${centroMedico.distancia}Km</option>
                     </c:forEach>
@@ -32,13 +32,15 @@
             </div>
 
             <div class="form-group">
-                <label for="descripcion">Mensaje de la solicitud</label>
-                <textarea name="descripcion" id="descripcion" placeholder="Escriba la descripcion de la solicitud" rows="4" cols="50"></textarea>
+                <label for="descripcion">Mensaje de la solicitud</label><br>
+                <textarea name="descripcion" class="form-control" id="descripcion" placeholder="Escriba la descripcion de la solicitud" rows="4" cols="50"></textarea>
             </div>
 
-            <button class="btn btn-lg btn-info btn-block" Type="Submit"/>Generar Solicitud de derivación</button>
+            <button class="btn btn-lg btn-primary btn-block" Type="Submit"/>Generar Solicitud de derivación</button>
         </form>
     </div>
 </div>
+</div>
+<%@ include file="../../../parts/footer.jsp" %>
 </body>
 </html>
