@@ -24,11 +24,7 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CancelarDerivacion${derivacion.getId() }">Cancelar derivacion</button>
             </div>
         </c:if>
-        <c:if test="${rol =='Derivador' && derivacion.getEstadoDerivacion().toString().equals('ENBUSQUEDA')}">
-            <div class="px-3">
-                <a href="nueva-solicitud-derivacion/${derivacion.id} "class="btn btn-primary">Generar Solicitud</a>
-            </div>
-        </c:if>
+
 
     </div>
     <div class="row">
@@ -120,6 +116,11 @@
     </p>
     <div class="">
         <div class="row" id="solicitudes">
+            <c:if test="${rol =='Derivador' && derivacion.getEstadoDerivacion().toString().equals('ENBUSQUEDA')}">
+                <div class="d-flex justify-content-end">
+                    <a href="nueva-solicitud-derivacion/16 " class="btn btn-primary"><i class="fas fa-plus"></i><span> Generar Solicitud</span></a>
+                </div>
+            </c:if>
             <c:choose>
                 <c:when test="${listaSolicitudesDerivaciones.isEmpty()}">
                     <p class="mt-4 text-center">No hay Solicitudes disponibles</p>
@@ -165,8 +166,9 @@
 <%--            <img src="proyecto-derivaciones\out\artifacts\proyecto_derivaciones_war_exploded\">--%>
         </div>
         <div class="row" id="registros">
-            <button class="btn btn-info" data-toggle="modal" data-target="#comentarioDerivación${derivacion.getId()}">Agregar Comentario</button>
-
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-info" data-toggle="modal" data-target="#comentarioDerivación${derivacion.getId()}"><i class="fas fa-plus"></i><span> Agregar Comentario</span></button>
+            </div>
                                         <div class="modal fade" id="comentarioDerivación${derivacion.getId()}">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -214,8 +216,9 @@
             </tbody>
         </table></div>
         <div class="row" id="adjuntos">
-            <button class="btn-info" data-toggle="modal" data-target="#derivacion${derivacion.getId()}">Agregar Adjunto</button>
-
+            <div class="d-flex justify-content-end">
+            <button class="btn btn-info" data-toggle="modal" data-target="#derivacion${derivacion.getId()}"><i class="fas fa-plus"></i><span> Agregar Adjunto</span></button>
+            </div>
 
                                                 <div class="modal fade" id="derivacion${derivacion.getId()}">
                                                     <div class="modal-dialog">

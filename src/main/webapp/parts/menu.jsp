@@ -7,18 +7,22 @@
 <div class="row">
     <% switch (rolMenu){
             case "Solicitador":
-            {%> <nav class="navbar navbar-expand-md navbar-dark fixed-top solicitador"> <%}
+            {%> <nav class="navbar navbar-expand-md navbar-dark fixed-top solicitador">
+                <a class="navbar-brand" href="#">Bienvenido solicitador</a><%}
             break;
             case "Derivador":
-            {%> <nav class="navbar navbar-expand-md navbar-dark fixed-top derivador"> <%}
+            {%> <nav class="navbar navbar-expand-md navbar-dark fixed-top derivador">
+                <a class="navbar-brand" href="#">Bienvenido derivador</a><%}
             break;
             case "Administrativo":
-            {%> <nav class="navbar navbar-expand-md navbar-dark fixed-top administrativo"> <%}
+            {%> <nav class="navbar navbar-expand-md navbar-dark fixed-top administrativo">
+                <a class="navbar-brand" href="#">Bienvenido administrativo</a><%}
             break;
             default:
-            {%><nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"> <%}
+            {%><nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <a class="navbar-brand" href="#">QUE HACE FLACO?!</a><%}
             break;}%>
-        <a class="navbar-brand" href="#">Fixed navbar</a>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="true" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
