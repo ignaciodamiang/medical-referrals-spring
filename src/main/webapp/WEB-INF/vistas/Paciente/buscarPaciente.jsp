@@ -11,10 +11,10 @@
         <%@ include file="../../../parts/menu.jsp" %>
         <div class="col-12" id="main">
             <!--  fin menu -->
-            <div class="col-3">
+            <div class="col-2">
                 <form action="ObtenerPaciente" method="post">
                     <input class="form-control mb-1" placeholder="Documento del paciente" name="documento" type="search" id="documento"/>
-                    <button type="submit" class="btn btn-primary px-4">Buscar</button>
+                    <button type="submit" class="btn btn-primary w-100">Buscar</button>
                 </form>
             </div>
             <c:if test="${not empty error}">

@@ -33,7 +33,7 @@
                 <label class="custom-control-label" for="cardiologoGuardia">cardiólogo de guardia</label>
             </div>
 
-            <input type="submit" value="Confirmar" class="form-control">
+            <input type="submit" value="Confirmar" class="btn btn-primary form-control w-25">
         </form>
     </div>
 <%@ include file="../../../parts/footer.jsp" %>
