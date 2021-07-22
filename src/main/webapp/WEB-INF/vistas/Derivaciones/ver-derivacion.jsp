@@ -12,6 +12,11 @@
 <%@ include file="../../../parts/menu.jsp" %>
 <div class="col-12" id="main">
     <!--  fin menu -->
+    <c:if test="${not empty message}">
+        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                ${message}
+        </div>
+    </c:if>
     <div class="row p-3  d-flex">
         <div class="d-flex flex-grow-1">
 
@@ -296,16 +301,7 @@
         </table></div>
         <!-- </div> -->
     </div>
-    <div class="row">
-        <div class="col m-2">
-            <strong>Diagnostico: </strong> <p>${derivacion.getDiagnostico()}</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col m-2">
-            <strong>Diagnostico: </strong> <p>${derivacion.getDiagnostico()}</p>
-        </div>
-    </div>
+
 </div>
 <div class="modal fade" id="CancelarDerivacion${derivacion.getId()}">
     <div class="modal-dialog">

@@ -11,6 +11,11 @@
         <%@ include file="../../../parts/menu.jsp" %>
         <div class="col-12" id="main">
             <!--  fin menu -->
+            <c:if test="${not empty message}">
+                <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                        ${message}
+                </div>
+            </c:if>
             <div class="col-2">
                 <form action="ObtenerPaciente" method="post">
                     <input class="form-control mb-1" placeholder="Documento del paciente" name="documento" type="search" id="documento"/>
