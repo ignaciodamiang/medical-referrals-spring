@@ -7,4 +7,5 @@ public interface RepositorioUsuario {
 	
 	Usuario consultarUsuario (Usuario usuario);
 	Usuario obtenerUsuarioPorId(Long id);
+	void modificarUsuario(Usuario usuario);
 }

@@ -43,4 +43,10 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 		Usuario usuario = session.get(Usuario.class, id);
 		return usuario;
 	}
+
+	@Override
+	public void modificarUsuario(Usuario usuario) {
+		final Session session = sessionFactory.getCurrentSession();
+		session.update(usuario);
+	}
 }
