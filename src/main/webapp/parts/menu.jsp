@@ -8,15 +8,19 @@
     <% switch (rolMenu){
             case "Solicitador":
             {%> <nav class="navbar navbar-expand-md navbar-dark fixed-top solicitador">
-                <a class="navbar-brand" href="#">Bienvenido solicitador</a><%}
+                <a class="navbar-brand" href="/proyecto_derivaciones_war_exploded/BuscarPaciente">Bienvenido solicitador</a>
+                <a class="text-decoration-none text-white nav-link" href="/proyecto_derivaciones_war_exploded/BuscarPaciente">Inicio</a><%}
             break;
             case "Derivador":
             {%> <nav class="navbar navbar-expand-md navbar-dark fixed-top derivador">
-                <a class="navbar-brand" href="#">Bienvenido derivador</a><%}
+                <a class="navbar-brand" href="/proyecto_derivaciones_war_exploded/listado-derivacion">Bienvenido derivador</a>
+                <a class="text-decoration-none text-white nav-link" href="/proyecto_derivaciones_war_exploded/listado-derivacion">Inicio</a>
+            <%}
             break;
             case "Administrativo":
             {%> <nav class="navbar navbar-expand-md navbar-dark fixed-top administrativo">
-                <a class="navbar-brand" href="#">Bienvenido administrativo</a><%}
+                <a class="navbar-brand" href="/proyecto_derivaciones_war_exploded/solicitudes-derivaciones">Bienvenido administrativo</a>
+                <a class="text-decoration-none text-white nav-link" href="/proyecto_derivaciones_war_exploded/solicitudes-derivaciones">Inicio</a><%}
             break;
             default:
             {%><nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
