@@ -146,6 +146,11 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
     }
 
     @Override
+    public Derivacion obtenerDerivacionPorCodigo(String codigo) {
+        return respositorioDerivacion.verDerivacionPorCodigo(codigo);
+    }
+
+    @Override
     public List<Derivacion> obtenerDerivacionesPorAutor(Usuario autor) {
         return respositorioDerivacion.obtenerDerivacionesPorAutor(autor);
     }

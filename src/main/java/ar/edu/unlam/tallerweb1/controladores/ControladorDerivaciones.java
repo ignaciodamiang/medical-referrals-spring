@@ -66,6 +66,18 @@ public class ControladorDerivaciones {
 		model.put("cantNotificacion",servicioNotificacionUsuario.obtenerNotificacionesNoLeidas(request));
 		return new ModelAndView("Derivaciones/derivaciones", model);
 	}
+	@RequestMapping(path = "/buscar-derivacion",method = RequestMethod.GET)
+	public  ModelAndView buscarDerivacionPorCodigo(@RequestParam("codigoDerivacion") String codigo ,RedirectAttributes attributes){
+		Derivacion derivacion = servicioDerivacion.obtenerDerivacionPorCodigo(codigo);
+		if(derivacion != null){
+			attributes.addFlashAttribute("message", "Derivacion encontrada !");
+			return new ModelAndView("redirect:/ver-derivacion?id="+derivacion.getId());
+		}
+		attributes.addFlashAttribute("message", "No se encontro la derivacion ! ");
+		return new ModelAndView("redirect:/BuscarPaciente");
+
+	}
+
 	@RequestMapping(path = "/ver-derivacion",method = RequestMethod.GET)
 	public ModelAndView verDerivacion(@RequestParam("id") Long idDerivacion, HttpServletRequest request) throws Exception {
 		ModelMap model = new ModelMap();

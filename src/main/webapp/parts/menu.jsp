@@ -8,15 +8,19 @@
     <% switch (rolMenu){
             case "Solicitador":
             {%> <nav class="navbar navbar-expand-md navbar-dark fixed-top solicitador">
-                <a class="navbar-brand" href="#">Bienvenido solicitador</a><%}
+                <a class="navbar-brand" href="/proyecto_derivaciones_war_exploded/BuscarPaciente">Bienvenido solicitador</a>
+                <a class="text-decoration-none text-white nav-link" href="/proyecto_derivaciones_war_exploded/BuscarPaciente">Inicio</a><%}
             break;
             case "Derivador":
             {%> <nav class="navbar navbar-expand-md navbar-dark fixed-top derivador">
-                <a class="navbar-brand" href="#">Bienvenido derivador</a><%}
+                <a class="navbar-brand" href="/proyecto_derivaciones_war_exploded/listado-derivacion">Bienvenido derivador</a>
+                <a class="text-decoration-none text-white nav-link" href="/proyecto_derivaciones_war_exploded/listado-derivacion">Inicio</a>
+            <%}
             break;
             case "Administrativo":
             {%> <nav class="navbar navbar-expand-md navbar-dark fixed-top administrativo">
-                <a class="navbar-brand" href="#">Bienvenido administrativo</a><%}
+                <a class="navbar-brand" href="/proyecto_derivaciones_war_exploded/solicitudes-derivaciones">Bienvenido administrativo</a>
+                <a class="text-decoration-none text-white nav-link" href="/proyecto_derivaciones_war_exploded/solicitudes-derivaciones">Inicio</a><%}
             break;
             default:
             {%><nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -87,8 +91,8 @@
 
             </ul>
             <a href="/proyecto_derivaciones_war_exploded/notificaciones" class="btn btn-default text-white"> <i class="fas fa-bell"></i>(${cantNotificacion})</a>
-            <form class="form-inline my-auto" action="ver-derivacion">
-                <input name="id" class="form-control mr-sm-2" type="search" placeholder="Buscar derivacion por codigo" aria-label="Search">
+            <form class="form-inline my-auto" action="buscar-derivacion">
+                <input name="codigoDerivacion" class="form-control mr-sm-2" type="search" placeholder="Buscar derivacion por codigo" aria-label="Search">
                 <button type="submit" class="btn btn-default text-white">
                     <i class="fas fa-search"></i> Buscar
                 </button>

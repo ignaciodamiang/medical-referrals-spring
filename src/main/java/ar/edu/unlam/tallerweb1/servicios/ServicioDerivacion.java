@@ -25,7 +25,7 @@ public interface ServicioDerivacion {
 
     Derivacion verDerivacion(Long id) throws Exception;
     void eliminarDerivacion(Derivacion derivacion);
-
+    Derivacion obtenerDerivacionPorCodigo(String codigo);
     List<Derivacion> obtenerDerivacionesPorAutor(Usuario autor);
     List<Derivacion> derivacionesPorCobertura(Cobertura cobertura);
     List<Derivacion> derivacionesPorCoberturaYFechaFinalizadasYCanceladas(HttpServletRequest request, String fechaMin, String fechaMax) throws ParseException;
