@@ -5,16 +5,14 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    <link href="${css}/css/style.css" rel="stylesheet"/>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <%@ include file="../../../parts/meta.jsp" %>
     <title>Derivaciones</title>
 </head>
 <body>
+<!-- se agrega la columna menu -->
+<%@ include file="../../../parts/menu.jsp" %>
+<div class="col-12" id="main">
+<%--   fin menu  --%>
     <div class="d-flex">
         <div class="col-lg-6 justify-content-center mx-auto">
             <c:choose>
@@ -128,7 +126,7 @@
                                     <input type="checkbox" name="cardiologoGuardia" id="cardiologoGuardia"><br>
                                 </div>
 
-                                <button class="btn btn-lg btn-info btn-block" Type="Submit"/>Crear Derivacion</button>
+                                <button class="btn btn-lg btn-primary btn-block" Type="Submit"/>Crear Derivacion</button>
                             </form:form>
             </c:otherwise>
             </c:choose>
@@ -200,6 +198,7 @@
         }
 
     </script>
-    <%@ include file="../../../parts/footer.jsp" %>
+</div>
+<%@ include file="../../../parts/footer.jsp" %>
 </body>
 </html>
