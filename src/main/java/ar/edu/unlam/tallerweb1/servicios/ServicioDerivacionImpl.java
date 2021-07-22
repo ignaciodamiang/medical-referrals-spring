@@ -179,6 +179,12 @@ public class ServicioDerivacionImpl implements ServicioDerivacion{
     }
 
     @Override
+    public List<Derivacion> obtenerDerivacionesFinalizadasPorCentroMedicoYFecha(Long idCentroMedico, Date desde, Date hasta) throws Exception {
+        CentroMedico centroMedico = servicioCentroMedico.obtenerCentroMedicoPorId(idCentroMedico);
+        return respositorioDerivacion.obtenerDerivacionesFinalizadasPorCentroMedicoYFecha(centroMedico, desde, hasta);
+    }
+
+    @Override
     public List<Derivacion> derivacionesPorCentroMedicoYFechaFinalizadasYCanceladas(HttpServletRequest request, String fechaMin, String fechaMax) throws Exception {
 
         Long idCentroMedico = (Long) request.getSession().getAttribute("ID_CENTROMEDICO");

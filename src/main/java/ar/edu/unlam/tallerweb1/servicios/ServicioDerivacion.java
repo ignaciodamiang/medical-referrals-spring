@@ -1,13 +1,11 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
-import ar.edu.unlam.tallerweb1.modelo.Cobertura;
-import ar.edu.unlam.tallerweb1.modelo.Derivacion;
-import ar.edu.unlam.tallerweb1.modelo.RequerimientosMedicos;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.*;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 public interface ServicioDerivacion {
@@ -30,7 +28,7 @@ public interface ServicioDerivacion {
     List<Derivacion> derivacionesPorCobertura(Cobertura cobertura);
     List<Derivacion> derivacionesPorCoberturaYFechaFinalizadasYCanceladas(HttpServletRequest request, String fechaMin, String fechaMax) throws ParseException;
     List<Derivacion> filtrarDerivacionesFinalizadasYCanceladasPorFechaYUsuario(Long idUsuario, String fechaMin, String fechaMax) throws ParseException;
-
+    List<Derivacion> obtenerDerivacionesFinalizadasPorCentroMedicoYFecha(Long idCentroMedico, Date desde, Date hasta) throws Exception;
     List<Derivacion> derivacionesPorCentroMedicoYFechaFinalizadasYCanceladas(HttpServletRequest request, String fechaMin, String fechaMax) throws Exception;
     void guardarDerivacionCentroMedico(Derivacion derivacion,HttpServletRequest request, Long idPaciente, RequerimientosMedicos requerimientosMedicos, Boolean urgente, String ubicacionPaciente) throws Exception;
     String generarCodigoDerivacion(Long idDerivacion);

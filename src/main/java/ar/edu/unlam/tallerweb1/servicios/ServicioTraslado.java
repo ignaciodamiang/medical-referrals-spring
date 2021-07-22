@@ -19,6 +19,6 @@ public interface ServicioTraslado {
     Traslado obtenerTrasladoPorDerivacion(Long idDerivacion);
     List<Traslado> obtenerTraslados();
     Traslado obtenerTrasladoPorId(Long idTraslado);
-    List<Traslado> obtenerTrasladosPorCentroMedicoCanceladosPorFecha(Long idCentroMedico, Date desde, Date hasta);
-    List<Traslado> obtenerTrasladosPorCentroMedicoFinalizadosPorFecha(Long idCentroMedico, Date desde, Date hasta);
+    List<Traslado> obtenerTrasladosPorCentroMedicoCanceladosPorFecha(Long idCentroMedico, Date desde, Date hasta) throws Exception;
+    List<Traslado> obtenerTrasladosPorCentroMedicoFinalizadosPorFecha(Long idCentroMedico, Date desde, Date hasta) throws Exception;
 }

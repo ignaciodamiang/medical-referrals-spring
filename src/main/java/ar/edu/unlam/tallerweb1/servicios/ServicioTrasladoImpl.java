@@ -117,13 +117,15 @@ public class ServicioTrasladoImpl implements ServicioTraslado{
     }
 
     @Override
-    public List<Traslado> obtenerTrasladosPorCentroMedicoCanceladosPorFecha(Long idCentroMedico, Date desde, Date hasta) {
-        return null;
+    public List<Traslado> obtenerTrasladosPorCentroMedicoCanceladosPorFecha(Long idCentroMedico, Date desde, Date hasta) throws Exception {
+        CentroMedico centroMedico = servicioCentroMedico.obtenerCentroMedicoPorId(idCentroMedico);
+        return repositorioTraslado.obtenerTrasladosPorCentroMedicoCanceladosPorFecha(centroMedico, desde, hasta);
     }
 
     @Override
-    public List<Traslado> obtenerTrasladosPorCentroMedicoFinalizadosPorFecha(Long idCentroMedico, Date desde, Date hasta) {
-        return null;
+    public List<Traslado> obtenerTrasladosPorCentroMedicoFinalizadosPorFecha(Long idCentroMedico, Date desde, Date hasta) throws Exception {
+        CentroMedico centroMedico = servicioCentroMedico.obtenerCentroMedicoPorId(idCentroMedico);
+        return repositorioTraslado.obtenerTrasladosPorCentroMedicoFinalizadosPorFecha(centroMedico, desde, hasta);
     }
 
     public String generarCodigoTraslado(Traslado traslado){
