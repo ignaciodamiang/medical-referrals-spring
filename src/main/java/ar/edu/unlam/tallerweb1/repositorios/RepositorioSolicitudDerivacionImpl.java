@@ -60,7 +60,7 @@ public class RepositorioSolicitudDerivacionImpl implements RepositorioSolicitudD
         List<SolicitudDerivacion> solicitudesDeDerivacion =session.createCriteria(SolicitudDerivacion.class)
                 .add(Restrictions.eq("centroMedico",centroMedico))
                 .add(Restrictions.eq("confirmado", false))
-                .addOrder(Order.asc("fechaCreacion"))
+                .addOrder(Order.desc("fechaCreacion"))
                 .list();
         return solicitudesDeDerivacion;
     }

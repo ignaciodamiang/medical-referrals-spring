@@ -37,7 +37,7 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
     @Override
     public List<Derivacion> listadoDerivaciones() {
         final Session session = sessionFactory.getCurrentSession();
-        return session.createCriteria(Derivacion.class).list();
+        return session.createCriteria(Derivacion.class).addOrder(Order.asc("fechaDerivacion")).list();
     }
 
     @Override
@@ -63,6 +63,7 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
                 .add(Restrictions.eq("cobertura", cobertura))
                 .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.FINALIZADA))
                 .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.CANCELADA))
+                .addOrder(Order.desc("fechaDerivacion"))
                 .list();
     }
 
@@ -85,7 +86,7 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
                 .add(Restrictions.eq("estadoDerivacion", EstadoDerivacion.FINALIZADA))
                 .add(Restrictions.between("fechaDerivacion", desde, hasta))
                 .add(Restrictions.eq("centroMedicoDeOrigen", centroMedico))
-                .addOrder(Order.asc("fechaDerivacion"))
+                .addOrder(Order.desc("fechaDerivacion"))
                 .list();
     }
 
@@ -95,6 +96,7 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
                 .add(Restrictions.eq("autor", autor))
                 .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.FINALIZADA))
                 .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.CANCELADA))
+                .addOrder(Order.desc("fechaDerivacion"))
                 .list();
     }
 
@@ -106,7 +108,7 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
                 .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.ENBUSQUEDA))
                 .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.ENTRASLADO))
                 .add(Restrictions.between("fechaDerivacion", fechaMin, fechaMax))
-                .addOrder(Order.asc("fechaDerivacion"))
+                .addOrder(Order.desc("fechaDerivacion"))
                 .list();
     }
 
@@ -118,7 +120,7 @@ public class RepositorioDerivacionImpl implements RepositorioDerivacion {
                 .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.ENBUSQUEDA))
                 .add(Restrictions.ne("estadoDerivacion", EstadoDerivacion.ENTRASLADO))
                 .add(Restrictions.between("fechaDerivacion", fechaMin, fechaMax))
-                .addOrder(Order.asc("fechaDerivacion"))
+                .addOrder(Order.desc("fechaDerivacion"))
                 .list();
     }
 
