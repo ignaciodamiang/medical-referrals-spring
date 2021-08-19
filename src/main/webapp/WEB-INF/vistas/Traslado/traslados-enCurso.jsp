@@ -15,8 +15,9 @@
     <c:if test="${traslados.isEmpty()}">
         <h4 class="mt-4 text-center">No hay traslados en curso</h4>
     </c:if>
+    <div class="d-flex flex-wrap m-3">
     <c:forEach items="${traslados}" var="traslado">
-        <div class="card" style="width: 18rem;">
+        <div class="card m-2" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">Traslado del Paciente: ${traslado.derivacion.paciente.nombreCompleto}</h5>
                 <p class="card-text"> Centro medico: ${traslado.centroMedico.nombre}</p>
@@ -59,6 +60,7 @@
             </div>
         </div>
     </c:forEach>
+    </div>
     <!--  footer -->
 </div>
 
