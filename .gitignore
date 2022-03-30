@@ -15,5 +15,3 @@ hs_err_pid*
 .idea/*
 *.iml
 /src/main/resources/hibernateContext.xml
-src/main/resources/hibernateContext.xml
-src/main/resources/hibernateContext.xml
